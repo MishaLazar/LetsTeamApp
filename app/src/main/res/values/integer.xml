@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="DATABASE_VERSION">1</integer>
+    <integer name="MAX_NUMBER_SINGLE_MESSAGE_TEXT_LINES">4</integer>
+    <integer name="MAX_NUMBER_CHARS_MESSAGE">200</integer>
+</resources>
