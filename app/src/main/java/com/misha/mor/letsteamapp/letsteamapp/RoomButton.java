@@ -6,7 +6,7 @@ package com.misha.mor.letsteamapp.letsteamapp;
 public class RoomButton {
 
     String roomButtonID;
-    Room chatRoo;
+    Event chatRoo;
 
     public RoomButton() {
     }
@@ -19,11 +19,11 @@ public class RoomButton {
         this.roomButtonID = roomButtonID;
     }
 
-    public Room getChatRoo() {
+    public Event getChatRoo() {
         return chatRoo;
     }
 
-    public void setChatRoo(Room chatRoo) {
+    public void setChatRoo(Event chatRoo) {
         this.chatRoo = chatRoo;
     }
 }

@@ -25,8 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Enter your name:"
-        android:id="@+id/txtCreatorName"
+        android:text="Enter Event Name"
+        android:id="@+id/txtEventDisplayName"
         android:layout_marginTop="66dp"
         android:singleLine="true"
         android:layout_below="@+id/txtEventCreationHeader"
@@ -36,20 +36,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Enter event name: "
-        android:id="@+id/txtEventName"
-        android:layout_marginTop="42dp"
-        android:layout_below="@+id/etxtCreatorName"
+        android:text="Enter Event Location"
+        android:id="@+id/txtEventLocation"
+        android:layout_below="@+id/EventContext"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:inputType="text"
         android:ems="10"
-        android:id="@+id/etxtCreatorName"
-        android:layout_alignTop="@+id/txtCreatorName"
+        android:id="@+id/event_displayName"
+        android:layout_alignTop="@+id/txtEventDisplayName"
         android:layout_alignParentEnd="true" />
 
 
@@ -65,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Set on map"
-        android:id="@+id/btnSetOnMap"
+        android:id="@+id/btnSetEventLocation"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/btnCreateEvent" />
     <EditText
@@ -73,7 +71,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/etxtEventContext"
+        android:id="@+id/EventContext"
         android:layout_alignTop="@+id/txtEventContext"
         android:layout_alignParentEnd="true" />
 
@@ -84,15 +82,15 @@
         android:text="Event Context:"
         android:id="@+id/txtEventContext"
         android:singleLine="false"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/event_displayName"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/etxtEventName"
-        android:layout_alignTop="@+id/txtEventName"
-        android:layout_alignStart="@+id/etxtEventContext"
-        android:layout_alignEnd="@+id/etxtEventContext" />
+        android:id="@+id/eventLocation"
+        android:layout_alignTop="@+id/txtEventLocation"
+        android:layout_alignStart="@+id/EventContext"
+        android:layout_alignEnd="@+id/EventContext" />
 
 </RelativeLayout>

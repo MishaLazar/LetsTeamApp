@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ChatRoomGridSelectorFragment extends Fragment {
+public class EventsMenuActivityFragment extends Fragment {
 
-    public ChatRoomGridSelectorFragment() {
+    public EventsMenuActivityFragment() {
     }
 
     @Override

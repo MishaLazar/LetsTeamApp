@@ -6,11 +6,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.misha.mor.letsteamapp.letsteamapp.ChatRoomGridSelectorFragment"
+    tools:context=".EventsMenuActivityFragment"
     tools:showIn="@layout/activity_chat_room_grid_selector">
 
 
-    <GridView android:id="@+id/gridView1"
+    <GridView android:id="@+id/gridView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"

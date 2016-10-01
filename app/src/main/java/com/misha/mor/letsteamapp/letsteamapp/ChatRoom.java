@@ -33,7 +33,7 @@ public class ChatRoom extends Activity {
 
     //var
     boolean isReached = false;
-    String roomID;
+    String eventID;
     String myUserID;
     Intent receiver;
 
@@ -48,7 +48,7 @@ public class ChatRoom extends Activity {
 
 
         Intent intent = getIntent();
-        roomID = intent.getStringExtra("roomID");
+        eventID = intent.getStringExtra("eventID");
         myUserID = intent.getStringExtra("userID");
 
         //get\create singleton db reference
@@ -60,7 +60,7 @@ public class ChatRoom extends Activity {
 
         intAdapter();
 
-        registerForMessage(roomID);
+        registerForMessage(eventID);
 
 
     }
@@ -68,7 +68,7 @@ public class ChatRoom extends Activity {
     public void onResume() {
         super.onResume();
         registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL)));
-        registerForMessage(roomID);
+        registerForMessage(eventID);
 
     }
     @Override
@@ -80,7 +80,7 @@ public class ChatRoom extends Activity {
 
             Log.e("onPause","unregisterReceiver(innerReceiver) " +exc.getMessage());
         }
-        unregisterForMessage(roomID);
+        unregisterForMessage(eventID);
 
 
     }
@@ -94,7 +94,7 @@ public class ChatRoom extends Activity {
             Log.e("onBack","unregisterReceiver(innerReceiver)");
         }
 
-        unregisterForMessage(roomID);
+        unregisterForMessage(eventID);
 
 
     }
@@ -211,7 +211,7 @@ public class ChatRoom extends Activity {
     }
     private boolean sendChatMessage() {
 
-        ChatMessage message = new ChatMessage(chatText.getText().toString(),roomID,myUserID);
+        ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID);
 
         fdb.sendMessage(message);
 

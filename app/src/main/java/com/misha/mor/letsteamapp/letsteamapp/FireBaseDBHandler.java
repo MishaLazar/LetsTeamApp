@@ -32,7 +32,7 @@ public class FireBaseDBHandler implements Serializable{
 
     DataSnapshot RoomsSnapshot = null;
 
-    String acceptKey = "-KSOJKnUb6lxvcxWC0hU";
+   /* String acceptKey = "-KSOJKnUb6lxvcxWC0hU";*/
     ChildEventListener messageListenerQuery;
     ChildEventListener roomListenerQuery;
 
@@ -41,7 +41,7 @@ public class FireBaseDBHandler implements Serializable{
 
 
         Firebase.setAndroidContext(context);
-        fire_db = new Firebase("https://chatroomapp-6dd82.firebaseio.com/");
+        fire_db = new Firebase("https://letsmeatapp-5b152.firebaseio.com/");
 
         roomsStatelisteners  = new ArrayList<>();
 
@@ -57,23 +57,23 @@ public class FireBaseDBHandler implements Serializable{
 
     //Write functions
 
-    public void registerRoom(Room room) throws Exception{
+    public void registerEvent(Event event) throws Exception{
 
-        Firebase roomsNodeRef = fire_db.child("ChatRoomNode");
+        Firebase roomsNodeRef = fire_db.child("EventNode");
 
-        //create unique ID - is roomID
+        //create unique ID - is eventID
         Firebase newNodeRef = roomsNodeRef.push();
-        if (room != null)
+        if (event != null)
             try {
-                room.setRoom_ID(newNodeRef.getKey());
+                event.setEvent_ID(newNodeRef.getKey());
 
-                newNodeRef.setValue(room,new Firebase.CompletionListener() {
+                newNodeRef.setValue(event,new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         if (firebaseError != null) {
-                            Log.d("registerRoom","onComplete: Data could not be saved. " + firebaseError.getMessage());
+                            Log.d("registerEvent","onComplete: Data could not be saved. " + firebaseError.getMessage());
                         } else {
-                            Log.d("registerRoom","onComplete: Data saved successfully.");
+                            Log.d("registerEvent","onComplete: Data saved successfully.");
                         }
                     }
                 });
@@ -83,16 +83,17 @@ public class FireBaseDBHandler implements Serializable{
 
     }
 
-    public void registerChatRoomMessage(String roomID,ChatMessage message) {
-        Firebase roomsNodeRef = fire_db.child("ChatRoomNode");
-        Firebase roomNodeRef = roomsNodeRef.child(roomID);
-        Firebase allMessagesNodeRef = roomNodeRef.child("ChatMessages");
+    public void registerChatRoomMessage(String eventID,ChatMessage message) {
+
+        Firebase rootEventNodeRef = fire_db.child("EventNode");
+        Firebase eventNodeRef = rootEventNodeRef.child(eventID);
+        Firebase allMessagesNodeRef = eventNodeRef.child("ChatMessages");
         /*Firebase dateMessageNode = allMessagesNodeRef.child(message.getDateOnly());
         Firebase timeMessageNode = dateMessageNode.child(message.getTimeOnly());
         Firebase newMessageNode = timeMessageNode.push();*/
         Firebase newMessageNode = allMessagesNodeRef.push();
 
-        if (roomID != null) {
+        if (eventID != null) {
 
 
             String postId = newMessageNode.getKey();
@@ -113,12 +114,15 @@ public class FireBaseDBHandler implements Serializable{
         }
     }
 
-    public String registerUser(ChatRoomUser newUser) throws Exception{
+    public void registerUser(User newUser) throws Exception{
         //TODO Add Listener to notify on complete
         Firebase roomsNodeRef = fire_db.child("Users");
         Firebase newNodeRef = roomsNodeRef.push();
         if (newUser != null)
             try {
+               //set user unique id
+                newUser.setUser_ID(newNodeRef.getKey());
+
                 newNodeRef.setValue(newUser,new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -129,22 +133,22 @@ public class FireBaseDBHandler implements Serializable{
                         }
                     }
                 });
-                String postId = newNodeRef.getKey();
-                return postId;
+
+
             }catch (Exception exc){
                 throw new Exception("Something failed.", new Throwable(String.valueOf(Exception.class)));
             }
-        return  null;
+
     }
 
     //update functions
-    public void changeRoomStatus(Room room , String roomID) throws Exception{
+    public void changeRoomStatus(Event event, String eventID) throws Exception{
         //TODO Add Listener to notify on complete
-        Firebase roomsNodeRef = fire_db.child("ChatRoomNode");
-        Firebase roomRef = roomsNodeRef.child(roomID);
-        if (room != null)
+        Firebase roomsNodeRef = fire_db.child("EventNode");
+        Firebase roomRef = roomsNodeRef.child(eventID);
+        if (event != null)
             try {
-                roomRef.setValue(room, new Firebase.CompletionListener() {
+                roomRef.setValue(event, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         if (firebaseError != null) {
@@ -165,19 +169,19 @@ public class FireBaseDBHandler implements Serializable{
     public void removeReadChatMessageState(RoomStateListener listener){
 
     }
-    public void readChatRoomsState(RoomStateListener listener){
+    public void readEventState(RoomStateListener listener){
         //TODO need to change it into query
         //register new room state listener
         roomsStatelisteners.add(listener);
 
-        final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");
+        //final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");
         // Attach an listener to read rooms state reference
-        ref.addValueEventListener(new ValueEventListener() {
+        fire_db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(roomsStatelisteners.size()>0){
-                    notifyListeners(roomsStatelisteners,snapshot,"RoomStateListener");
-                    ref.removeEventListener(this);
+                    notifyListeners(roomsStatelisteners,snapshot,"EventStateListener");
+                    fire_db.removeEventListener(this);
                 }
                 RoomsSnapshot = snapshot;
             }
@@ -189,20 +193,23 @@ public class FireBaseDBHandler implements Serializable{
         });
     }
 
-    public void queryChatRoomsState(RoomStateListener listener){
+    public void queryEventsState(RoomStateListener listener){
         //TODO need to change it into query
         //register new room state listener
         roomsStatelisteners.add(listener);
 
-        final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");
+        final Firebase rootEventNodeRef = fire_db.child("EventNode");
+        /*final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");*/
+
         // Attach an listener to read rooms state reference
-        Query queryRef = ref.orderByChild("room_DisplayName");
+        //TODO limit for query if needed
+        Query queryRef = rootEventNodeRef.orderByChild("event_DisplayName");
         // Attach an listener to read rooms state reference
         queryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 //if(roomsStatelisteners.size()>0){
-                notifyListeners(roomsStatelisteners,snapshot,"RoomStateListener");
+                notifyListeners(roomsStatelisteners,snapshot,"EventStateListener");
                 //ref.removeEventListener(this);
                 //}
                 //RoomsSnapshot = snapshot;
@@ -215,7 +222,7 @@ public class FireBaseDBHandler implements Serializable{
         });
 
     }
-    public void readChatRoomsOnce(){
+   /* public void readChatRoomsOnce(){
         final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -231,8 +238,8 @@ public class FireBaseDBHandler implements Serializable{
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
-    }
-    public void triggerRoomsOnce() throws Exception{
+    }*/
+    /*public void triggerRoomsOnce() throws Exception{
         //TODO Add Listener to notify on complete
         Firebase roomsNodeRef = fire_db.child("ChatRoomNode");
         Firebase newNodeRef = null;
@@ -260,18 +267,18 @@ public class FireBaseDBHandler implements Serializable{
         }
 
 
-    }
+    }*/
 
 
     public void notifyListeners(ArrayList listeners , DataSnapshot snapshot , String typeID){
         if (listeners == null || snapshot == null){
             Log.e("notifyListeners error" , "Error");
         }
-        else if (typeID.equals("RoomStateListener") ){
-            Log.d("RoomStateListener" , "in notification");
+        else if (typeID.equals("EventStateListener") ){
+            Log.d("EventStateListener" , "in notification");
             for (Object listener : listeners) {
                 RoomStateListener castListener = (RoomStateListener)listener;
-                castListener.roomNotifyListener(snapshot);
+                castListener.EventsNotifyListener(snapshot);
             }
         }
         else if (typeID.equals("MessageStateListener")){
@@ -306,31 +313,31 @@ public class FireBaseDBHandler implements Serializable{
 
         Log.d("readMessageState","Register Listener");
 
-        //readMessageState(roomID);//old version
+        //readMessageState(eventID);//old version
 
         queryMessageState(roomID);
 
     }
-    public void unregisterMessageListener(MessageStateListener listener,String roomID){
+    public void unregisterMessageListener(MessageStateListener listener,String eventID){
         //path
-        String dbURL = "https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode"
-                +"/"+roomID;
+        String dbURL = "https://letsmeatapp-5b152.firebaseio.com/EventNode"
+                +"/"+eventID;
         Firebase ref = new Firebase(dbURL);
 
         //remove from list of listeners
         messageStatelisteners.remove(listener);
 
-        Log.d("unregisterM.Listener","Listener for roomID: "+roomID);
+        Log.d("unregisterM.Listener","Listener for eventID: "+eventID);
 
         //remove from fire base listeners
         ref.removeEventListener(messageListenerQuery);
     }
 
-    private void readMessageState(String roomID){
+    /*private void readMessageState(String eventID){
         //register new room state listener
         message_first = true;
         String dbURL = "https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode"
-                +"/"+roomID+"/"+"ChatMessages"+"/"+UtilMethods.getDateSimple()
+                +"/"+eventID+"/"+"ChatMessages"+"/"+UtilMethods.getDateSimple()
                 +"/"+UtilMethods.getTimeSimple();
         final Firebase ref = new Firebase(dbURL);
         // Attach an listener to read rooms state reference
@@ -350,8 +357,8 @@ public class FireBaseDBHandler implements Serializable{
                 System.out.println("The read failed: " + firebaseError.getMessage());
             }
         });
-    }
-    private void queryMessageState(String roomID){
+    }*/
+    private void queryMessageState(String eventID){
 
         int queryLimit = -1;
 
@@ -360,8 +367,8 @@ public class FireBaseDBHandler implements Serializable{
         //register new room state listener
 
         //query path
-        String dbURL = "https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode"
-                +"/"+roomID+"/"+"ChatMessages"/*+"/"+UtilMethods.getDateSimple()
+        String dbURL = "https://letsmeatapp-5b152.firebaseio.com/EventNode"
+                +"/"+eventID+"/"+"ChatMessages"/*+"/"+UtilMethods.getDateSimple()
                 +"/"+UtilMethods.getTimeSimple()*/;
 
         Firebase ref = new Firebase(dbURL);

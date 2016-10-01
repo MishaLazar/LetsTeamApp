@@ -23,14 +23,14 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
     FireBaseDBHandler fdbHandler;
 
 
-    HashMap<String,Room> roomHashMap;
+    HashMap<String,Event> eventHashMap;
     HashMap<String,ChatMessage> messageMap;
 
 
     Context context;
 
     public  FireBaseDAL(){
-        this.roomHashMap = new HashMap<>();
+        this.eventHashMap = new HashMap<>();
         this.messageMap = new HashMap<>();
         //registerStateListener();
     }
@@ -46,14 +46,14 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         this.fdbHandler = fdbHandler;
     }
 
-    public void registerRoom(Context context, Room room){
+    public void registerEvent(Event event){
         try {
 
-            fdbHandler.registerRoom(room);
+            fdbHandler.registerEvent(event);
 
         }catch (Exception exc){
 
-            Log.e("registerRoom",exc.getMessage());
+            Log.e("registerEvent",exc.getMessage());
         }
 
     }
@@ -64,29 +64,29 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         this.context = context;
     }
 
-    public void updateRoomStatus(Context context, Room room, String roomStatus){
+    public void updateRoomStatus(Context context, Event event, String roomStatus){
         //TODO: make the string resource
         if(roomStatus.equals("closeRoom")) {
-            room.setRoom_isActive(false);
-            room.setRoom_closeDate(UtilMethods.getTimeStamp());
+            event.setEvent_isActive(false);
+            event.setEvent_closeDate(UtilMethods.getTimeStamp());
         }
         else if(roomStatus.equals("openRoom")) {
-            room.setRoom_isActive(true);
-            room.setRoom_closeDate("");
+            event.setEvent_isActive(true);
+            event.setEvent_closeDate("");
         }
         try {
-            fdbHandler.changeRoomStatus(room,room.getRoom_ID());
+            fdbHandler.changeRoomStatus(event, event.getEvent_ID());
         }catch (Exception exc){
             Toast.makeText(context,exc.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void registerUser(Context context,ChatRoomUser newUser){
+    public void registerUser(User newUser){
         String userID;
         try {
-
-            userID = fdbHandler.registerUser(newUser);
-            newUser.setUser_ID(userID);
+            fdbHandler.registerUser(newUser);
+            /*userID = fdbHandler.registerUser(newUser);
+            newUser.setUser_ID(userID);*/
         }catch (Exception exc){
             Toast.makeText(context,exc.getMessage(),Toast.LENGTH_SHORT).show();
         }
@@ -111,24 +111,24 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
     public void registerStateListener() {
 
-        fdbHandler.readChatRoomsState(this);
+        fdbHandler.readEventState(this);
 
     }
-    public void unregisterStateListener(ActivityRoomStateListener roomStateListener) {
+    public void unregisterStateListener(ActivityEventStateListener roomStateListener) {
 
 
         fdbHandler.removeReadChatRoomsState(this);
 
     }
-    public void unregisterMessageListener(String roomID) {
+    public void unregisterMessageListener(String eventID) {
 
 
-        fdbHandler.unregisterMessageListener(this,roomID);
+        fdbHandler.unregisterMessageListener(this,eventID);
 
     }
 
     @Override
-    public void roomNotifyListener(DataSnapshot snapshot) {
+    public void EventsNotifyListener(DataSnapshot snapshot) {
 
         synchronized (this){
 
@@ -136,13 +136,13 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
                 try{
 
-                    Room room = postSnapshot.getValue(Room.class);
+                    Event event = postSnapshot.getValue(Event.class);
 
-                    roomHashMap.put(postSnapshot.getKey(),room);
+                    eventHashMap.put(postSnapshot.getKey(), event);
 
                 }catch (Exception exc){
 
-                    Log.e("roomNotifyListener","Incorrect type" + exc.getMessage());
+                    Log.e("EventsNotifyListener","Incorrect type" + exc.getMessage());
 
                 }
 
@@ -150,23 +150,23 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         }
 
         // broadcast to all listeners
-        Intent intent = new Intent("com.hw.misha.chatroom.BROADCAST_ACTION_POLL_ROOMS");
+        Intent intent = new Intent("com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_ROOMS");
         context.sendBroadcast(intent);
 
 
     }
 
-    public void getRoomsState() {
+    public void getEventState() {
         synchronized (this){
 
             try {
 
-                fdbHandler.queryChatRoomsState(this);
+                fdbHandler.queryEventsState(this);
 
 
             }catch (Exception exc){
 
-                Log.e("triggerRoomsOnce()", "getRooms: "+exc.getStackTrace().toString());
+                Log.e("triggerRoomsOnce()", "getEvents: "+exc.getStackTrace().toString());
 
             }
 
@@ -175,24 +175,24 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
     }
 
     @Override
-    public void registerMessageListener(String roomID) {
+    public void registerMessageListener(String eventID) {
         try {
 
-            //DAL registered as a listener for messages events from Firebase by roomID
-            fdbHandler.registerMessageListener(this,roomID);
+            //DAL registered as a listener for messages events from Firebase by eventID
+            fdbHandler.registerMessageListener(this,eventID);
 
         }catch (Exception exc){
 
-            Log.e("registerMessageListener", exc.getStackTrace().toString() + "roomID: "+roomID);
+            Log.e("registerMessageListener", exc.getStackTrace().toString() + "eventID: "+eventID);
 
         }
 
     }
    /* //TODO is duplication ?
-    public void registerMessageListener(MessageStateServiceListener listener,String roomID) {
+    public void registerMessageListener(MessageStateServiceListener listener,String eventID) {
 
 
-        fdbHandler.registerMessageListener(this,roomID);
+        fdbHandler.registerMessageListener(this,eventID);
 
     }*/
 
@@ -218,7 +218,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
             }
 
             // broadcast to all listeners
-            Intent intent = new Intent("com.hw.misha.chatroom.BROADCAST_ACTION_POLL");
+            Intent intent = new Intent("com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL");
             context.sendBroadcast(intent);
         }
     }
@@ -240,15 +240,15 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
             }
 
             // broadcast to all listeners
-            Intent intent = new Intent("com.hw.misha.chatroom.BROADCAST_ACTION_POLL");
+            Intent intent = new Intent("com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL");
             context.sendBroadcast(intent);
 
         }
     }
 
-    public HashMap<String, Room> getRoomHashMap() {
+    public HashMap<String, Event> getEventHashMap() {
         //return last updated room list
-        return roomHashMap;
+        return eventHashMap;
 
     }
 

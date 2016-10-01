@@ -14,14 +14,14 @@ import android.widget.TextView;
 /**
  * Created by Misha on 9/22/2016.
  */
-public class CustomGridViewAdapter extends ArrayAdapter<Room> {
+public class CustomGridViewAdapter extends ArrayAdapter<Event> {
     Context context;
     int layoutResourceId;
-    ArrayList<Room> data;
+    ArrayList<Event> data;
 
 
 
-    public CustomGridViewAdapter(Context context, int layoutResourceId, ArrayList<Room> data) {
+    public CustomGridViewAdapter(Context context, int layoutResourceId, ArrayList<Event> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -40,10 +40,10 @@ public class CustomGridViewAdapter extends ArrayAdapter<Room> {
         } else {
             holder = (RecordHolder) row.getTag();
         }
-        Room item = data.get(position);
-        holder.txtTitle.setText(item.getRoom_DisplayName());
+        Event item = data.get(position);
+        holder.txtTitle.setText(item.getEvent_DisplayName());
         holder.imageItem.setImageResource(R.mipmap.ic_launcher);
-        holder.roomID = item.getRoom_ID();
+        holder.roomID = item.getEvent_ID();
         return row;
     }
     static class RecordHolder {

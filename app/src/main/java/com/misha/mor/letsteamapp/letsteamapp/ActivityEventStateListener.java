@@ -5,12 +5,12 @@ import java.util.HashMap;
 /**
  * Created by Misha on 9/23/2016.
  */
-public interface ActivityRoomStateListener {
+public interface ActivityEventStateListener {
 
     void registerRoomStateListener();
     void unregisterRoomStateListener();
 
-    void getRooms();
+    void getEvents();
 
     void notifyListener();
 

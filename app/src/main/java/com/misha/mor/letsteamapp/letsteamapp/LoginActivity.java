@@ -31,7 +31,11 @@ public class LoginActivity extends AppCompatActivity {
             sharedPreferences.edit().putString("username",sUsername);
             sharedPreferences.edit().putString("password",sPassword);
 
+            //TODO make it generic
+            sharedPreferences.edit().putString("userID","-KT0-9Tdv88UHOQ3h1fF");
+
             intent = new Intent(this, EventsMenuActivity.class);
+            intent.putExtra("userID","-KT0-9Tdv88UHOQ3h1fF");
             startActivity(intent);
         }
     }

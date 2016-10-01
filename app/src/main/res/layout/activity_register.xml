@@ -73,7 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="79dp"
-        android:onClick="btnSignUpClick" />
+        android:onClick="initViews" />
 
     <TextView
         android:layout_width="wrap_content"
