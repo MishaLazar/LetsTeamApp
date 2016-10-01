@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.misha.mor.letsteamapp.letsteamapp.CreateEventActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Create an event"
+        android:id="@+id/txtEventCreationHeader"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/abc_text_size_display_1_material" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Enter your name:"
+        android:id="@+id/txtCreatorName"
+        android:layout_marginTop="66dp"
+        android:singleLine="true"
+        android:layout_below="@+id/txtEventCreationHeader"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Enter event name: "
+        android:id="@+id/txtEventName"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/etxtCreatorName"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/etxtCreatorName"
+        android:layout_alignTop="@+id/txtCreatorName"
+        android:layout_alignParentEnd="true" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create event"
+        android:id="@+id/btnCreateEvent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set on map"
+        android:id="@+id/btnSetOnMap"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/btnCreateEvent" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/etxtEventContext"
+        android:layout_alignTop="@+id/txtEventContext"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Event Context:"
+        android:id="@+id/txtEventContext"
+        android:singleLine="false"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etxtEventName"
+        android:layout_alignTop="@+id/txtEventName"
+        android:layout_alignStart="@+id/etxtEventContext"
+        android:layout_alignEnd="@+id/etxtEventContext" />
+
+</RelativeLayout>
