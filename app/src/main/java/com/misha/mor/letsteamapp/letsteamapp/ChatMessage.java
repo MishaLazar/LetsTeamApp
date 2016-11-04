@@ -66,7 +66,7 @@ public class ChatMessage implements Comparable <ChatMessage>{
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    @JsonIgnore
+    //@JsonIgnore
     public String getDate() {
         return dateTime;
     }

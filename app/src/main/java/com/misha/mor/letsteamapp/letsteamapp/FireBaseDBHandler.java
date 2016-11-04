@@ -173,10 +173,10 @@ public class FireBaseDBHandler implements Serializable{
         //TODO need to change it into query
         //register new room state listener
         roomsStatelisteners.add(listener);
-
+        final Firebase rootEventNodeRef = fire_db.child("EventNode");
         //final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");
         // Attach an listener to read rooms state reference
-        fire_db.addValueEventListener(new ValueEventListener() {
+        rootEventNodeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(roomsStatelisteners.size()>0){
