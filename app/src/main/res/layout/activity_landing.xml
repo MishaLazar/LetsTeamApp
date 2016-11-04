@@ -21,22 +21,23 @@
         android:nestedScrollingEnabled="false"
         android:onClick="btnLoginClick" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register Now"
+        android:id="@+id/btnRegister"
+        android:onClick="btnRegisterClick"
+        android:layout_marginBottom="25dp"
+        android:layout_alignBottom="@+id/txtNotRegistered"
+        android:layout_alignStart="@+id/txtNotRegistered" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Not a registred user?"
         android:id="@+id/txtNotRegistered"
-        android:layout_below="@+id/btnSignUp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register Now"
-        android:id="@+id/btnRegister"
-        android:layout_below="@+id/txtNotRegistered"
-        android:layout_alignStart="@+id/txtNotRegistered"
-        android:onClick="btnRegisterClick" />
+        android:layout_marginBottom="99dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
