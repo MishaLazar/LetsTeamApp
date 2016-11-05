@@ -65,5 +65,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="79dp"
-        android:onClick="btnLoginClick" />
+        android:onClick="btnLoginClick"
+        android:theme="@style/MyButton"
+        style="@style/Widget.AppCompat.Button.Borderless" />
 </RelativeLayout>
