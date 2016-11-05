@@ -68,25 +68,28 @@ public class RegisterActivity extends AppCompatActivity {
                     sUsername = etxtUser.getText().toString();
                     sUserEmail = etxtEmail.getText().toString();
                     sPassword = etxtPass.getText().toString();
-                    //TODO create Validation function
-                    mAuth.createUserWithEmailAndPassword(sUserEmail,sPassword )
-                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    Log.d("Test", "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(RegisterActivity.this, R.string.auth_failed,
-                                                Toast.LENGTH_SHORT).show();
+                    if(isUserRegistrationValid()){
+                        mAuth.createUserWithEmailAndPassword(sUserEmail,sPassword )
+                                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        Log.d("Test", "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                                        if (!task.isSuccessful()) {
+                                            Toast.makeText(RegisterActivity.this, R.string.auth_failed,
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                        else{
+                                            accessFireUserinfoAndSetUserInfo();
+                                            intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        // ...
                                     }
-                                    else{
-                                        accessFireUserinfoAndSetUserInfo();
-                                        intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                        startActivity(intent);
-                                    }
-                                    // ...
-                                }
-                            });
+                                });
+
+                    }
                     /*
                     fdb.registerUser(createUser());
                     intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -107,6 +110,32 @@ public class RegisterActivity extends AppCompatActivity {
         // use method to save the user
 
 
+    }
+
+    public Boolean isUserRegistrationValid(){
+        Validator registerValidatorr = new Validator();
+
+        if(registerValidatorr.isValidName(sUsername) ) {
+            if(registerValidatorr.isValidEmail(sUserEmail)){
+                if(registerValidatorr.isValidPassword(sPassword)){
+                    return true;
+                }
+                else{
+                    Toast.makeText(RegisterActivity.this,R.string.error_incorrect_password,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+            else{
+                Toast.makeText(RegisterActivity.this,R.string.error_invalid_email,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(RegisterActivity.this,R.string.error_field_required,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        return false;
     }
 
     public void storeUserInfo(){

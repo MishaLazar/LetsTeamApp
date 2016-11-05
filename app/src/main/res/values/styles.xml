@@ -14,8 +14,10 @@
     </style>
 
     <style name="MyButton" parent="Theme.AppCompat.Light">
-        <item name="colorControlHighlight">@color/mainAppColorPrimer</item>
+        <item name="colorControlHighlight">@color/NavigationBarPrimer</item>
+        <item name="android:textColor">@color/mainAppColorPrimerDark</item>
     </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

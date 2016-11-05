@@ -19,8 +19,9 @@
         android:layout_alignStart="@+id/txtNotRegistered"
         android:layout_alignEnd="@+id/btnRegister"
         android:nestedScrollingEnabled="false"
-        android:onClick="btnLoginClick" />
-
+        android:onClick="btnLoginClick"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +30,10 @@
         android:onClick="btnRegisterClick"
         android:layout_marginBottom="25dp"
         android:layout_alignBottom="@+id/txtNotRegistered"
-        android:layout_alignStart="@+id/txtNotRegistered" />
+        android:layout_alignStart="@+id/txtNotRegistered"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+        android:layout_alignEnd="@+id/txtNotRegistered" />
 
     <TextView
         android:layout_width="wrap_content"
