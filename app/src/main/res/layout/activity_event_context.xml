@@ -7,9 +7,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/event_context_background"
     tools:context="com.misha.mor.letsteamapp.letsteamapp.EventContext"
     android:layout_alignBaseline="@+id/txtEventName">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_above="@+id/linearLayout"
+        android:layout_height="420dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,17 +27,7 @@
         android:textIsSelectable="false"
         android:textSize="@dimen/abc_text_size_display_1_material" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Event Location: "
-        android:id="@+id/txtLocation"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/etxtCreatorName"
-        android:layout_alignParentStart="true" />
-
-    <EditText
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -42,7 +37,7 @@
         android:layout_alignTop="@+id/txtEventDisplayName"
         android:layout_alignStart="@+id/txtEventName" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etxtLocation"
@@ -50,48 +45,87 @@
         android:layout_alignStart="@+id/etxtCreatorName"
         android:layout_alignEnd="@+id/etxtCreatorName" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Event Creator:"
-        android:id="@+id/txtEventDisplayName"
-        android:singleLine="true"
-        android:layout_above="@+id/btnShowEventLocation"
-        android:layout_marginBottom="141dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Event Creator:"
+            android:id="@+id/txtEventDisplayName"
+            android:singleLine="true"
+            android:layout_below="@+id/etxtContext"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="21dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/etxtContext"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/txtEventName"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Event Location: "
+            android:id="@+id/txtLocation"
+            android:layout_marginTop="19dp"
+            android:layout_below="@+id/txtEventDisplayName"
+            android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Event Location"
-        android:theme="@style/MyButton"
-        android:id="@+id/btnShowEventLocation"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_alignBaseline="@+id/btnOpenChat"
-        android:layout_alignBottom="@+id/btnOpenChat"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/etxtContext"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_marginTop="70dp"
+            android:layout_below="@+id/txtEventName"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Go To Event Chat"
-        android:id="@+id/btnOpenChat"
-        android:theme="@style/MyButton"
-        android:layout_marginBottom="27dp"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        android:id="@id/linearLayout"
+        android:background="@color/NavigationBarPrimer"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/btnShowEventLocation" />
+        android:layout_alignParentStart="true">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:id="@+id/btnOpenChat"
+            android:background="@drawable/chat" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:id="@+id/btnShowEventLocation"
+            android:background="@drawable/location" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"/>
+
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/star" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
 
 </RelativeLayout>
