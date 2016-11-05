@@ -12,13 +12,16 @@
 
     <GridView android:id="@+id/gridView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
         android:columnWidth="80dp"
         android:gravity="center"
         android:numColumns="2"
-        android:stretchMode="columnWidth" > </GridView>
-
+        android:stretchMode="columnWidth"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_height="350dp"> </GridView>
 
 
 </RelativeLayout>

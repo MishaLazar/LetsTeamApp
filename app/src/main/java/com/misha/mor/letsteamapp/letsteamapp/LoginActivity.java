@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -41,10 +42,12 @@ public class LoginActivity extends Activity {
     String sEmail;
     String uid;
 
+    Button btnlogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApp.setLocaleEn(LoginActivity.this);
+        //MyApp.onCreate(this, "en");
         setContentView(R.layout.activity_login);
 
         initViews();
@@ -60,6 +63,7 @@ public class LoginActivity extends Activity {
         //get\create singleton db reference
        /* fdb = FireBaseDAL.getFireBaseDALInstance();
         fdb.setContext(LoginActivity.this);*/
+        //updateViews();
     }
 
     private void checkLoginAfterRegster() {
@@ -72,8 +76,25 @@ public class LoginActivity extends Activity {
     private void initViews(){
         etxtUser = (EditText)findViewById(R.id.etxtUserEmail);
         etxtPass = (EditText)findViewById(R.id.etxtPassword);
-    }
+        btnlogin = (Button)findViewById(R.id.btnSignUp);
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sUserEmail = etxtUser.getText().toString();
+                sPassword = etxtPass.getText().toString();
 
+
+                if((sUserEmail !=null && sUserEmail.length()>0) && sPassword!=null){
+
+                    signInWithEmailAndPassword();
+
+
+                }
+            }
+        });
+
+    }
+/*
     public void btnLoginClick(View v){
 
         sUserEmail = etxtUser.getText().toString();
@@ -87,18 +108,18 @@ public class LoginActivity extends Activity {
 
         }
 
-        /*if(true) { // use a method for authenticate
-           *//* SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        *//*if(true) { // use a method for authenticate
+           *//**//* SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             sharedPreferences.edit().putBoolean("saveLogin", true);
             sharedPreferences.edit().putString("username",sUserEmail);
             sharedPreferences.edit().putString("password",sUserUniqueID);
 
 
             sharedPreferences.edit().putString("userID","-KT0-9Tdv88UHOQ3h1fF");
-*//*
+*//**//*
 
-        }*/
-    }
+        }*//*
+    }*/
     /*class InnerReceiver extends BroadcastReceiver {
 
         Context context;
@@ -184,6 +205,9 @@ public class LoginActivity extends Activity {
         editor.putString(getString(R.string.userPassword),sPassword);
         editor.putString(getString(R.string.userID),uid);
         editor.commit();
+    }
+    private void updateViews() {
+        recreate();
     }
 
 }

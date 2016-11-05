@@ -225,6 +225,38 @@ public class FireBaseDBHandler implements Serializable{
         });
 
     }
+    public void queryListedEventsState(final RoomStateListener listener){
+        //TODO need to change it into query
+        //register new room state listener
+        roomsStatelisteners.add(listener);
+
+        final Firebase rootEventNodeRef = fire_db.child("EventNode");
+        /*final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");*/
+
+        // Attach an listener to read rooms state reference
+        //TODO limit for query if needed
+        Query queryRef = rootEventNodeRef.orderByChild("event_DisplayName");
+        // Attach an listener to read rooms state reference
+        queryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //if(roomsStatelisteners.size()>0){
+                notifyListeners(roomsStatelisteners,snapshot,"EventStateListener");
+
+                //unregister listener
+                roomsStatelisteners.remove(listener);
+                //ref.removeEventListener(this);
+                //}
+                //RoomsSnapshot = snapshot;
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //TODO need to take care of this case
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+
+    }
    /* public void readChatRoomsOnce(){
         final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");
 
