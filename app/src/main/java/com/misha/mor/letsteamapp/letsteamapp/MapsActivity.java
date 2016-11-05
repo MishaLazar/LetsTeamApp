@@ -1,13 +1,23 @@
 package com.misha.mor.letsteamapp.letsteamapp;
-import android.os.Bundle;
+import android.content.Intent;
+import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import android.location.Address;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -36,10 +46,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        Intent intent = getIntent();
+        String eventLocation = intent.getStringExtra("eventLocation");
+        getLocationFromAddress(eventLocation);
         // Add a marker in Sydney and move the camera
-        LatLng afeka = new LatLng(32.113403, 34.817829);
-        mMap.addMarker(new MarkerOptions().position(afeka).title("Marker in Afeka"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(afeka));
+        //LatLng afeka = new LatLng(32.113403, 34.817829);
+        //mMap.addMarker(new MarkerOptions().position(afeka).title("Marker in Afeka"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(afeka));
+    }
+
+    public void getLocationFromAddress(String strAddress)
+    {
+        //Create coder with Activity context - this
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+
+        try {
+            //Get latLng from String
+            address = coder.getFromLocationName(strAddress,5);
+
+            //check for null
+            if (address == null) {
+                return;
+            }
+
+            //Lets take first possibility from the all possibilities.
+            Address location=address.get(0);
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+            //Put marker on map on that LatLng
+            //Marker srchMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Destination").icon(BitmapDescriptorFactory.fromResource(R.drawable.bb)));
+            Marker srchMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Event Location"));
+
+            //Animate and Zoon on that map location
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
