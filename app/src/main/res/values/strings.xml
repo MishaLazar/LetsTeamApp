@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChatRoom</string>
+    <string name="app_name">LetsTeamApp</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_login">Sign in</string>
 
