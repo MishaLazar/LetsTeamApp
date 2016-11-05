@@ -121,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return true;
                 }
                 else{
-                    Toast.makeText(RegisterActivity.this,R.string.error_incorrect_password,
+                    Toast.makeText(RegisterActivity.this,R.string.error_invalid_password,
                             Toast.LENGTH_SHORT).show();
                 }
             }

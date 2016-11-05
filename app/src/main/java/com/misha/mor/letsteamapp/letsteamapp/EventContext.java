@@ -38,7 +38,8 @@ public class EventContext extends AppCompatActivity {
 
     public void initViews(){
         editTextContext = (TextView)findViewById(R.id.etxtContext);
-        editTextContext.setText("this is a demo data \n this is demo data \n this is demo data", TextView.BufferType.EDITABLE);
+        editTextContext.setText("This is a new event.\njust to see how it will look with a lot of data.\n" +
+                "Trying for it to look full.\nthose who will join will get a lot of amazing cookies.", TextView.BufferType.EDITABLE);
 
         editTextName = (TextView)findViewById(R.id.etxtCreatorName);
         editTextName.setText("Mor and Misha", TextView.BufferType.EDITABLE);
