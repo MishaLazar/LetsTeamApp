@@ -35,6 +35,7 @@ public class LandingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApp.setLocaleEn(LandingActivity.this);
         setContentView(R.layout.activity_landing);
 
         dbHandler = FireBaseDBHandler.getFireBaseDBHandlerInstance(LandingActivity.this);
