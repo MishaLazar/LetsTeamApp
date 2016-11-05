@@ -1,14 +1,17 @@
 package com.misha.mor.letsteamapp.letsteamapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,8 +20,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Locale;
 
-public class LandingActivity extends AppCompatActivity {
+public class LandingActivity extends Activity {
 
     private Intent intent;
     //db initialize
@@ -36,19 +40,57 @@ public class LandingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApp.setLocaleEn(LandingActivity.this);
+        //MyApp.onCreate(this, "en");
         setContentView(R.layout.activity_landing);
-
         dbHandler = FireBaseDBHandler.getFireBaseDBHandlerInstance(LandingActivity.this);
         fdb = FireBaseDAL.getFireBaseDALInstance();
         fdb.setFdbHandler(dbHandler);
         mAuth = FirebaseAuth.getInstance();
         //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        intViews();
+
+        localeEnforce();
+
         checkIfAlreadyLoggedIn();
     }
 
-    public void btnLoginClick(View v){
+    public void intViews(){
+
+        /*Button btnLanguage = (Button)findViewById(R.id.btnLanguage);
+        btnLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setLocale("en");
+            }
+        });*/
+        Button btnLogin = (Button)findViewById(R.id.btnSignUp);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(LandingActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button btnRegister = (Button)findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(LandingActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+    public void localeEnforce(){
+        Configuration config = new Configuration();
+        config.locale = Locale.ENGLISH;
+        super.onConfigurationChanged(config);
+        Locale.setDefault(config.locale);
+        getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+    /*public void btnLoginClick(View v){
         intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
@@ -56,7 +98,8 @@ public class LandingActivity extends AppCompatActivity {
     public void btnRegisterClick(View v){
         intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
-    }
+    }*/
+
 
     public void checkIfAlreadyLoggedIn(){
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -117,4 +160,16 @@ public class LandingActivity extends AppCompatActivity {
         editor.putString(getString(R.string.userID),uid);
         editor.commit();
     }
+
+   /* public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, LandingActivity.class);
+        startActivity(refresh);
+        finish();
+    }*/
 }

@@ -27,7 +27,7 @@ public class CreateEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApp.setLocaleEn(CreateEventActivity.this);
+        //MyApp.setLocaleEn(CreateEventActivity.this);
         setContentView(R.layout.activity_create_event);
 
         Intent intent = getIntent();

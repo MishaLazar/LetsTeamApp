@@ -34,7 +34,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApp.setLocaleEn(EventsMenuActivity.this);
+        //MyApp.setLocaleEn(EventsMenuActivity.this);
         setContentView(R.layout.activity_chat_room_grid_selector);
 
         //register for broadcast from dal

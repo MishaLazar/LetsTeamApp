@@ -44,7 +44,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApp.setLocaleEn(LoginActivity.this);
+        //MyApp.onCreate(this, "en");
         setContentView(R.layout.activity_login);
 
         initViews();
@@ -60,6 +60,7 @@ public class LoginActivity extends Activity {
         //get\create singleton db reference
        /* fdb = FireBaseDAL.getFireBaseDALInstance();
         fdb.setContext(LoginActivity.this);*/
+        //updateViews();
     }
 
     private void checkLoginAfterRegster() {
@@ -184,6 +185,9 @@ public class LoginActivity extends Activity {
         editor.putString(getString(R.string.userPassword),sPassword);
         editor.putString(getString(R.string.userID),uid);
         editor.commit();
+    }
+    private void updateViews() {
+        recreate();
     }
 
 }

@@ -40,7 +40,7 @@ public class ChatRoom extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApp.setLocaleEn(ChatRoom.this);
+        //MyApp.setLocaleEn(ChatRoom.this);
         setContentView(R.layout.activity_chat_room);
 
         //register innerReceiver for Broadcast
