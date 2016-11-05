@@ -21,8 +21,35 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <include layout="@layout/content_chat_room_grid_selector" />
+        <!-- BUTTON INSERTED HERE -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Events"
+            android:layout_weight="1"
+            android:theme="@style/MyButton"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Listed"
+            android:theme="@style/MyButton"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="All Events"
+            android:theme="@style/MyButton"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -31,5 +58,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_input_add" />
+
+    <include layout="@layout/content_chat_room_grid_selector"
+        android:layout_height="404dp" />
 
 </android.support.design.widget.CoordinatorLayout>

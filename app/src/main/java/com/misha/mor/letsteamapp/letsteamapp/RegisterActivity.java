@@ -1,5 +1,6 @@
 package com.misha.mor.letsteamapp.letsteamapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -51,7 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         initViews();
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         //initialize data DAL
         fdb = FireBaseDAL.getFireBaseDALInstance();
         fdb.setContext(RegisterActivity.this);
@@ -134,12 +136,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void saveInfoToSharedPreferences(){
-
-        sharedPreferences.edit().putBoolean(getString(R.string.saveLogin), true);
-        sharedPreferences.edit().putString(getString(R.string.userName), newUser.getsUsername());
-        sharedPreferences.edit().putString(getString(R.string.userEmail),newUser.getsEmail());
-        sharedPreferences.edit().putString(getString(R.string.userPassword),newUser.getsPassword());
-        sharedPreferences.edit().putString(getString(R.string.userID),uid);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(getString(R.string.saveLogin), true);
+        editor.putString(getString(R.string.userName), newUser.getsUsername());
+        editor.putString(getString(R.string.userEmail),newUser.getsEmail());
+        editor.putString(getString(R.string.userPassword),newUser.getsPassword());
+        editor.putString(getString(R.string.userID),uid);
+        editor.commit();
     }
 
     private void updateUserBasicProfile(){
