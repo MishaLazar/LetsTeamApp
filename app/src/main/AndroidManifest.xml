@@ -52,18 +52,31 @@
 
         <activity
             android:name=".LandingActivity"
-            android:label="LandingActivity">
+            android:label="LandingActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="locale"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EventsMenuActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".CreateEventActivity" />
-        <activity android:name=".EventContext" />
+        <activity android:name=".EventsMenuActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="locale"/>
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="locale"/>
+        <activity android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="locale"/>
+        <activity android:name=".CreateEventActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="locale"/>
+        <activity android:name=".EventContext"
+            android:screenOrientation="portrait"
+            android:configChanges="locale"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

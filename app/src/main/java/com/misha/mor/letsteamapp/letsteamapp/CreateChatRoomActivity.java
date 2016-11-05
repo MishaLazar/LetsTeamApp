@@ -23,7 +23,7 @@ public class CreateChatRoomActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApp.setLocaleEn(CreateChatRoomActivity.this);
+        //MyApp.setLocaleEn(CreateChatRoomActivity.this);
         setContentView(R.layout.activity_create_chat_room);
         fdb = FireBaseDAL.getFireBaseDALInstance();
 
