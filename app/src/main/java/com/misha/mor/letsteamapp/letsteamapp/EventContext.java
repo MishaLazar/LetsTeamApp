@@ -68,9 +68,10 @@ public class EventContext extends AppCompatActivity {
             btn_showEeventLocation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO need to complete: open Event Location on map
-                    Toast.makeText(EventContext.this,"btn_showEeventLocation",Toast.LENGTH_SHORT).show();
-
+                    //TODO: get real location to put in intent
+                    Intent intent = new Intent(EventContext.this, MapsActivity.class);
+                    intent.putExtra("eventLocation","");
+                    startActivity(intent);
 
                 }
             });
