@@ -84,16 +84,20 @@
         android:layout_height="wrap_content"
         android:text="Go To Event Chat"
         android:id="@+id/btnOpenChat"
+        android:theme="@style/MyButton"
         android:layout_marginBottom="29dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Event Location"
+        android:theme="@style/MyButton"
         android:id="@+id/btnShowEventLocation"
         android:layout_above="@+id/btnOpenChat"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
 
 </RelativeLayout>

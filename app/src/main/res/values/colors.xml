@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="mainAppColorPrimer">#00a2e8</color>
+    <color name="mainAppColorPrimerDark">#0083e8</color>
     <color name="mainAppColorSecondary">#ffffff</color>
     <color name="HeaderOne">#000000</color>
     <color name="HeaderTwo">#cccccc</color>
