@@ -44,10 +44,12 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApp.setLocaleEn(LoginActivity.this);
         setContentView(R.layout.activity_login);
 
         initViews();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
         checkLoginAfterRegster();
         mAuth = FirebaseAuth.getInstance();
 
@@ -175,10 +177,13 @@ public class LoginActivity extends Activity {
 
     public void saveInfoToSharedPreferences(){
         accessFireUserinfoAndSetUserInfo();
-        sharedPreferences.edit().putBoolean(getString(R.string.saveLogin), true);
-        sharedPreferences.edit().putString(getString(R.string.userName), sUsername);
-        sharedPreferences.edit().putString(getString(R.string.userEmail),sEmail);
-        sharedPreferences.edit().putString(getString(R.string.userID),uid);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(getString(R.string.saveLogin), true);
+        editor.putString(getString(R.string.userName), sUsername);
+        editor.putString(getString(R.string.userEmail),sEmail);
+        editor.putString(getString(R.string.userPassword),sPassword);
+        editor.putString(getString(R.string.userID),uid);
+        editor.commit();
     }
 
 }

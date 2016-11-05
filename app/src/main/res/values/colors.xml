@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="mainAppColorPrimer">#00a2e8</color>
+    <color name="mainAppColorPrimerDark">#0083e8</color>
+    <color name="mainAppColorSecondary">#ffffff</color>
+    <color name="HeaderOne">#000000</color>
+    <color name="HeaderTwo">#cccccc</color>
+    <color name="NavigationBarPrimer">#cccccc</color>
+    <color name="NavigationBarBackground">#e2e2e2</color>
+
 </resources>

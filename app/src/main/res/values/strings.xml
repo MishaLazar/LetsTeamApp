@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChatRoom</string>
+    <string name="app_name">LetsTeamApp</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_login">Sign in</string>
 
@@ -15,7 +15,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="preference_file_key">com.hw.misha.chatroom.PREFERENCE_FILE_KEY</string>
+    <string name="preference_file_key">com.misha.mor.letsteamapp.letsteamapp.PREFERENCE_FILE_KEY</string>
     <string name="dal_key">DAL</string>
     <string name="title_activity_chat_room_grid_selector">ChatRoomGridSelector</string>
     <string name="action_settings">Settings</string>
