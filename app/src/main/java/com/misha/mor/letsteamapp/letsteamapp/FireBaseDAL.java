@@ -82,11 +82,10 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
     }
 
     public void registerUser(User newUser){
-        String userID;
+
         try {
             fdbHandler.registerUser(newUser);
-            /*userID = fdbHandler.registerUser(newUser);
-            newUser.setUser_ID(userID);*/
+
         }catch (Exception exc){
             Toast.makeText(context,exc.getMessage(),Toast.LENGTH_SHORT).show();
         }
@@ -263,4 +262,6 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         messageMap.clear();
 
     }
+
+
 }

@@ -22,11 +22,17 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
-
+    <string name="auth_failed">login failed try again</string>
     <string name="event_DisplayName">Display Name</string>
     <string name="room_Tag1">Enter Tag</string>
     <string name="room_Switch">Active Room?</string>
-
+    <string name="saveLogin">saveLogin</string>
+    <string name="userName">userName</string>
+    <string name="userEmail">userEmail</string>
+    <string name="userPassword">userPassword</string>
+    <string name="userID">userID</string>
+    //broadcast string
     <string name="BROADCAST_ACTION_POLL">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL</string>
     <string name="BROADCAST_ACTION_POLL_ROOMS">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_ROOMS</string>
+    <string name="BROADCAST_ACTION_LOGIN">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_LOGIN</string>
 </resources>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "825715388628",
+    "firebase_url": "https://letsmeatapp-5b152.firebaseio.com",
+    "project_id": "letsmeatapp-5b152",
+    "storage_bucket": "letsmeatapp-5b152.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825715388628:android:47d81bb3061421f4",
+        "android_client_info": {
+          "package_name": "com.misha.mor.letsteamapp.letsteamapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825715388628-cvi7f27ghemhl2kklb5n5suatqe1hfnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjnhAE4ZQe0iIsw8FMlKQoMVEwLMWxet4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,6 @@
 package com.misha.mor.letsteamapp.letsteamapp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 
@@ -66,7 +65,7 @@ public class ChatMessage implements Comparable <ChatMessage>{
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    @JsonIgnore
+    //@JsonIgnore
     public String getDate() {
         return dateTime;
     }

@@ -6,17 +6,27 @@ package com.misha.mor.letsteamapp.letsteamapp;
 public class User {
     String sUsername;
     String sPassword;
+    String sUserUniqueID;
     String sEmail;
 
     String user_ID;
     String user_creatDate = "";
     String user_deleteDate = "";
 
-    public User(String sUsername, String sPassword, String sEmail) {
+    public User(String sUsername, String sUserUniqueID ,String sPassword, String sEmail) {
         this.sUsername = sUsername;
+        this.sUserUniqueID = sUserUniqueID;
         this.sPassword = sPassword;
         this.sEmail = sEmail;
         this.user_creatDate = UtilMethods.getDateTimeSimple();
+    }
+
+    public String getsPassword() {
+        return sPassword;
+    }
+
+    public void setsPassword(String sPassword) {
+        this.sPassword = sPassword;
     }
 
     public String getsUsername() {
@@ -27,12 +37,12 @@ public class User {
         this.sUsername = sUsername;
     }
 
-    public String getsPassword() {
-        return sPassword;
+    public String getsUserUniqueID() {
+        return sUserUniqueID;
     }
 
-    public void setsPassword(String sPassword) {
-        this.sPassword = sPassword;
+    public void setsUserUniqueID(String sUserUniqueID) {
+        this.sUserUniqueID = sUserUniqueID;
     }
 
     public String getsEmail() {

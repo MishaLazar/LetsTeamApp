@@ -24,8 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Username :"
-        android:id="@+id/txtUsername"
+        android:text="User Email :"
+        android:id="@+id/txtEmail"
         android:layout_marginTop="71dp"
         android:layout_below="@+id/txtHeaderLogin"
         android:layout_toStartOf="@+id/txtHeaderLogin" />
@@ -36,16 +36,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Password :"
         android:id="@+id/txtPass"
-        android:layout_below="@+id/etxtUsername"
-        android:layout_alignEnd="@+id/txtUsername"
+        android:layout_below="@+id/etxtUserEmail"
+        android:layout_alignEnd="@+id/txtEmail"
         android:layout_marginTop="47dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/etxtUsername"
+        android:id="@+id/etxtUserEmail"
         android:ems="10"
-        android:layout_below="@+id/txtUsername"
+        android:layout_below="@+id/txtEmail"
         android:layout_alignStart="@+id/txtPass" />
 
     <EditText
@@ -55,7 +55,7 @@
         android:ems="10"
         android:id="@+id/etxtPassword"
         android:layout_below="@+id/txtPass"
-        android:layout_alignStart="@+id/etxtUsername" />
+        android:layout_alignStart="@+id/etxtUserEmail" />
 
     <Button
         android:layout_width="wrap_content"
