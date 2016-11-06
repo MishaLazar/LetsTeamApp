@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 import com.firebase.client.DataSnapshot;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -154,6 +155,34 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
 
     }
+    @Override
+    public void EventsNotifyListener(ArrayList<Event> events) {
+
+        eventHashMap.clear();
+
+        synchronized (this){
+
+            for (Event event: events) {
+
+                try{
+
+                    eventHashMap.put(event.getEvent_ID(), event);
+
+                }catch (Exception exc){
+
+                    Log.e("EventsNotifyListener","Incorrect type" + exc.getMessage());
+
+                }
+
+            }
+        }
+
+        // broadcast to all listeners
+        Intent intent = new Intent("com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_ROOMS");
+        context.sendBroadcast(intent);
+
+
+    }
 
     public void getEventState() {
         synchronized (this){
@@ -161,6 +190,23 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
             try {
 
                 fdbHandler.queryEventsState(this);
+
+
+            }catch (Exception exc){
+
+                Log.e("triggerRoomsOnce()", "getEvents: "+exc.getStackTrace().toString());
+
+            }
+
+        }
+
+    }
+    public void getMyEventsState(String OwnerID) {
+        synchronized (this){
+
+            try {
+
+                fdbHandler.queryMyEventsState(this,OwnerID);
 
 
             }catch (Exception exc){

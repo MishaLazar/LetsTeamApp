@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Events"
+            android:id="@+id/btnMyEvents"
             android:layout_weight="1"
             android:theme="@style/MyButton"
             style="@style/Widget.AppCompat.Button.Borderless"/>
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/btnListed"
             android:text="Listed"
             android:theme="@style/MyButton"
             style="@style/Widget.AppCompat.Button.Borderless"/>
@@ -45,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/btnAllEvents"
             android:text="All Events"
             android:theme="@style/MyButton"
             style="@style/Widget.AppCompat.Button.Borderless"/>
