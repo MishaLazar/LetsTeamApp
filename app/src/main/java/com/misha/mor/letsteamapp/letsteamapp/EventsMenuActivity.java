@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 
 import java.util.ArrayList;
@@ -20,6 +22,9 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
     //Views
     GridView gridView;
+    Button btnListed;
+    Button btnMyEvents;
+    Button btnAllEvenets;
 
 
     //Class instance
@@ -30,6 +35,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     //var
     ArrayList<Event> gridArray = new ArrayList<>();
     String userID;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,8 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 getString(R.string.BROADCAST_ACTION_POLL_ROOMS)));
 
         Intent intent = getIntent();
-        userID = intent.getStringExtra("userID");
+        sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
+        userID = sharedPreferences.getString(getString(R.string.userID), "");//intent.getStringExtra("userID");
 
 
 
@@ -68,7 +75,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         });
 
 
-
+        initViews();
         getGridData();
 
 
@@ -133,9 +140,45 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
     @Override
     public void notifyListener() {
+        /*String sCase = "";
+        sCase = NotificationCase;
+        switch (sCase){
+            case "allEvents":
+                break;
+            case "myEvents":
+                break;
+            case "ListedEvents":
+                break;
+        }*/
         getEvents();
     }
+    private void initViews(){
 
+        btnAllEvenets = (Button)findViewById(R.id.btnAllEvents);
+        btnAllEvenets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnListed = (Button)findViewById(R.id.btnListed);
+        btnListed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnMyEvents = (Button)findViewById(R.id.btnMyEvents);
+        btnMyEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fdb.getMyEventsState(userID);
+            }
+        });
+
+    }
     class InnerReceiver extends BroadcastReceiver {
 
         Context context;
@@ -157,6 +200,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
             //update View
             updateViewGrid();
+
         }
     }
 
@@ -170,7 +214,11 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         //TODO take care duplication in notifications
         gridView = (GridView) findViewById(R.id.gridView);
 
+
         customGridAdapter = new CustomGridViewAdapter(this, R.layout.row_grid, gridArray);
+
+        //clean view
+        gridView.setAdapter(null);
 
         gridView.setAdapter(customGridAdapter);
 
