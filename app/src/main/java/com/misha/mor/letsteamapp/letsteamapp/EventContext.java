@@ -3,11 +3,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class EventContext extends AppCompatActivity {
 
@@ -16,9 +13,16 @@ public class EventContext extends AppCompatActivity {
     TextView editTextLocation;
 
     ImageButton btn_openEventChat;
-    ImageButton btn_showEeventLocation;
+    ImageButton btn_ListInForEvent;
+    ImageButton btn_showEventLocation;
     String userID;
     String eventID;
+
+    //set with on create //TODO need to create the participant status validation
+    boolean isEventParticipant = false;
+
+    //db
+    FireBaseDAL fdb; //DAL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,9 @@ public class EventContext extends AppCompatActivity {
         userID = intent.getStringExtra("userID");
         eventID = intent.getStringExtra("eventID");
 
+
+        fdb = FireBaseDAL.getFireBaseDALInstance();
+        fdb.setContext(EventContext.this);
 
         //initialize views
         initViews();
@@ -64,10 +71,10 @@ public class EventContext extends AppCompatActivity {
 
         }
 
-        btn_showEeventLocation = (ImageButton)findViewById(R.id.btnShowEventLocation);
-        if(btn_showEeventLocation != null){
+        btn_showEventLocation = (ImageButton)findViewById(R.id.btnShowEventLocation);
+        if(btn_showEventLocation != null){
 
-            btn_showEeventLocation.setOnClickListener(new View.OnClickListener() {
+            btn_showEventLocation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //TODO: get real location to put in intent
@@ -81,6 +88,22 @@ public class EventContext extends AppCompatActivity {
 
         }
 
+        btn_ListInForEvent = (ImageButton)findViewById(R.id.btnListIn);
+        btn_ListInForEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(isEventParticipant){
+                    fdb.removeEventParticipant(eventID,userID);
+                    isEventParticipant = false;
+                }else {
+                    fdb.addEventParticipant(eventID,userID);
+                    isEventParticipant = true;
+                }
+
+
+            }
+        });
 
 
 
