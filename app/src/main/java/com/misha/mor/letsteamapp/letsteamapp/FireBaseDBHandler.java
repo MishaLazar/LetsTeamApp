@@ -110,6 +110,7 @@ public class FireBaseDBHandler implements Serializable{
 
         }
     }
+
     public void updateUserEventList(Event event) throws Exception{
 
         Firebase roomsNodeRef = fire_db.child("UserEventList");
@@ -162,6 +163,57 @@ public class FireBaseDBHandler implements Serializable{
                     }
                 }
             });
+
+        }
+    }
+
+    public void addEventParticipantList(String eventID ,String participantID) throws Exception {
+
+        Firebase EventsNodeRef = fire_db.child("EventParticipantList");
+        Firebase singleEventNodeRef = EventsNodeRef.child(eventID);
+        Firebase participantEventNodeRef = singleEventNodeRef.child(participantID);
+
+
+        if (eventID != null) {
+
+            try {
+                participantEventNodeRef.setValue(participantID, new Firebase.CompletionListener() {
+                    @Override
+                    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        if (firebaseError != null) {
+                            //Log.d("registerEvent", "onComplete: Data could not be saved. " + firebaseError.getMessage());
+                        } else {
+                            Log.d("registerEvent", "onComplete: Data saved successfully.");
+                            try {
+
+                            }catch (Exception exc){
+                               // Log.d("registerEvent", "onComplete: Data could not be saved. " + exc.getMessage());
+                            }
+                        }
+                    }
+                });
+            } catch (Exception exc) {
+                throw new Exception("Something failed.", new Throwable(String.valueOf(Exception.class)));
+            }
+
+        }
+    }
+    public void removeEventParticipantFromList(String eventID ,String participantID) throws Exception {
+
+        Firebase roomsNodeRef = fire_db.child("EventParticipantList");
+        Firebase singleRoomNodeRef = roomsNodeRef.child(eventID);
+        Firebase participantNodeRef = singleRoomNodeRef.child(participantID);
+
+
+        if (eventID != null) {
+
+            try {
+
+                participantNodeRef.removeValue();
+
+            } catch (Exception exc) {
+                throw new Exception("Something failed.", new Throwable(String.valueOf(Exception.class)));
+            }
 
         }
     }

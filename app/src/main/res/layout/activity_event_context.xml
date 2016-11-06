@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/event_context_background"
+    android:background="@mipmap/ic_launcher"
     tools:context="com.misha.mor.letsteamapp.letsteamapp.EventContext"
     android:layout_alignBaseline="@+id/txtEventName">
 
@@ -96,7 +96,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:id="@+id/btnOpenChat"
-            android:background="@drawable/chat" />
+            android:background="@drawable/qa" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -107,7 +107,7 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:id="@+id/btnShowEventLocation"
-            android:background="@drawable/location" />
+            android:background="@mipmap/ic_launcher" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -118,7 +118,8 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="40dp"
-            android:background="@drawable/star" />
+            android:id="@+id/btnListIn"
+            android:background="@drawable/like" />
 
         <Space
             android:layout_width="match_parent"

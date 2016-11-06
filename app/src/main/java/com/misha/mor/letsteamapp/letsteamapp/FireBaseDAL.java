@@ -219,6 +219,44 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
     }
 
+    public void addEventParticipant(String eventID,String participantID){
+
+        synchronized (this){
+
+            try {
+
+                fdbHandler.addEventParticipantList(eventID,participantID);
+
+
+            }catch (Exception exc){
+
+                Log.e("triggerRoomsOnce()", "getEvents: "+exc.getStackTrace().toString());
+
+            }
+
+        }
+
+    }
+
+    public void removeEventParticipant(String eventID,String participantID){
+
+        synchronized (this){
+
+            try {
+
+                fdbHandler.removeEventParticipantFromList(eventID,participantID);
+
+
+            }catch (Exception exc){
+
+                Log.e("triggerRoomsOnce()", "getEvents: "+exc.getStackTrace().toString());
+
+            }
+
+        }
+
+    }
+
     @Override
     public void registerMessageListener(String eventID) {
         try {
