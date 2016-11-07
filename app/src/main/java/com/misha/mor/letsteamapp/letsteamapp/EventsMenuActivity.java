@@ -166,7 +166,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         btnListed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                fdb.getMyListedEventsState(userID);
             }
         });
 

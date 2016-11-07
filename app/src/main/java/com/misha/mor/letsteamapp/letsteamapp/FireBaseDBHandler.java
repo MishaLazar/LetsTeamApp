@@ -5,6 +5,7 @@ package com.misha.mor.letsteamapp.letsteamapp;
 import android.content.Context;
 import android.util.Log;
 
+
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -14,7 +15,6 @@ import com.firebase.client.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -169,15 +169,15 @@ public class FireBaseDBHandler implements Serializable{
 
     public void addEventParticipantList(String eventID ,String participantID) throws Exception {
 
-        Firebase EventsNodeRef = fire_db.child("EventParticipantList");
-        Firebase singleEventNodeRef = EventsNodeRef.child(eventID);
-        Firebase participantEventNodeRef = singleEventNodeRef.child(participantID);
+        Firebase EventsNodeRef = fire_db.child("UserListedEvents");
+        Firebase participantNodeRef = EventsNodeRef.child(participantID);
+        Firebase singleEventNodeRef = participantNodeRef.child(eventID);
 
 
         if (eventID != null) {
 
             try {
-                participantEventNodeRef.setValue(participantID, new Firebase.CompletionListener() {
+                singleEventNodeRef.setValue(eventID, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         if (firebaseError != null) {
@@ -200,16 +200,16 @@ public class FireBaseDBHandler implements Serializable{
     }
     public void removeEventParticipantFromList(String eventID ,String participantID) throws Exception {
 
-        Firebase roomsNodeRef = fire_db.child("EventParticipantList");
-        Firebase singleRoomNodeRef = roomsNodeRef.child(eventID);
-        Firebase participantNodeRef = singleRoomNodeRef.child(participantID);
+        Firebase EventsNodeRef = fire_db.child("UserListedEvents");
+        Firebase participantNodeRef = EventsNodeRef.child(participantID);
+        Firebase singleEventNodeRef = participantNodeRef.child(eventID);
 
 
         if (eventID != null) {
 
             try {
 
-                participantNodeRef.removeValue();
+                singleEventNodeRef.removeValue();
 
             } catch (Exception exc) {
                 throw new Exception("Something failed.", new Throwable(String.valueOf(Exception.class)));
@@ -326,7 +326,7 @@ public class FireBaseDBHandler implements Serializable{
 
     }
 
-    public void findSingelEventByID (String eventID){
+    public void findSingleEventByID(String eventID){
 
         //register new room state listener
 
@@ -341,12 +341,7 @@ public class FireBaseDBHandler implements Serializable{
         queryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //if(roomsStatelisteners.size()>0){
-                //notifyListeners(roomsStatelisteners,snapshot,"EventStateListener");
-                //ref.removeEventListener(this);
-                //}
-                //RoomsSnapshot = snapshot;
-                //Map<String,Event> eventsMapByUser = (Map<String,Event>)snapshot.getValue();
+
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 
                     try{
@@ -363,7 +358,7 @@ public class FireBaseDBHandler implements Serializable{
 
                 }
                 if(bufferSize  == myEvents.size()){
-                    eventnotifyListeners(roomsStatelisteners,myEvents,"MyEventStateListener");
+                    eventNotifyListeners(roomsStatelisteners,myEvents,"MyEventStateListener");
                 }
 
             }
@@ -401,10 +396,89 @@ public class FireBaseDBHandler implements Serializable{
                 for (Map.Entry<String, String> entry : eventsMapByUser.entrySet())
                 {
 
-                    //System.out.println(entry.getKey() + "/" + entry.getValue());
-                    findSingelEventByID(entry.getValue());
+
+                    findSingleEventByID(entry.getValue());
                 }
 
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //TODO need to take care of this case
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+
+    }
+    public void queryListedForEventsState(final RoomStateListener listener,String ownerID){
+        //TODO need to change it into query
+        //register new room state listener
+        roomsStatelisteners.add(listener);
+
+        final Firebase rootEventNodeRef = fire_db.child("UserListedEvents");
+
+        Firebase userEventsNodeRef = rootEventNodeRef.child(ownerID);
+
+        // Attach an listener to read rooms state reference
+        //TODO limit for query if needed
+        Query queryRef = userEventsNodeRef.orderByKey();
+        // Attach an listener to read rooms state reference
+        queryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //if(roomsStatelisteners.size()>0){
+
+                Map<String,String> eventsMapByUser = (Map<String,String>)snapshot.getValue();
+                if(eventsMapByUser!=null) {
+                    bufferSize = eventsMapByUser.size();
+                    myEvents.clear();
+
+                    for (Map.Entry<String, String> entry : eventsMapByUser.entrySet()) {
+
+
+                        findSingleEventByID(entry.getValue());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //TODO need to take care of this case
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+
+    }
+    public void queryIfUserListedForEvent(final RoomStateListener listener, String participantID, final String eventID ){
+        //TODO need to change it into query
+        //register new room state listener
+        roomsStatelisteners.add(listener);
+
+        final Firebase rootEventNodeRef = fire_db.child("UserListedEvents");
+
+        Firebase userEventsNodeRef = rootEventNodeRef.child(participantID);
+
+        // Attach an listener to read rooms state reference
+        //TODO limit for query if needed
+        Query queryRef = userEventsNodeRef.orderByKey();
+        // Attach an listener to read rooms state reference
+        queryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+
+                Map<String,String> eventsMapByUser = (Map<String,String>)snapshot.getValue();
+                boolean isListed = false;
+                if(eventsMapByUser!=null) {
+
+                    if (eventsMapByUser.containsKey(eventID)) {
+
+
+                        isListed = true;
+
+
+                    }
+
+                }
+                isListedEventNotifyListeners(listener, isListed, "ListedEventStateListener");
             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
@@ -430,7 +504,7 @@ public class FireBaseDBHandler implements Serializable{
         queryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //if(roomsStatelisteners.size()>0){
+
 
 
                 Map<String,String> eventsMapByUser = (Map<String,String>)snapshot.getValue();
@@ -440,12 +514,52 @@ public class FireBaseDBHandler implements Serializable{
                 for (Map.Entry<String, String> entry : eventsMapByUser.entrySet())
                 {
 
-                    //System.out.println(entry.getKey() + "/" + entry.getValue());
-                    findSingelEventByID(entry.getValue());
+                    findSingleEventByID(entry.getValue());
                 }
 
 
             }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //TODO need to take care of this case
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+
+    }
+    public void queryIsEventListed(final RoomStateListener listener,String participantID,String eventID){
+
+        //register new room state listener
+
+
+        final Firebase rootEventNodeRef = fire_db.child("UserListedEvents");
+
+        //single participant node
+        Firebase userEventsNodeRef = rootEventNodeRef.child(participantID);
+
+        Firebase EventsNodeRef = userEventsNodeRef.child(eventID);
+
+
+        Query queryRef = EventsNodeRef.equalTo(1);
+        // Attach an listener to read rooms state reference
+
+
+        queryRef.addValueEventListener(new ValueEventListener() {
+
+
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean isListed = false;
+                if(dataSnapshot != null){
+
+                    isListed= true;
+                }
+
+                isListedEventNotifyListeners(listener,isListed,"ListedEventStateListener");
+
+            }
+
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 //TODO need to take care of this case
@@ -460,7 +574,7 @@ public class FireBaseDBHandler implements Serializable{
         roomsStatelisteners.add(listener);
 
         final Firebase rootEventNodeRef = fire_db.child("EventNode");
-        /*final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");*/
+
 
         // Attach an listener to read rooms state reference
         //TODO limit for query if needed
@@ -470,14 +584,12 @@ public class FireBaseDBHandler implements Serializable{
         queryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //if(roomsStatelisteners.size()>0){
+
                 notifyListeners(roomsStatelisteners,snapshot,"EventStateListener");
 
                 //unregister listener
                 roomsStatelisteners.remove(listener);
-                //ref.removeEventListener(this);
-                //}
-                //RoomsSnapshot = snapshot;
+
             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
@@ -487,53 +599,6 @@ public class FireBaseDBHandler implements Serializable{
         });
 
     }
-   /* public void readChatRoomsOnce(){
-        final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                // do some stuff once
-                Log.d("readChatRoomsOnce" , "before onDataChange ");
-                RoomsSnapshot = snapshot;
-                Log.d("readChatRoomsOnce" , "after onDataChange ");
-                ref.removeEventListener(this);
-            }
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-            }
-        });
-    }*/
-    /*public void triggerRoomsOnce() throws Exception{
-        //TODO Add Listener to notify on complete
-        Firebase roomsNodeRef = fire_db.child("ChatRoomNode");
-        Firebase newNodeRef = null;
-        if(acceptKey == null){
-            newNodeRef = roomsNodeRef.push();
-            acceptKey = newNodeRef.getKey();
-        }else{
-            newNodeRef = roomsNodeRef.child(acceptKey);
-        }
-        // Firebase newNodeRef = roomsNodeRef.push();
-        try {
-            newNodeRef.setValue("accept",new Firebase.CompletionListener() {
-                @Override
-                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                    if (firebaseError != null) {
-                        Log.d("triggerRoomsOnce","onComplete Data could not be saved. " + firebaseError.getMessage());
-                    } else {
-                        Log.d("triggerRoomsOnce"," onComplete Data saved successfully.");
-                    }
-                }
-            });
-
-        }catch (Exception exc){
-            throw new Exception("Something failed.", new Throwable(String.valueOf(Exception.class)));
-        }
-
-
-    }*/
-
 
     public void notifyListeners(ArrayList listeners , DataSnapshot snapshot , String typeID){
         if (listeners == null || snapshot == null){
@@ -560,7 +625,7 @@ public class FireBaseDBHandler implements Serializable{
             }
         }
     }
-    public void eventnotifyListeners(ArrayList listeners , ArrayList<Event> events , String typeID){
+    public void eventNotifyListeners(ArrayList listeners , ArrayList<Event> events , String typeID){
         if (listeners == null || events == null){
             Log.e("notifyListeners error" , "Error");
         }
@@ -570,6 +635,18 @@ public class FireBaseDBHandler implements Serializable{
                 RoomStateListener castListener = (RoomStateListener)listener;
                 castListener.EventsNotifyListener(events);
             }
+        }
+
+    }
+    public void isListedEventNotifyListeners(RoomStateListener listeners , boolean isListed , String typeID){
+        if (listeners == null ){
+            Log.e("notifyListeners error" , "Error");
+        }
+        else if (typeID.equals("ListedEventStateListener") ){
+            Log.d("ListedEventListener" , "in notification");
+
+            listeners.isListedEventsNotifyListener(isListed);
+
         }
 
     }
@@ -610,31 +687,6 @@ public class FireBaseDBHandler implements Serializable{
         ref.removeEventListener(messageListenerQuery);
     }
 
-    /*private void readMessageState(String eventID){
-        //register new room state listener
-        message_first = true;
-        String dbURL = "https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode"
-                +"/"+eventID+"/"+"ChatMessages"+"/"+UtilMethods.getDateSimple()
-                +"/"+UtilMethods.getTimeSimple();
-        final Firebase ref = new Firebase(dbURL);
-        // Attach an listener to read rooms state reference
-        messageListener = ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Log.d("readMessageState","onDataChange");
-                if(!message_first) {
-                    notifyListeners(messageStatelisteners, snapshot, "MessageStateListener");
-                }else{
-                    message_first = false;
-                }
-            }
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                //TODO need to take care of this case
-                System.out.println("The read failed: " + firebaseError.getMessage());
-            }
-        });
-    }*/
     private void queryMessageState(String eventID){
 
         int queryLimit = -1;
@@ -647,11 +699,7 @@ public class FireBaseDBHandler implements Serializable{
         Firebase rootChatMessageNodeRef = fire_db.child("ChatMessages");
         Firebase ChatMessageNodeRef = rootChatMessageNodeRef.child(eventID);
 
-        /*String dbURL = "https://letsmeatapp-5b152.firebaseio.com/EventNode"
-                +"/"+eventID+"/"+"ChatMessages"*//*+"/"+UtilMethods.getDateSimple()
-                +"/"+UtilMethods.getTimeSimple()*//*;*/
 
-        //Firebase ref = new Firebase(dbURL);
 
 
         if(message_first){
@@ -700,7 +748,4 @@ public class FireBaseDBHandler implements Serializable{
         });
     }
 
-    public DataSnapshot getUpdatedRooms() {
-        return RoomsSnapshot;
-    }
 }

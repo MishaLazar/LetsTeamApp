@@ -14,6 +14,7 @@ public interface RoomStateListener {
 
     void EventsNotifyListener(DataSnapshot snapshot);
     void EventsNotifyListener(ArrayList<Event> events);
+    void isListedEventsNotifyListener (boolean isListed);
 
     void getEventState();
 

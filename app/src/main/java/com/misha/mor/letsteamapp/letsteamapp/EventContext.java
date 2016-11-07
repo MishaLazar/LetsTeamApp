@@ -1,10 +1,15 @@
 package com.misha.mor.letsteamapp.letsteamapp;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EventContext extends AppCompatActivity {
 
@@ -23,6 +28,7 @@ public class EventContext extends AppCompatActivity {
 
     //db
     FireBaseDAL fdb; //DAL
+    InnerReceiver innerReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +42,55 @@ public class EventContext extends AppCompatActivity {
         eventID = intent.getStringExtra("eventID");
 
 
+        //register for broadcast from dal
+        innerReceiver = new InnerReceiver(EventContext.this);
+        registerReceiver(innerReceiver, new IntentFilter(
+                getString(R.string.BROADCAST_ACTION_POLL_LISTED)));
+
         fdb = FireBaseDAL.getFireBaseDALInstance();
         fdb.setContext(EventContext.this);
 
         //initialize views
         initViews();
+
+        checkIsUserListedForEvent();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL_LISTED)));
+
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        try{
+            unregisterReceiver(innerReceiver);
+        }catch (RuntimeException exc){
+
+            Log.e("onPause","unregisterReceiver(innerReceiver) " +exc.getMessage());
+        }
+
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        try{
+            unregisterReceiver(innerReceiver);
+        }catch (RuntimeException exc){
+
+            Log.e("onBack","unregisterReceiver(innerReceiver)");
+        }
+
+
+
+
+    }
+    private void checkIsUserListedForEvent() {
+        fdb.isUserListedForEvent(eventID,userID);
     }
 
     public void initViews(){
@@ -96,7 +146,11 @@ public class EventContext extends AppCompatActivity {
                 if(isEventParticipant){
                     fdb.removeEventParticipant(eventID,userID);
                     isEventParticipant = false;
+                    Toast.makeText(EventContext.this, "your are a participant , removing from event participants",
+                            Toast.LENGTH_SHORT).show();
                 }else {
+                    Toast.makeText(EventContext.this, "your are not a participant , adding you to event participants",
+                            Toast.LENGTH_SHORT).show();
                     fdb.addEventParticipant(eventID,userID);
                     isEventParticipant = true;
                 }
@@ -106,6 +160,44 @@ public class EventContext extends AppCompatActivity {
         });
 
 
+    }
+
+    class InnerReceiver extends BroadcastReceiver {
+
+        Context context;
+
+        public InnerReceiver() {
+
+        }
+
+        public InnerReceiver(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+
+            Log.e("innerReceiver", "MyReceiver: broadcast received , listed for");
+
+            boolean isListed = intent.getBooleanExtra("isListed",false);
+
+            //update View
+            updateView(isListed);
+
+        }
+    }
+    private void updateView(boolean isListed) {
+
+        isEventParticipant = isListed;
+        if(isListed){
+            Toast.makeText(EventContext.this, "your are a participant",
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(EventContext.this, "your are not a participant",
+                    Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

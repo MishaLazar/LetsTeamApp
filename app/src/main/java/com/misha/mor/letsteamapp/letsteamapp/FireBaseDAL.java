@@ -184,12 +184,38 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
     }
 
+    @Override
+    public void isListedEventsNotifyListener(boolean isListed) {
+
+        Intent intent = new Intent("com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_LISTED");
+        intent.putExtra("isListed",isListed);
+        context.sendBroadcast(intent);
+    }
+
     public void getEventState() {
         synchronized (this){
 
             try {
 
                 fdbHandler.queryEventsState(this);
+
+
+            }catch (Exception exc){
+
+                Log.e("triggerRoomsOnce()", "getEvents: "+exc.getStackTrace().toString());
+
+            }
+
+        }
+
+    }
+    public void isUserListedForEvent(String eventID,String participantID) {
+        synchronized (this){
+
+            try {
+
+                //fdbHandler.queryIsEventListed(this,participantID,eventID);
+                fdbHandler.queryIfUserListedForEvent(this,participantID,eventID);
 
 
             }catch (Exception exc){
@@ -218,7 +244,23 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         }
 
     }
+    public void getMyListedEventsState(String OwnerID) {
+        synchronized (this){
 
+            try {
+
+                fdbHandler.queryListedForEventsState(this,OwnerID);
+
+
+            }catch (Exception exc){
+
+                Log.e("triggerRoomsOnce()", "getEvents: "+exc.getStackTrace().toString());
+
+            }
+
+        }
+
+    }
     public void addEventParticipant(String eventID,String participantID){
 
         synchronized (this){
