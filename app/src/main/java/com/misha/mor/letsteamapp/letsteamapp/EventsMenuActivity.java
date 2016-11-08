@@ -214,11 +214,11 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         //TODO take care duplication in notifications
         gridView = (GridView) findViewById(R.id.gridView);
 
+        //clean view
+        gridView.setAdapter(null);
 
         customGridAdapter = new CustomGridViewAdapter(this, R.layout.row_grid, gridArray);
 
-        //clean view
-        gridView.setAdapter(null);
 
         gridView.setAdapter(customGridAdapter);
 

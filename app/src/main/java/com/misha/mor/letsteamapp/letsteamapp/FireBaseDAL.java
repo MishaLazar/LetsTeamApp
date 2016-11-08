@@ -161,19 +161,20 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         eventHashMap.clear();
 
         synchronized (this){
+            if(events!=null) {
+                for (Event event : events) {
 
-            for (Event event: events) {
+                    try {
 
-                try{
+                        eventHashMap.put(event.getEvent_ID(), event);
 
-                    eventHashMap.put(event.getEvent_ID(), event);
+                    } catch (Exception exc) {
 
-                }catch (Exception exc){
+                        Log.e("EventsNotifyListener", "Incorrect type" + exc.getMessage());
 
-                    Log.e("EventsNotifyListener","Incorrect type" + exc.getMessage());
+                    }
 
                 }
-
             }
         }
 

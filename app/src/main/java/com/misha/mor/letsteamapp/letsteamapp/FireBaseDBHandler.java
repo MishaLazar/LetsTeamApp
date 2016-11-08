@@ -326,7 +326,7 @@ public class FireBaseDBHandler implements Serializable{
 
     }
 
-    public void findSingleEventByID(String eventID){
+    public void findSingleEventByID(final RoomStateListener listener, String eventID){
 
         //register new room state listener
 
@@ -361,6 +361,7 @@ public class FireBaseDBHandler implements Serializable{
                     eventNotifyListeners(roomsStatelisteners,myEvents,"MyEventStateListener");
                 }
 
+                roomsStatelisteners.remove(listener);
             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
@@ -397,7 +398,7 @@ public class FireBaseDBHandler implements Serializable{
                 {
 
 
-                    findSingleEventByID(entry.getValue());
+                    findSingleEventByID(listener,entry.getValue());
                 }
 
             }
@@ -435,9 +436,15 @@ public class FireBaseDBHandler implements Serializable{
                     for (Map.Entry<String, String> entry : eventsMapByUser.entrySet()) {
 
 
-                        findSingleEventByID(entry.getValue());
+                        findSingleEventByID(listener,entry.getValue());
                     }
+                }else{
+
+                    eventNotifyListeners(roomsStatelisteners,null,"MyEventStateListener");
                 }
+
+                roomsStatelisteners.remove(listener);
+
             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
@@ -478,7 +485,7 @@ public class FireBaseDBHandler implements Serializable{
                     }
 
                 }
-                isListedEventNotifyListeners(listener, isListed, "ListedEventStateListener");
+                isListedEventNotifyListeners(listener, isListed, "ListedEventStateListener1");
             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
@@ -514,7 +521,7 @@ public class FireBaseDBHandler implements Serializable{
                 for (Map.Entry<String, String> entry : eventsMapByUser.entrySet())
                 {
 
-                    findSingleEventByID(entry.getValue());
+                    findSingleEventByID(listener,entry.getValue());
                 }
 
 
@@ -626,7 +633,7 @@ public class FireBaseDBHandler implements Serializable{
         }
     }
     public void eventNotifyListeners(ArrayList listeners , ArrayList<Event> events , String typeID){
-        if (listeners == null || events == null){
+        if (listeners == null ){
             Log.e("notifyListeners error" , "Error");
         }
         else if (typeID.equals("MyEventStateListener") ){
