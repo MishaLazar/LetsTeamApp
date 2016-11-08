@@ -148,7 +148,7 @@ public class EventContext extends AppCompatActivity {
                     isEventParticipant = false;
                     btn_ListInForEvent.setBackground(getDrawable(R.drawable.star));
                 }else {
-                    btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_inside));
+                    btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_outline));
                     fdb.addEventParticipant(eventID,userID);
                     isEventParticipant = true;
                 }
@@ -190,7 +190,7 @@ public class EventContext extends AppCompatActivity {
 
         isEventParticipant = isListed;
         if(isListed){
-            btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_inside));
+            btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_outline));
         }else{
             btn_ListInForEvent.setBackground(getDrawable(R.drawable.star));
         }
