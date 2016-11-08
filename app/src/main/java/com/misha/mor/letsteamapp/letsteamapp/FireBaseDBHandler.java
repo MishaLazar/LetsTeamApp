@@ -21,14 +21,14 @@ import java.util.Map;
 /**
  * Created by Misha on 9/3/2016.
  */
-public class FireBaseDBHandler implements Serializable{
+public class FireBaseDBHandler implements Serializable {
 
-    static  FireBaseDBHandler instance = null;
+    static FireBaseDBHandler instance = null;
     ArrayList<RoomStateListener> roomsStatelisteners;
     ArrayList<MessageStateListener> messageStatelisteners;
     ArrayList<String> myEventsUser;
     ArrayList<Event> myEvents;
-    Firebase fire_db ;
+    Firebase fire_db;
 
     //Message EventListener
     ValueEventListener messageListener;
@@ -43,11 +43,10 @@ public class FireBaseDBHandler implements Serializable{
     ChildEventListener roomListenerQuery;
 
 
-
     //EventsQuery
     int iteration = 0;
     int bufferSize = -1;
-
+    long countParticipants;
 
 
     public FireBaseDBHandler(Context context) {
@@ -56,7 +55,7 @@ public class FireBaseDBHandler implements Serializable{
         Firebase.setAndroidContext(context);
         fire_db = new Firebase("https://letsmeatapp-5b152.firebaseio.com/");
 
-        roomsStatelisteners  = new ArrayList<>();
+        roomsStatelisteners = new ArrayList<>();
 
         messageStatelisteners = new ArrayList<>();
 
@@ -66,9 +65,10 @@ public class FireBaseDBHandler implements Serializable{
 
 
     }
-    public static FireBaseDBHandler getFireBaseDBHandlerInstance(Context context){
 
-        if (instance == null ){
+    public static FireBaseDBHandler getFireBaseDBHandlerInstance(Context context) {
+
+        if (instance == null) {
             instance = new FireBaseDBHandler(context);
         }
         return instance;
@@ -98,7 +98,7 @@ public class FireBaseDBHandler implements Serializable{
                             Log.d("registerEvent", "onComplete: Data saved successfully.");
                             try {
                                 updateUserEventList(eventToStore);
-                            }catch (Exception exc){
+                            } catch (Exception exc) {
                                 Log.d("registerEvent", "onComplete: Data could not be saved. " + exc.getMessage());
                             }
                         }
@@ -111,7 +111,7 @@ public class FireBaseDBHandler implements Serializable{
         }
     }
 
-    public void updateUserEventList(Event event) throws Exception{
+    public void updateUserEventList(Event event) throws Exception {
 
         Firebase roomsNodeRef = fire_db.child("UserEventList");
 
@@ -124,23 +124,23 @@ public class FireBaseDBHandler implements Serializable{
         //Firebase newNodeRef = roomsNodeRef.push();
         if (event != null)
             try {
-                newNodeRef.setValue(event.event_ID,new Firebase.CompletionListener() {
+                newNodeRef.setValue(event.event_ID, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         if (firebaseError != null) {
-                            Log.d("registerEvent","onComplete: Data could not be saved. " + firebaseError.getMessage());
+                            Log.d("registerEvent", "onComplete: Data could not be saved. " + firebaseError.getMessage());
                         } else {
-                            Log.d("registerEvent","onComplete: Data saved successfully.");
+                            Log.d("registerEvent", "onComplete: Data saved successfully.");
                         }
                     }
                 });
-            }catch (Exception exc){
+            } catch (Exception exc) {
                 throw new Exception("Something failed.", new Throwable(String.valueOf(Exception.class)));
             }
 
     }
 
-    public void registerChatRoomMessage(String eventID,ChatMessage message) {
+    public void registerChatRoomMessage(String eventID, ChatMessage message) {
 
         Firebase rootEventNodeRef = fire_db.child("ChatMessages");
         Firebase eventNodeRef = rootEventNodeRef.child(eventID);
@@ -167,7 +167,8 @@ public class FireBaseDBHandler implements Serializable{
         }
     }
 
-    public void addEventParticipantList(String eventID ,String participantID) throws Exception {
+    //add event id in to participant events he listed for
+    public void addEventParticipantList(String eventID, String participantID) throws Exception {
 
         Firebase EventsNodeRef = fire_db.child("UserListedEvents");
         Firebase participantNodeRef = EventsNodeRef.child(participantID);
@@ -186,8 +187,44 @@ public class FireBaseDBHandler implements Serializable{
                             Log.d("registerEvent", "onComplete: Data saved successfully.");
                             try {
 
-                            }catch (Exception exc){
-                               // Log.d("registerEvent", "onComplete: Data could not be saved. " + exc.getMessage());
+                            } catch (Exception exc) {
+                                // Log.d("registerEvent", "onComplete: Data could not be saved. " + exc.getMessage());
+                            }
+                        }
+                    }
+                });
+            } catch (Exception exc) {
+                throw new Exception("Something failed.", new Throwable(String.valueOf(Exception.class)));
+            }
+
+        }
+
+        addParticipantInEventList(eventID, participantID);
+        UpdateCountEventParticipant(eventID); // counts the number of participants and update the event
+    }
+
+    //add participant in to event participant list
+    public void addParticipantInEventList(String eventID, String participantID) throws Exception {
+
+        Firebase EventsNodeRef = fire_db.child("EventParticipantList");
+        Firebase singleEventNodeRef = EventsNodeRef.child(eventID);
+        Firebase participantNodeRef = singleEventNodeRef.child(participantID);
+
+
+        if (eventID != null) {
+
+            try {
+                participantNodeRef.setValue(eventID, new Firebase.CompletionListener() {
+                    @Override
+                    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        if (firebaseError != null) {
+                            //Log.d("registerEvent", "onComplete: Data could not be saved. " + firebaseError.getMessage());
+                        } else {
+                            Log.d("registerEvent", "onComplete: Data saved successfully.");
+                            try {
+
+                            } catch (Exception exc) {
+                                // Log.d("registerEvent", "onComplete: Data could not be saved. " + exc.getMessage());
                             }
                         }
                     }
@@ -198,7 +235,9 @@ public class FireBaseDBHandler implements Serializable{
 
         }
     }
-    public void removeEventParticipantFromList(String eventID ,String participantID) throws Exception {
+
+    //remove event from participant events list
+    public void removeEventParticipantFromList(String eventID, String participantID) throws Exception {
 
         Firebase EventsNodeRef = fire_db.child("UserListedEvents");
         Firebase participantNodeRef = EventsNodeRef.child(participantID);
@@ -216,7 +255,85 @@ public class FireBaseDBHandler implements Serializable{
             }
 
         }
+        removeParticipantFromEventList(eventID, participantID);
+        UpdateCountEventParticipant(eventID); // counts the number of participants and update the event
     }
+
+    //remove participant from event participant list
+    public void removeParticipantFromEventList(String eventID, String participantID) throws Exception {
+
+        Firebase EventsNodeRef = fire_db.child("EventParticipantList");
+        Firebase singleEventNodeRef = EventsNodeRef.child(eventID);
+        Firebase participantNodeRef = singleEventNodeRef.child(participantID);
+
+        if (eventID != null) {
+
+            try {
+
+                participantNodeRef.removeValue();
+
+            } catch (Exception exc) {
+                throw new Exception("Something failed.", new Throwable(String.valueOf(Exception.class)));
+            }
+
+        }
+    }
+    public void updateEventParticipantCount(String event,long participantCount) {
+
+        Firebase roomsNodeRef = fire_db.child("EventNode").child(event).child("ParticipantCount");
+
+
+        if (event != null && participantCount>=0 ) {
+
+            try {
+
+
+                roomsNodeRef.setValue(participantCount, new Firebase.CompletionListener() {
+                    @Override
+                    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        if (firebaseError != null) {
+                            Log.d("ParticipantCount", "onComplete: Data could not be saved. " + firebaseError.getMessage());
+                        } else {
+                            Log.d("ParticipantCount", "onComplete: Data saved successfully.");
+
+                        }
+                    }
+                });
+            } catch (Exception exc) {
+                Log.d("ParticipantCount", "onComplete: Data could not be saved. " + exc.getMessage());
+            }
+
+        }
+    }
+    public void UpdateCountEventParticipant(final String eventID) {
+
+        Firebase rootNodeRef = fire_db.child("EventParticipantList");
+        Firebase eventNodeRef = rootNodeRef.child(eventID);
+
+        countParticipants=0;
+
+        eventNodeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                if(snapshot!=null) {
+                    countParticipants = snapshot.getChildrenCount();
+
+                }
+                updateEventParticipantCount(eventID,countParticipants);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //TODO need to take care of this case
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+
+
+
+    }
+
 
     public void registerUser(User newUser) throws Exception{
         //TODO Add Listener to notify on complete
