@@ -21,6 +21,7 @@ public class Event {
     //unique  id
     String event_ID;
 
+
     //tags for filter
     ArrayList<String> event_Tags;
 
