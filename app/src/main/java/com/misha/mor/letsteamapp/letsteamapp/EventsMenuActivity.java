@@ -158,7 +158,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         btnAllEvenets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getGridData();
             }
         });
 

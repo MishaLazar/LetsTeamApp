@@ -18,6 +18,8 @@ public class Event {
     String event_Context;
     String event_location;
 
+
+    long ParticipantCount;
     //unique  id
     String event_ID;
 
@@ -133,5 +135,13 @@ public class Event {
     @JsonIgnore
     public void setChatMessages(ArraySortedMap<String, String> chatMessages) {
         ChatMessages = chatMessages;
+    }
+    @JsonIgnore
+    public long getParticipantCount() {
+        return ParticipantCount;
+    }
+
+    public void setParticipantCount(long participantCount) {
+        ParticipantCount = participantCount;
     }
 }
