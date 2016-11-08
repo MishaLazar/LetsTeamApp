@@ -10,5 +10,6 @@
     <color name="HeaderTwo">#cccccc</color>
     <color name="NavigationBarPrimer">#cccccc</color>
     <color name="NavigationBarBackground">#e2e2e2</color>
+    <color name="PanelBackground">#F2F2F2</color>
 
 </resources>

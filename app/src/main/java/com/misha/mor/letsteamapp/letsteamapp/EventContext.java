@@ -146,11 +146,9 @@ public class EventContext extends AppCompatActivity {
                 if(isEventParticipant){
                     fdb.removeEventParticipant(eventID,userID);
                     isEventParticipant = false;
-                    Toast.makeText(EventContext.this, "your are a participant , removing from event participants",
-                            Toast.LENGTH_SHORT).show();
+                    btn_ListInForEvent.setBackground(getDrawable(R.drawable.star));
                 }else {
-                    Toast.makeText(EventContext.this, "your are not a participant , adding you to event participants",
-                            Toast.LENGTH_SHORT).show();
+                    btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_outline));
                     fdb.addEventParticipant(eventID,userID);
                     isEventParticipant = true;
                 }
@@ -192,12 +190,11 @@ public class EventContext extends AppCompatActivity {
 
         isEventParticipant = isListed;
         if(isListed){
-            Toast.makeText(EventContext.this, "your are a participant",
-                    Toast.LENGTH_SHORT).show();
+            btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_outline));
         }else{
-            Toast.makeText(EventContext.this, "your are not a participant",
-                    Toast.LENGTH_SHORT).show();
+            btn_ListInForEvent.setBackground(getDrawable(R.drawable.star));
         }
 
     }
+
 }
