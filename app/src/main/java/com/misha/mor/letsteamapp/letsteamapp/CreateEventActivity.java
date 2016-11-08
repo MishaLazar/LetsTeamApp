@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,12 +16,14 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText editTextContext;
     EditText editTextDisplayName;
     EditText editTextLocation;
-
+    AutoCompleteTextView textView;
+    ArrayAdapter<String> arrayAdapter;
     Button btn_creatEvent;
     Button btn_setEventLocation;
 
     //db
     FireBaseDAL fdb; //DAL
+
 
     //vars
     String userID;
@@ -76,6 +80,20 @@ public class CreateEventActivity extends AppCompatActivity {
 
 
         }
+
+        //text view that handles as a combobox
+        arrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_dropdown_item_1line,
+                getResources().getStringArray(R.array.array_test));
+
+        textView = (AutoCompleteTextView) findViewById(R.id.autoText);
+        textView.setAdapter(arrayAdapter);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View arg0) {
+                textView.showDropDown();
+            }
+        });
 
 
 
