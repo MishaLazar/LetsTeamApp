@@ -410,6 +410,7 @@ public class FireBaseDBHandler implements Serializable{
         });
 
     }
+
     public void queryListedForEventsState(final RoomStateListener listener,String ownerID){
         //TODO need to change it into query
         //register new room state listener
