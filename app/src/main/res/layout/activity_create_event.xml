@@ -9,72 +9,191 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.misha.mor.letsteamapp.letsteamapp.CreateEventActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Enter Event Name"
-        android:id="@+id/txtEventDisplayName"
-        android:layout_marginTop="66dp"
-        android:singleLine="true"
-        android:layout_below="@+id/txtEventCreationHeader"
-        android:layout_alignParentStart="true" />
+    <ScrollView
+            android:id="@+id/ScrollView"
+            android:layout_below="@+id/txtEventCreationHeader"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="350dp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/txtEventCreationHeader"
+                android:paddingTop="20dp">
+                <TableRow>
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Enter Event Name:"
+                        android:id="@+id/txtEventDisplayName"
+                        android:singleLine="true"
+                        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Event Location"
-        android:id="@+id/txtEventName"
-        android:layout_below="@+id/EventContext"
-        android:layout_alignParentStart="true" />
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:inputType="textNoSuggestions"
+                        android:ems="10"
+                        android:background="@color/PanelBackground"
+                        android:id="@+id/event_displayName" />
+                </TableRow>
+                <TableRow>
+                    <Space android:layout_height="10dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Event Context:"
+                        android:id="@+id/txtEventContext"
+                        android:singleLine="false"
+                        android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/event_displayName"
-        android:layout_alignTop="@+id/txtEventDisplayName"
-        android:layout_alignParentEnd="true" />
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/EventContext"
+                        android:background="@color/PanelBackground"
+                        android:layout_alignTop="@+id/txtEventContext"
+                        android:layout_alignParentEnd="true" />
+                </TableRow>
+                <TableRow>
+                    <Space android:layout_height="10dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Street:"
+                        android:id="@+id/txtEventStreet"
+                        android:layout_alignParentStart="true" />
 
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:inputType="textNoSuggestions"
+                        android:background="@color/PanelBackground"
+                        android:id="@+id/eventStreet"
+                        android:layout_alignTop="@+id/txtEventStreet" />
+                </TableRow>
+                <TableRow>
+                    <Space android:layout_height="10dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="House Number:"
+                        android:id="@+id/txtEventHouseNum"
+                        android:layout_alignParentStart="true" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:inputType="textNoSuggestions"
+                        android:background="@color/PanelBackground"
+                        android:id="@+id/etxtEventHouseNum"
+                        android:layout_alignTop="@+id/txtEventHouseNum" />
+                </TableRow>
+                <TableRow>
+                    <Space android:layout_height="10dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="City:"
+                        android:id="@+id/txtEventCity"
+                        android:layout_alignParentStart="true" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:inputType="textNoSuggestions"
+                        android:background="@color/PanelBackground"
+                        android:id="@+id/etxtEventCity"
+                        android:layout_alignTop="@+id/txtEventCity" />
+                </TableRow>
+                <TableRow>
+                    <Space android:layout_height="10dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Event Type:"
+                        android:id="@+id/txtEventType"
+                        android:layout_alignParentStart="true" />
+
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/cbType"
+                        android:background="@color/PanelBackground"/>
+
+                </TableRow>
+                <TableRow>
+                    <Space android:layout_height="10dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Event Start Date:"
+                        android:id="@+id/txtEventStartDate"
+                        android:layout_alignParentStart="true" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:background="@color/PanelBackground"
+                        android:id="@+id/etxtStartDate" />
+
+                </TableRow>
+                <TableRow>
+                    <Space android:layout_height="10dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Event End Date:"
+                        android:id="@+id/txtEventEndDate"
+                        android:layout_alignParentStart="true" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:inputType="date"
+                        android:background="@color/PanelBackground"
+                        android:ems="10"
+                        android:id="@+id/etxtEndDate" />
+
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create event"
-        android:id="@+id/btnCreateEvent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:theme="@style/MyButton"
-        style="@style/Widget.AppCompat.Button.Borderless" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/EventContext"
-        android:layout_alignTop="@+id/txtEventContext"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Event Context:"
-        android:id="@+id/txtEventContext"
-        android:singleLine="false"
-        android:layout_below="@+id/event_displayName"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventLocation"
-        android:layout_alignTop="@+id/txtEventName"
-        android:layout_alignStart="@+id/EventContext"
-        android:layout_alignEnd="@+id/EventContext" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create event"
+            android:id="@+id/btnCreateEvent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:theme="@style/MyButton"
+            style="@style/Widget.AppCompat.Button.Borderless" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,25 +204,9 @@
         android:textStyle="bold"
         android:textIsSelectable="false"
         android:textSize="@dimen/abc_text_size_display_1_material"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="31dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/test_autoheader"
-        android:text="Auto"
-        android:layout_below="@+id/eventLocation"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="27dp" />
-
-    <AutoCompleteTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/autoText"
-        android:layout_below="@+id/test_autoheader"
-        android:layout_toEndOf="@+id/txtEventDisplayName"
-        />
 
 </RelativeLayout>

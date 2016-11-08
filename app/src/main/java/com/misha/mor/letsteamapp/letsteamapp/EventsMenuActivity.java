@@ -230,6 +230,11 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 Intent intent = new Intent(EventsMenuActivity.this, EventContext.class);
                 intent.putExtra("eventID",gridArray.get(position).getEvent_ID());
                 intent.putExtra("userID",userID);
+                intent.putExtra("eventName",gridArray.get(position).event_DisplayName);
+                //TODO: change event owner to mail address
+                intent.putExtra("eventCreator",gridArray.get(position).event_Owner);
+                intent.putExtra("eventLocation",gridArray.get(position).event_location);
+                intent.putExtra("eventContext",gridArray.get(position).event_Context);
 
                 startActivity(intent);
             }

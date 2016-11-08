@@ -54,8 +54,8 @@ public class CreateEventActivity extends AppCompatActivity {
         editTextDisplayName = (EditText)findViewById(R.id.event_displayName);
         editTextDisplayName.setText("Mor and Misha", TextView.BufferType.EDITABLE);
 
-        editTextLocation = (EditText)findViewById(R.id.eventLocation);
-        editTextLocation.setText("My New Event", TextView.BufferType.EDITABLE);
+        //editTextLocation = (EditText)findViewById(R.id.eventLocation);
+        // editTextLocation.setText("My New Event", TextView.BufferType.EDITABLE);
 
         btn_creatEvent = (Button)findViewById(R.id.btnCreateEvent);
         if(btn_creatEvent != null){
@@ -80,13 +80,12 @@ public class CreateEventActivity extends AppCompatActivity {
 
 
         }
-
-        //text view that handles as a combobox
+        //TODO: maybe switch to expending txt layout in phone looks bad
         arrayAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_dropdown_item_1line,
+        this, android.R.layout.simple_dropdown_item_1line,
                 getResources().getStringArray(R.array.array_test));
 
-        textView = (AutoCompleteTextView) findViewById(R.id.autoText);
+        textView = (AutoCompleteTextView) findViewById(R.id.cbType);
         textView.setAdapter(arrayAdapter);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
