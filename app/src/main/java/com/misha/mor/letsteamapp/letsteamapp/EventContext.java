@@ -94,17 +94,30 @@ public class EventContext extends AppCompatActivity {
     }
 
     public void initViews(){
+        InitEventContext();
+        InitButtonsPanel();
+    }
+
+    private void InitEventContext(){
+        Intent intent = getIntent();
+        String eventName = intent.getStringExtra("eventName");
+        String eventCreator = intent.getStringExtra("eventCreator");;
+        String eventContext = intent.getStringExtra("eventContext");;
+
         editTextContext = (TextView)findViewById(R.id.etxtContext);
-        editTextContext.setText("This is a new event.\njust to see how it will look with a lot of data.\n" +
-                "Trying for it to look full.\nthose who will join will get a lot of amazing cookies.", TextView.BufferType.EDITABLE);
+        editTextContext.setText(eventContext);
 
         editTextName = (TextView)findViewById(R.id.etxtCreatorName);
-        editTextName.setText("Mor and Misha", TextView.BufferType.EDITABLE);
+        editTextName.setText(eventCreator);
 
-        editTextLocation = (TextView)findViewById(R.id.etxtLocation);
-        editTextLocation.setText("ספיר 7, הרצליה", TextView.BufferType.EDITABLE);
+        TextView EventNameHeadrer = (TextView)findViewById(R.id.txtEventName);
+        EventNameHeadrer.setText(eventName);
+        //editTextLocation = (TextView)findViewById(R.id.etxtLocation);
+        //editTextLocation.setText("ספיר 7, הרצליה", TextView.BufferType.EDITABLE);
 
 
+    }
+    private void InitButtonsPanel(){
         btn_openEventChat = (ImageButton)findViewById(R.id.btnOpenChat);
         if(btn_openEventChat != null){
 
@@ -156,8 +169,6 @@ public class EventContext extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     class InnerReceiver extends BroadcastReceiver {
