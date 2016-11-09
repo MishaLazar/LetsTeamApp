@@ -16,6 +16,7 @@ public class EventContext extends AppCompatActivity {
     TextView editTextContext;
     TextView editTextName;
     TextView editTextLocation;
+    TextView editTextEndDate;
 
     ImageButton btn_openEventChat;
     ImageButton btn_ListInForEvent;
@@ -101,8 +102,11 @@ public class EventContext extends AppCompatActivity {
     private void InitEventContext(){
         Intent intent = getIntent();
         String eventName = intent.getStringExtra("eventName");
-        String eventCreator = intent.getStringExtra("eventCreator");;
-        String eventContext = intent.getStringExtra("eventContext");;
+        String eventCreator = intent.getStringExtra("eventCreator");
+        String eventContext = intent.getStringExtra("eventContext");
+        String eventLocation = intent.getStringExtra("eventLocation");
+        String eventEndDate = intent.getStringExtra("eventEndDate");
+
 
         editTextContext = (TextView)findViewById(R.id.etxtContext);
         editTextContext.setText(eventContext);
@@ -112,9 +116,12 @@ public class EventContext extends AppCompatActivity {
 
         TextView EventNameHeadrer = (TextView)findViewById(R.id.txtEventName);
         EventNameHeadrer.setText(eventName);
-        //editTextLocation = (TextView)findViewById(R.id.etxtLocation);
-        //editTextLocation.setText("ספיר 7, הרצליה", TextView.BufferType.EDITABLE);
 
+        editTextLocation = (TextView)findViewById(R.id.etxtLocation);
+        editTextLocation.setText(eventLocation);
+
+        editTextEndDate = (TextView)findViewById(R.id.etxtEventEndDate);
+        editTextEndDate.setText(eventEndDate);
 
     }
     private void InitButtonsPanel(){
