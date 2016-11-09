@@ -1,5 +1,6 @@
 package com.misha.mor.letsteamapp.letsteamapp;
 
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -74,6 +75,11 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             }
         });
 
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            //TODO: SEARCH
+            //doMySearch(query);
+        }
 
         initViews();
         getGridData();
@@ -235,6 +241,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 intent.putExtra("eventCreator",gridArray.get(position).event_Owner);
                 intent.putExtra("eventLocation",gridArray.get(position).event_location);
                 intent.putExtra("eventContext",gridArray.get(position).event_Context);
+                intent.putExtra("eventEndDate",gridArray.get(position).event_closeDate);
 
                 startActivity(intent);
             }

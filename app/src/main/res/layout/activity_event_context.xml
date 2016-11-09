@@ -27,56 +27,70 @@
         android:textIsSelectable="false"
         android:textSize="@dimen/abc_text_size_display_1_material" />
 
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/etxtCreatorName"
-        android:layout_alignTop="@+id/txtEventDisplayName"
-        android:layout_alignStart="@+id/txtEventName" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etxtLocation"
-        android:layout_alignTop="@+id/txtLocation"
-        android:layout_alignStart="@+id/etxtCreatorName"
-        android:layout_alignEnd="@+id/etxtCreatorName" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Event Creator:"
-            android:id="@+id/txtEventDisplayName"
-            android:singleLine="true"
-            android:layout_below="@+id/etxtContext"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="21dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Event Location: "
-            android:id="@+id/txtLocation"
-            android:layout_marginTop="19dp"
-            android:layout_below="@+id/txtEventDisplayName"
-            android:layout_alignParentStart="true" />
-
-        <TextView
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/etxtContext"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:layout_marginTop="70dp"
             android:layout_below="@+id/txtEventName"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="70dp">
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/etxtContext"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_marginTop="70dp" />
+
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Event Creator:"
+                    android:id="@+id/txtEventDisplayName"
+                    android:singleLine="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="Name"
+                    android:ems="10"
+                    android:id="@+id/etxtCreatorName" />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Event Location: "
+                    android:id="@+id/txtLocation" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etxtLocation" />
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Event End Date: "
+                    android:id="@+id/txtEndDate" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etxtEventEndDate"
+                    android:inputType="date"/>
+            </TableRow>
+        </TableLayout>
+
     </RelativeLayout>
 
     <LinearLayout

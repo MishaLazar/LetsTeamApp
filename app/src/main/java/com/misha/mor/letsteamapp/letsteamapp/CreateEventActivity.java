@@ -15,11 +15,15 @@ public class CreateEventActivity extends AppCompatActivity {
     //views
     EditText editTextContext;
     EditText editTextDisplayName;
-    EditText editTextLocation;
+    EditText editTextCity;
+    EditText editTextStreet;
+    EditText editTextHouseNumber;
+    EditText editTextStartDate;
+    EditText editTextEndDate;
+    EditText editTextType;
     AutoCompleteTextView textView;
     ArrayAdapter<String> arrayAdapter;
     Button btn_creatEvent;
-    Button btn_setEventLocation;
 
     //db
     FireBaseDAL fdb; //DAL
@@ -47,15 +51,14 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
     public void initViews(){
-
-        editTextContext = (EditText)findViewById(R.id.EventContext);
-        editTextContext.setText("this is a demo data \n this is demo data \n this is demo data", TextView.BufferType.EDITABLE);
-
+        editTextContext = (EditText)findViewById(R.id.etxtEventContext);
         editTextDisplayName = (EditText)findViewById(R.id.event_displayName);
-        editTextDisplayName.setText("Mor and Misha", TextView.BufferType.EDITABLE);
-
-        //editTextLocation = (EditText)findViewById(R.id.eventLocation);
-        // editTextLocation.setText("My New Event", TextView.BufferType.EDITABLE);
+        editTextCity = (EditText)findViewById(R.id.etxtEventCity);
+        editTextStreet = (EditText)findViewById(R.id.etxtEventStreet);
+        editTextHouseNumber = (EditText)findViewById(R.id.etxtEventHouseNum);
+        editTextType = textView;
+        editTextEndDate = (EditText)findViewById(R.id.etxtStartDate);
+        editTextStartDate = (EditText)findViewById(R.id.etxtEndDate);
 
         btn_creatEvent = (Button)findViewById(R.id.btnCreateEvent);
         if(btn_creatEvent != null){
@@ -64,12 +67,17 @@ public class CreateEventActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     //TODO make tag generic
-                    String tag = "Tag";
                     String event_displayName = editTextDisplayName.getText().toString();
-                    String event_location = editTextLocation.getText().toString();
                     String event_context = editTextContext.getText().toString();
+                    String event_city = editTextCity.getText().toString();
+                    String event_street = editTextStreet.getText().toString();
+                    String event_HouseNumber = editTextHouseNumber.getText().toString();
+                    String event_StartDate = editTextStartDate.getText().toString();
+                    String event_EndDate = editTextEndDate.getText().toString();
+                    String event_Type = editTextType.getText().toString();
 
-                    Event newEvent = new Event(event_displayName,event_context,tag,event_location);
+                    String Location = event_street + " " + event_HouseNumber + ", " + event_city;
+                    Event newEvent = new Event(event_displayName,Location,event_context,event_Type,event_StartDate,event_EndDate);
                     newEvent.setEvent_Owner(userID);
 
                     fdb.registerEvent(newEvent);

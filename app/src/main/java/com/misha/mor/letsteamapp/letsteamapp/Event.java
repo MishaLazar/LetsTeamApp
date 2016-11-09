@@ -17,6 +17,11 @@ public class Event {
     String event_Owner;
     String event_Context;
     String event_location;
+    String event_Type;
+    String event_Start;
+    String event_End;
+
+
 
 
     long ParticipantCount;
@@ -46,12 +51,42 @@ public class Event {
         event_Tags.add(Tag);
 
     }
-    public Event(String event_DisplayName, String Tag,String event_location,String event_Context) {
+
+    public String getEvent_Type() {
+        return event_Type;
+    }
+
+    public void setEvent_Type(String event_Type) {
+        this.event_Type = event_Type;
+    }
+
+    public String getEvent_Start() {
+        return event_Start;
+    }
+
+    public void setEvent_Start(String event_Start) {
+        this.event_Start = event_Start;
+    }
+
+    public String getEvent_End() {
+        return event_End;
+    }
+
+    public void setEvent_End(String event_End) {
+        this.event_End = event_End;
+    }
+
+    public Event(String event_DisplayName, String event_location, String event_Context, String Type, String StartDate, String EndDate) {
         this.event_DisplayName = event_DisplayName;
         this.event_location = event_location;
         this.event_Context = event_Context;
-        event_Tags = new ArrayList<String>();
-        event_Tags.add(Tag);
+        this.event_Type = Type;
+        this.event_Start = StartDate;
+        this.event_End = EndDate;
+
+        //TODO: do we really do ntags? if just type than need to delete
+        //event_Tags = new ArrayList<String>();
+        //event_Tags.add(Tag);
 
     }
 
