@@ -134,7 +134,7 @@ public class ChatRoom extends Activity {
         listView = (ListView)findViewById(R.id.room_msg_view);
 
         //send message button
-        btn_Send = (Button)findViewById(R.id.room_btn_send);
+        btn_Send = (Button)findViewById(R.id.btnSend);
 
         try{
             btn_Send.setOnClickListener(new View.OnClickListener() {

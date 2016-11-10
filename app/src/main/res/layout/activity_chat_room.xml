@@ -21,29 +21,46 @@
 
     </ListView>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="3"
+        android:layout_weight="0.05">
+
+        <!--<Button
+            android:id="@+id/room_btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            />-->
+        <!--<ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background=""/>-->
 
         <EditText
             android:id="@+id/msg"
             android:layout_width="303dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:maxLength="@integer/MAX_NUMBER_CHARS_MESSAGE"
             android:inputType="text|textMultiLine|textCapSentences"
             android:maxLines="@integer/MAX_NUMBER_SINGLE_MESSAGE_TEXT_LINES"
-            android:hint="type message" />
+            android:hint="type message"
+            android:layout_alignBaseline="@+id/btnSend"
+            android:layout_alignBottom="@+id/btnSend"
+            android:layout_alignParentStart="true" />
 
         <Button
-            android:id="@+id/room_btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            />
+            android:layout_width="47dp"
+            android:background="@drawable/send2"
+            android:id="@+id/btnSend"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_height="50dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
