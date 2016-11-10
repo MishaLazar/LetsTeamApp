@@ -26,6 +26,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
     HashMap<String,Event> eventHashMap;
     HashMap<String,ChatMessage> messageMap;
+    ArrayList<String> eventTags;
 
 
     Context context;
@@ -33,6 +34,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
     public  FireBaseDAL(){
         this.eventHashMap = new HashMap<>();
         this.messageMap = new HashMap<>();
+        this.eventTags = new ArrayList<>();
         //registerStateListener();
     }
 
@@ -200,6 +202,27 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
                 fdbHandler.queryEventsState(this);
 
+
+            }catch (Exception exc){
+
+                Log.e("triggerRoomsOnce()", "getEvents: "+exc.getStackTrace().toString());
+
+            }
+
+        }
+
+    }
+    public void getEventTags() {
+        synchronized (this){
+
+            try {
+                eventTags.clear();
+
+                eventTags =  fdbHandler.querygetEventTags();
+
+                Intent intent = new Intent("com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_EVENT_TAGS");
+
+                context.sendBroadcast(intent);
 
             }catch (Exception exc){
 
@@ -390,5 +413,10 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
     }
 
+
+    public ArrayList<String> getTags() {
+
+        return eventTags;
+    }
 
 }

@@ -52,6 +52,21 @@ public class Event {
 
     }
 
+
+    public Event(String event_DisplayName, String event_location, String event_Context, String Type, String StartDate, String EndDate) {
+        this.event_DisplayName = event_DisplayName;
+        this.event_location = event_location;
+        this.event_Context = event_Context;
+        this.event_Type = Type;
+        this.event_Start = StartDate;
+        this.event_End = EndDate;
+
+        //TODO: do we really do ntags? if just type than need to delete
+        //event_Tags = new ArrayList<String>();
+        //event_Tags.add(Tag);
+
+    }
+
     public String getEvent_Type() {
         return event_Type;
     }
@@ -75,21 +90,6 @@ public class Event {
     public void setEvent_End(String event_End) {
         this.event_End = event_End;
     }
-
-    public Event(String event_DisplayName, String event_location, String event_Context, String Type, String StartDate, String EndDate) {
-        this.event_DisplayName = event_DisplayName;
-        this.event_location = event_location;
-        this.event_Context = event_Context;
-        this.event_Type = Type;
-        this.event_Start = StartDate;
-        this.event_End = EndDate;
-
-        //TODO: do we really do ntags? if just type than need to delete
-        //event_Tags = new ArrayList<String>();
-        //event_Tags.add(Tag);
-
-    }
-
     public boolean isEvent_isActive() {
         return event_isActive;
     }

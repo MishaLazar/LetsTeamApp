@@ -165,42 +165,98 @@
                     <Space android:layout_height="10dp"/>
                 </TableRow>
                 <TableRow>
-                    <TextView
+                    <Button
                         android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Event Start Date:"
-                        android:id="@+id/txtEventStartDate"
-                        android:layout_alignParentStart="true" />
+                        android:id="@+id/btnEventStartDate"
+                        android:layout_alignParentStart="true"
+                        android:drawableRight="@drawable/minicalendar"
+                        android:theme="@style/MyButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"/>
 
-                    <EditText
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:ems="10"
+                        android:id="@+id/pickerStartDateTime" />
+
+                   <!-- <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="time"
+                        android:ems="10"
+                        android:id="@+id/pickerStartTime" />-->
+                    <!--
+                                        <DatePicker
+                                            android:id="@+id/pickerStartDate"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content" >
+                                        </DatePicker>
+
+                                        <TimePicker
+                                            android:id="@+id/pickerStartTime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content" >
+                                        </TimePicker>-->
+                    <!--<DatePicker
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:inputType="date"
                         android:ems="10"
                         android:background="@color/PanelBackground"
                         android:id="@+id/etxtStartDate" />
-
+-->
                 </TableRow>
                 <TableRow>
                     <Space android:layout_height="10dp"/>
                 </TableRow>
                 <TableRow>
-                    <TextView
+                    <Button
                         android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Event End Date:"
-                        android:id="@+id/txtEventEndDate"
-                        android:layout_alignParentStart="true" />
+                        android:id="@+id/btnEventEndDate"
+                        android:layout_alignParentStart="true"
+                        android:drawableRight="@drawable/minicalendar"
+                        android:theme="@style/MyButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        />
 
-                    <EditText
+                   <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/pickerEndDateTime" />
+
+                    <!--  <EditText
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:inputType="time"
+                          android:ems="10"
+                          android:id="@+id/pickerEndTime" />-->
+                    <!--<DatePicker
+                        android:id="@+id/pickerEndDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                    </DatePicker>
+
+                    <TimePicker
+                        android:id="@+id/pickerEndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                    </TimePicker>-->
+
+<!--
+                    <DatePicker
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:inputType="date"
                         android:background="@color/PanelBackground"
                         android:ems="10"
-                        android:id="@+id/etxtEndDate" />
+                        android:id="@+id/etxtEndDate" />-->
 
                 </TableRow>
             </TableLayout>

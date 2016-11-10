@@ -73,7 +73,8 @@
             android:configChanges="locale"/>
         <activity android:name=".CreateEventActivity"
             android:screenOrientation="portrait"
-            android:configChanges="locale"/>
+            android:configChanges="locale"
+            />
         <activity android:name=".EventContext"
             android:screenOrientation="portrait"
             android:configChanges="locale"/>

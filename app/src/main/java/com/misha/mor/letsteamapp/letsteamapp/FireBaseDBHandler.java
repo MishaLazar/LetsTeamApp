@@ -27,6 +27,7 @@ public class FireBaseDBHandler implements Serializable {
     ArrayList<RoomStateListener> roomsStatelisteners;
     ArrayList<MessageStateListener> messageStatelisteners;
     ArrayList<String> myEventsUser;
+    ArrayList<String> eventTags;
     ArrayList<Event> myEvents;
     Firebase fire_db;
 
@@ -49,6 +50,7 @@ public class FireBaseDBHandler implements Serializable {
     long countParticipants;
 
 
+
     public FireBaseDBHandler(Context context) {
 
 
@@ -62,6 +64,8 @@ public class FireBaseDBHandler implements Serializable {
         myEvents = new ArrayList<>();
 
         myEventsUser = new ArrayList<>();
+
+        eventTags = new ArrayList<>();
 
 
     }
@@ -489,6 +493,53 @@ public class FireBaseDBHandler implements Serializable {
 
     }
 
+    public ArrayList<String> querygetEventTags(){
+
+        //register new room state listener
+
+
+        final Firebase rootEventNodeRef = fire_db.child("EventTagOptions");
+        /*final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");*/
+
+        // Attach an listener to read rooms state reference
+        //TODO limit for query if needed
+        Query queryRef = rootEventNodeRef.orderByKey();
+        // Attach an listener to read rooms state reference
+        queryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+
+                    try{
+
+                        String tag = postSnapshot.getValue(String.class);
+
+                        eventTags.add(tag);
+
+                    }catch (Exception exc){
+
+                        Log.e("EventsNotifyListener","Incorrect type" + exc.getMessage());
+
+                    }
+
+                }
+/*
+                if(bufferSize  == myEvents.size()){
+                    eventNotifyListeners(roomsStatelisteners,myEvents,"MyEventStateListener");
+                }
+
+                roomsStatelisteners.remove(listener);
+*/
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //TODO need to take care of this case
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+        return  eventTags;
+    }
     public void queryMyEventsState(final RoomStateListener listener,String ownerID){
         //TODO need to change it into query
         //register new room state listener

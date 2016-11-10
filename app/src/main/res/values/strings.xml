@@ -36,6 +36,7 @@
     <string name="BROADCAST_ACTION_POLL_ROOMS">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_ROOMS</string>
     <string name="BROADCAST_ACTION_LOGIN">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_LOGIN</string>
     <string name="BROADCAST_ACTION_POLL_LISTED">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_LISTED</string>
+    <string name="BROADCAST_ACTION_POLL_EVENT_TAGS">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_EVENT_TAGS</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
