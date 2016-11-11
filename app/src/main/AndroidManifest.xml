@@ -48,9 +48,8 @@
         -->
 
         <meta-data android:name="android.app.default_searchable" android:value=".SearchResultsActivity" />
-        <meta-data
-    android:name="com.google.android.maps.v2.API_KEY"
-    android:value="AIzaSyABI49-y2ISH3Y4tE_ddiXN6xtPCxTljvU"/>
+        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+                   android:value="AIzaSyABI49-y2ISH3Y4tE_ddiXN6xtPCxTljvU"/>
 
 
         <activity

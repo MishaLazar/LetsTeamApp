@@ -29,4 +29,10 @@ public class Validator {
         return false;
     }
 
+    public Boolean isValidDisplayName(String eventName){
+        if(eventName != null && eventName.length() > 0){
+            return true;
+        }
+        return false;
+    }
 }

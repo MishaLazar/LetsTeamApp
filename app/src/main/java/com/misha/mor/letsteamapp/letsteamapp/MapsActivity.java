@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Address;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,7 +68,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             address = coder.getFromLocationName(strAddress,5);
 
             //check for null
-            if (address == null) {
+            if (address == null || address.size() == 0) {
+                Toast.makeText(getApplicationContext(),"The location doesn't exist.",Toast.LENGTH_SHORT).show();
                 return;
             }
 
