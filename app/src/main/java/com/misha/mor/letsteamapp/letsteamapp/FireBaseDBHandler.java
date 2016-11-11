@@ -664,7 +664,7 @@ public class FireBaseDBHandler implements Serializable {
                     }
 
                 }
-                isListedEventNotifyListeners(listener, isListed, "ListedEventStateListener1");
+                isListedEventNotifyListeners(listener, isListed, "ListedEventStateListener");
             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
