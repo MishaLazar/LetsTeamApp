@@ -23,6 +23,7 @@ public class EventContext extends AppCompatActivity {
     ImageButton btn_showEventLocation;
     String userID;
     String eventID;
+    Intent intent;
 
     //set with on create //TODO need to create the participant status validation
     boolean isEventParticipant = false;
@@ -38,7 +39,7 @@ public class EventContext extends AppCompatActivity {
 
 
         //intent info
-        Intent intent = getIntent();
+        intent = getIntent();
         userID = intent.getStringExtra("userID");
         eventID = intent.getStringExtra("eventID");
 
