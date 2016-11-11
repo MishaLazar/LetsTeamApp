@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp" />
 
-    <TextView
+   <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -29,8 +29,8 @@
         android:layout_marginTop="71dp"
         android:layout_below="@+id/txtHeaderLogin"
         android:layout_toStartOf="@+id/txtHeaderLogin" />
-
-    <TextView
+-->
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -38,24 +38,7 @@
         android:id="@+id/txtPass"
         android:layout_below="@+id/etxtUserEmail"
         android:layout_alignEnd="@+id/txtEmail"
-        android:layout_marginTop="47dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etxtUserEmail"
-        android:ems="10"
-        android:layout_below="@+id/txtEmail"
-        android:layout_alignStart="@+id/txtPass" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/etxtPassword"
-        android:layout_below="@+id/txtPass"
-        android:layout_alignStart="@+id/etxtUserEmail" />
+        android:layout_marginTop="47dp" />-->
 
     <Button
         android:layout_width="wrap_content"
@@ -67,4 +50,28 @@
         android:layout_marginBottom="79dp"
         android:theme="@style/MyButton"
         style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/etxtUserEmail"
+        android:layout_height="40dp"
+        android:hint="@string/userEmailHint"
+        android:inputType="textNoSuggestions"
+        android:ems="10"
+        android:background="@color/PanelBackground"
+        android:layout_above="@+id/etxtPassword"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="90dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/PanelBackground"
+        android:inputType="textPassword"
+        android:hint="@string/passHint"
+        android:ems="10"
+        android:id="@+id/etxtPassword"
+        android:layout_marginBottom="76dp"
+        android:layout_above="@+id/btnSignUp"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

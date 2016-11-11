@@ -48,4 +48,9 @@
         <item >hello2</item>
         <item >hello1</item>
     </string-array>
+
+    <!--login screen-->
+    <string name="passHint">Password (6 characters minimum)</string>
+    <string name="userEmailHint">Enter Valid Mail</string>
+
 </resources>

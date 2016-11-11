@@ -36,13 +36,42 @@ public class CustomGridViewAdapter extends ArrayAdapter<Event> {
             holder = new RecordHolder();
             holder.txtTitle = (TextView) row.findViewById(R.id.item_text);
             holder.imageItem = (ImageView) row.findViewById(R.id.item_image);
+           /* holder.imageItem.getLayoutParams().height = R.integer.IMAGE_HEIGHT;
+            holder.imageItem.getLayoutParams().width = R.integer.IMAGE_WIDTH;
+            holder.imageItem.setScaleType(ImageView.ScaleType.FIT_XY);*/
+
+
             row.setTag(holder);
         } else {
             holder = (RecordHolder) row.getTag();
         }
         Event item = data.get(position);
         holder.txtTitle.setText(item.getEvent_DisplayName());
-        holder.imageItem.setImageResource(R.mipmap.ic_launcher);
+        String caseS = item.getEvent_Type();
+        switch (caseS){
+            case "local trip":
+                holder.imageItem.setImageResource(R.drawable.trip);
+                break;
+            case "sport":
+                holder.imageItem.setImageResource(R.drawable.sport);
+                break;
+            case "study":
+                holder.imageItem.setImageResource(R.drawable.study);
+                break;
+            case "shopping":
+                holder.imageItem.setImageResource(R.drawable.shopping);
+                break;
+            case "night entertainment":
+                holder.imageItem.setImageResource(R.drawable.night_entertainment);
+                break;
+            case "abroad":
+                holder.imageItem.setImageResource(R.drawable.passport);
+                break;
+            default:
+                holder.imageItem.setImageResource(R.drawable.other);
+                break;
+        }
+
         holder.roomID = item.getEvent_ID();
         return row;
     }
