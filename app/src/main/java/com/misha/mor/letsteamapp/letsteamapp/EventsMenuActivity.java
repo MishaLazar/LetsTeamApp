@@ -8,18 +8,22 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.support.v7.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class EventsMenuActivity extends AppCompatActivity implements ActivityEventStateListener {
+public class EventsMenuActivity extends AppCompatActivity implements ActivityEventStateListener, SearchView.OnQueryTextListener {
 
     //Views
     GridView gridView;
@@ -37,6 +41,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     ArrayList<Event> gridArray = new ArrayList<>();
     String userID;
     SharedPreferences sharedPreferences;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         registerReceiver(innerReceiver, new IntentFilter(
                 getString(R.string.BROADCAST_ACTION_POLL_ROOMS)));
 
-        Intent intent = getIntent();
+        intent = getIntent();
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
         userID = sharedPreferences.getString(getString(R.string.userID), "");//intent.getStringExtra("userID");
 
@@ -75,19 +80,53 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             }
         });
 
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            //TODO: SEARCH
-            //doMySearch(query);
-        }
+
 
         initViews();
         getGridData();
-
-
-
-
     }
+
+
+    @Override //For Activities
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        SearchView searchItem = (SearchView) menu.getItem(0).getActionView();
+        searchItem.setOnQueryTextListener(this);
+
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        intent.setAction(Intent.ACTION_SEARCH);
+        handleIntent(intent);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        //handleIntent(intent);
+        return true;
+    }
+
+   /*     @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        handleIntent(intent);
+    }*/
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Toast.makeText(this, "in search", Toast.LENGTH_SHORT).show();
+            //TODO: SEARCH
+            //doMySearch(query);
+        }
+    }
+
+
+
     @Override
     public void onResume() {
         super.onResume();

@@ -46,9 +46,12 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
+
+        <meta-data android:name="android.app.default_searchable" android:value=".SearchResultsActivity" />
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyABI49-y2ISH3Y4tE_ddiXN6xtPCxTljvU" />
+    android:name="com.google.android.maps.v2.API_KEY"
+    android:value="AIzaSyABI49-y2ISH3Y4tE_ddiXN6xtPCxTljvU"/>
+
 
         <activity
             android:name=".LandingActivity"
@@ -64,7 +67,15 @@
         </activity>
         <activity android:name=".EventsMenuActivity"
             android:screenOrientation="portrait"
-            android:configChanges="locale"/>
+            android:configChanges="locale"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+
         <activity android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:configChanges="locale"/>
@@ -95,11 +106,6 @@
         <activity android:name=".ChatRoom"
             android:screenOrientation="portrait"
             android:configChanges="locale">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@layout/activity_events_menu"/>
         </activity>
     </application>
 
