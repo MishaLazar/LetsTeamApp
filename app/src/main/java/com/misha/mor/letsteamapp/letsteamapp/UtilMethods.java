@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class UtilMethods {
@@ -45,6 +47,17 @@ public class UtilMethods {
         // get date time in custom format
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         return sdf.format(new Date());
+    }
+
+    public static boolean containsIgnoreCase( String haystack, String needle ) {
+        if(needle.equals(""))
+            return true;
+        if(haystack == null || needle == null || haystack .equals(""))
+            return false;
+
+        Pattern p = Pattern.compile(needle,Pattern.CASE_INSENSITIVE+Pattern.LITERAL);
+        Matcher m = p.matcher(haystack);
+        return m.find();
     }
     /*public void convertHashmapIntoArrayLit(HashMap<?,?> hashMap){
         // Converting HashMap Values into ArrayList
