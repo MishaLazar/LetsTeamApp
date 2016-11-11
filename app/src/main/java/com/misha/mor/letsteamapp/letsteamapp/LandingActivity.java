@@ -90,19 +90,10 @@ public class LandingActivity extends Activity {
         Locale.setDefault(config.locale);
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
-    /*public void btnLoginClick(View v){
-        intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    public void btnRegisterClick(View v){
-        intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }*/
 
 
     public void checkIfAlreadyLoggedIn(){
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
         sUserEmail = sharedPreferences.getString(getString(R.string.userEmail), "") ;
         sPassword = sharedPreferences.getString(getString(R.string.userPassword), "") ;
@@ -136,6 +127,7 @@ public class LandingActivity extends Activity {
                             intent = new Intent(LandingActivity.this, EventsMenuActivity.class);
                             intent.putExtra("userID",sharedPreferences.getString("userID", ""));
                             startActivity(intent);
+                            finish();
                         }
 
                     }
@@ -161,15 +153,4 @@ public class LandingActivity extends Activity {
         editor.commit();
     }
 
-   /* public void setLocale(String lang) {
-        Locale myLocale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, LandingActivity.class);
-        startActivity(refresh);
-        finish();
-    }*/
 }

@@ -94,52 +94,7 @@ public class LoginActivity extends Activity {
         });
 
     }
-/*
-    public void btnLoginClick(View v){
 
-        sUserEmail = etxtUser.getText().toString();
-        sPassword = etxtPass.getText().toString();
-
-
-        if((sUserEmail !=null && sUserEmail.length()>0) && sPassword!=null){
-
-            signInWithEmailAndPassword();
-
-
-        }
-
-        *//*if(true) { // use a method for authenticate
-           *//**//* SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            sharedPreferences.edit().putBoolean("saveLogin", true);
-            sharedPreferences.edit().putString("username",sUserEmail);
-            sharedPreferences.edit().putString("password",sUserUniqueID);
-
-
-            sharedPreferences.edit().putString("userID","-KT0-9Tdv88UHOQ3h1fF");
-*//**//*
-
-        }*//*
-    }*/
-    /*class InnerReceiver extends BroadcastReceiver {
-
-        Context context;
-
-        public InnerReceiver() {
-
-        }
-
-        public InnerReceiver(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            //code to do after validation
-            Log.e("innerReceiver", "MyReceiver: broadcast received");
-
-        }
-    }*/
     //track whenever the user signs in or out
     public void userStateListener(){
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -178,6 +133,7 @@ public class LoginActivity extends Activity {
                             intent = new Intent(LoginActivity.this, EventsMenuActivity.class);
                             intent.putExtra("userID",sharedPreferences.getString("userID", ""));
                             startActivity(intent);
+                            finish();
                         }
 
                     }

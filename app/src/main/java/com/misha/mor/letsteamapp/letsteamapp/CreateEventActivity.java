@@ -165,6 +165,8 @@ public class CreateEventActivity extends Activity {
                     newEvent.setEvent_Owner(userID);
 
                     fdb.registerEvent(newEvent);
+                    onBackPressed();
+                    finish();
 
                 }
             });
