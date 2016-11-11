@@ -92,7 +92,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     public void onResume() {
         super.onResume();
         registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL_ROOMS)));
-        registerRoomStateListener();
+        /*registerRoomStateListener();*/
 
     }
     @Override
@@ -104,8 +104,10 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
             Log.e("onPause","unregisterReceiver(innerReceiver) " +exc.getMessage());
         }
+/*
 
         unregisterRoomStateListener();
+*/
 
 
     }
@@ -119,8 +121,8 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             Log.e("onBack","unregisterReceiver(innerReceiver)");
         }
 
-        unregisterRoomStateListener();
-
+     /*   unregisterRoomStateListener();
+*/
 
 
     }
@@ -130,7 +132,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         fdb.getEventState();
     }
 
-
+/*
     @Override
     public void registerRoomStateListener() {
         fdb.registerStateListener();
@@ -139,25 +141,15 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     @Override
     public void unregisterRoomStateListener() {
         fdb.unregisterStateListener(this);
-    }
+    }*/
 
     public void getEvents() {
         gridArray =  new ArrayList<>(fdb.getEventHashMap().values());    }
 
-    @Override
+    /*@Override
     public void notifyListener() {
-        /*String sCase = "";
-        sCase = NotificationCase;
-        switch (sCase){
-            case "allEvents":
-                break;
-            case "myEvents":
-                break;
-            case "ListedEvents":
-                break;
-        }*/
         getEvents();
-    }
+    }*/
     private void initViews(){
 
         btnAllEvenets = (Button)findViewById(R.id.btnAllEvents);

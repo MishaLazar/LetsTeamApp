@@ -36,6 +36,8 @@ public class ChatRoom extends Activity {
     String eventID;
     String myUserID;
     Intent receiver;
+    ArrayList<ChatMessage> messages;
+    boolean fromResume = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +63,15 @@ public class ChatRoom extends Activity {
 
         intAdapter();
 
-        registerForMessage(eventID);
+        /*registerForMessage(eventID);*/
 
 
     }
     @Override
     public void onResume() {
         super.onResume();
+        /*listView.setAdapter(null);*/
+        chatArrayAdapter.clearListAdapter();
         registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL)));
         registerForMessage(eventID);
 
@@ -244,7 +248,8 @@ public class ChatRoom extends Activity {
     }
     private void getMessages(){
 
-        ArrayList<ChatMessage> messages = new ArrayList<>(fdb.getMessagesHashMap().values());
+        messages = new ArrayList<>(fdb.getMessagesHashMap().values());
+
 
         for (ChatMessage message:messages) {
 

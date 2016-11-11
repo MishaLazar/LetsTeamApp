@@ -7,11 +7,11 @@ import java.util.HashMap;
  */
 public interface ActivityEventStateListener {
 
-    void registerRoomStateListener();
-    void unregisterRoomStateListener();
+    /*void registerRoomStateListener();
+    void unregisterRoomStateListener();*/
 
     void getEvents();
 
-    void notifyListener();
-
+    /*void notifyListener();
+*/
 }

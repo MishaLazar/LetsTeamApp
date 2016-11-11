@@ -39,7 +39,9 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         this.userID = userID;
 
     }
-
+    public void clearListAdapter(){
+        chatMessageList.clear();
+    }
 
     public int getCount() {
         return this.chatMessageList.size();
