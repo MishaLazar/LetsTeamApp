@@ -15,7 +15,10 @@ import com.firebase.client.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 
 /**
@@ -25,11 +28,21 @@ public class FireBaseDBHandler implements Serializable {
 
     static FireBaseDBHandler instance = null;
     ArrayList<RoomStateListener> roomsStatelisteners;
-    ArrayList<MessageStateListener> messageStatelisteners;
+    HashSet<MessageStateListener> messageStatelisteners;
     ArrayList<String> myEventsUser;
     ArrayList<String> eventTags;
     ArrayList<Event> myEvents;
     Firebase fire_db;
+
+    //TABLE_NODES AND ATTRIBUTES
+    final String EVENT_NODE = "EventNode" ;
+    final String USER_EVENT_LIST = "UserEventList";
+    final String CHAT_MESSAGES = "ChatMessages";
+    final String USER_LISTED_EVENTS = "UserListedEvents";
+    final String EVENT_PARTICIPANT_LIST = "EventParticipantList";
+    final String USERS = "Users";
+    final String EVENT_TAG_OPTIONS = "EventTagOptions";
+
 
     //Message EventListener
     ValueEventListener messageListener;
@@ -59,7 +72,7 @@ public class FireBaseDBHandler implements Serializable {
 
         roomsStatelisteners = new ArrayList<>();
 
-        messageStatelisteners = new ArrayList<>();
+        messageStatelisteners = new HashSet<>();
 
         myEvents = new ArrayList<>();
 
@@ -389,13 +402,11 @@ public class FireBaseDBHandler implements Serializable {
     public void removeReadChatRoomsState(RoomStateListener listener){
         roomsStatelisteners.remove(this);
     }
-    public void removeReadChatMessageState(RoomStateListener listener){
 
-    }
-    public void readEventState(RoomStateListener listener){
+    public void readEventState(final RoomStateListener listener){
         //TODO need to change it into query
         //register new room state listener
-        roomsStatelisteners.add(listener);
+        /*roomsStatelisteners.add(listener);*/
         final Firebase rootEventNodeRef = fire_db.child("EventNode");
         //final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");
         // Attach an listener to read rooms state reference
@@ -403,7 +414,7 @@ public class FireBaseDBHandler implements Serializable {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(roomsStatelisteners.size()>0){
-                    notifyListeners(roomsStatelisteners,snapshot,"EventStateListener");
+                    notifyListeners(listener,snapshot,"EventStateListener");
                     //TODO to much listeners
                     fire_db.removeEventListener(this);
                 }
@@ -417,10 +428,10 @@ public class FireBaseDBHandler implements Serializable {
         });
     }
 
-    public void queryEventsState(RoomStateListener listener){
+    public void queryEventsState(final RoomStateListener listener){
         //TODO need to change it into query
         //register new room state listener
-        roomsStatelisteners.add(listener);
+        /*roomsStatelisteners.add(listener);*/
 
         final Firebase rootEventNodeRef = fire_db.child("EventNode");
         /*final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");*/
@@ -433,7 +444,7 @@ public class FireBaseDBHandler implements Serializable {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 //if(roomsStatelisteners.size()>0){
-                notifyListeners(roomsStatelisteners,snapshot,"EventStateListener");
+                notifyListeners(listener,snapshot,"EventStateListener");
                 //ref.removeEventListener(this);
                 //}
                 //RoomsSnapshot = snapshot;
@@ -479,10 +490,10 @@ public class FireBaseDBHandler implements Serializable {
 
                 }
                 if(bufferSize  == myEvents.size()){
-                    eventNotifyListeners(roomsStatelisteners,myEvents,"MyEventStateListener");
+                    eventNotifyListeners(listener,myEvents,"MyEventStateListener");
                 }
 
-                roomsStatelisteners.remove(listener);
+                /*roomsStatelisteners.remove(listener);*/
             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
@@ -493,10 +504,9 @@ public class FireBaseDBHandler implements Serializable {
 
     }
 
-    public ArrayList<String> querygetEventTags(){
+    public ArrayList<String> queryGetEventTags(){
 
         //register new room state listener
-
 
         final Firebase rootEventNodeRef = fire_db.child("EventTagOptions");
         /*final Firebase ref = new Firebase("https://chatroomapp-6dd82.firebaseio.com/ChatRoomNode");*/
@@ -543,7 +553,7 @@ public class FireBaseDBHandler implements Serializable {
     public void queryMyEventsState(final RoomStateListener listener,String ownerID){
         //TODO need to change it into query
         //register new room state listener
-        roomsStatelisteners.add(listener);
+        /*roomsStatelisteners.add(listener);*/
 
         final Firebase rootEventNodeRef = fire_db.child("UserEventList");
 
@@ -582,7 +592,7 @@ public class FireBaseDBHandler implements Serializable {
     public void queryListedForEventsState(final RoomStateListener listener,String ownerID){
         //TODO need to change it into query
         //register new room state listener
-        roomsStatelisteners.add(listener);
+        /*roomsStatelisteners.add(listener);*/
 
         final Firebase rootEventNodeRef = fire_db.child("UserListedEvents");
 
@@ -609,10 +619,10 @@ public class FireBaseDBHandler implements Serializable {
                     }
                 }else{
 
-                    eventNotifyListeners(roomsStatelisteners,null,"MyEventStateListener");
+                    eventNotifyListeners(listener,null,"MyEventStateListener");
                 }
 
-                roomsStatelisteners.remove(listener);
+                /*roomsStatelisteners.remove(listener);*/
 
             }
             @Override
@@ -626,7 +636,7 @@ public class FireBaseDBHandler implements Serializable {
     public void queryIfUserListedForEvent(final RoomStateListener listener, String participantID, final String eventID ){
         //TODO need to change it into query
         //register new room state listener
-        roomsStatelisteners.add(listener);
+        /*roomsStatelisteners.add(listener);*/
 
         final Firebase rootEventNodeRef = fire_db.child("UserListedEvents");
 
@@ -761,7 +771,7 @@ public class FireBaseDBHandler implements Serializable {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                notifyListeners(roomsStatelisteners,snapshot,"EventStateListener");
+                notifyListeners(listener,snapshot,"EventStateListener");
 
                 //unregister listener
                 roomsStatelisteners.remove(listener);
@@ -776,41 +786,41 @@ public class FireBaseDBHandler implements Serializable {
 
     }
 
-    public void notifyListeners(ArrayList listeners , DataSnapshot snapshot , String typeID){
-        if (listeners == null || snapshot == null){
+    public void notifyListeners(Object listener , DataSnapshot snapshot , String typeID){
+        if (listener == null || snapshot == null){
             Log.e("notifyListeners error" , "Error");
         }
         else if (typeID.equals("EventStateListener") ){
             Log.d("EventStateListener" , "in notification");
-            for (Object listener : listeners) {
-                RoomStateListener castListener = (RoomStateListener)listener;
-                castListener.EventsNotifyListener(snapshot);
-            }
+          /*  for (Object listener : listeners) {*/
+            RoomStateListener castListener = (RoomStateListener)listener;
+            castListener.EventsNotifyListener(snapshot);
+            /*}*/
         }
         else if (typeID.equals("MessageStateListener")){
             Log.d("MessageStateListener" , "in notification");
-            for (Object listener : listeners) {
-                MessageStateListener castListener = (MessageStateListener)listener;
-                castListener.notifyMessageListener(snapshot);
-            }
+           /* for (Object listener : listeners) {*/
+            MessageStateListener castListener = (MessageStateListener)listener;
+            castListener.notifyMessageListener(snapshot);
+           /* }*/
         }else if (typeID.equals("QueryMessageStateListener")){
             Log.d("MessageStateListener" , "in notification");
-            for (Object listener : listeners) {
-                MessageStateListener castListener = (MessageStateListener)listener;
-                castListener.notifyQueryMessageListener(snapshot);
-            }
+            /*for (Object listener : listeners) {*/
+            MessageStateListener castListener = (MessageStateListener)listener;
+            castListener.notifyQueryMessageListener(snapshot);
+            /*}*/
         }
     }
-    public void eventNotifyListeners(ArrayList listeners , ArrayList<Event> events , String typeID){
-        if (listeners == null ){
+    public void eventNotifyListeners(Object listener , ArrayList<Event> events , String typeID){
+        if (listener == null ){
             Log.e("notifyListeners error" , "Error");
         }
         else if (typeID.equals("MyEventStateListener") ){
             Log.d("EventStateListener" , "in notification");
-            for (Object listener : listeners) {
-                RoomStateListener castListener = (RoomStateListener)listener;
-                castListener.EventsNotifyListener(events);
-            }
+            /*for (Object listener : listeners) {*/
+            RoomStateListener castListener = (RoomStateListener)listener;
+            castListener.EventsNotifyListener(events);
+            /*}*/
         }
 
     }
@@ -826,16 +836,23 @@ public class FireBaseDBHandler implements Serializable {
         }
 
     }
-    public void notifyMessageListeners(ArrayList<?> listeners , DataSnapshot snapshot){
+    public void notifyMessageListeners(HashSet<?> listeners , DataSnapshot snapshot,String typeID){
         if (listeners == null || snapshot == null){
             System.out.println("notifyListeners error");
-        }
-        else if (listeners instanceof RoomStateListener){
+        }else if (typeID.equals("MessageStateListener")){
+            Log.d("MessageStateListener" , "in notification");
             for (Object listener : listeners) {
                 MessageStateListener castListener = (MessageStateListener)listener;
                 castListener.notifyMessageListener(snapshot);
             }
+        }else if (typeID.equals("QueryMessageStateListener")){
+            Log.d("MessageStateListener" , "in notification");
+            for (Object listener : listeners){
+                MessageStateListener castListener = (MessageStateListener)listener;
+                castListener.notifyQueryMessageListener(snapshot);
+            }
         }
+
     }
     public void registerMessageListener(MessageStateListener listener,String roomID){
         //add for notifications
@@ -896,7 +913,7 @@ public class FireBaseDBHandler implements Serializable {
 
                 Log.d("readMessageState","onDataChange");
                 //if(!message_first) {
-                notifyListeners(messageStatelisteners, dataSnapshot, "QueryMessageStateListener");
+                notifyMessageListeners(messageStatelisteners, dataSnapshot, "QueryMessageStateListener");
                 // }else{
                 message_first = false;
                 //}

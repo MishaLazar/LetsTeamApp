@@ -218,7 +218,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
             try {
                 eventTags.clear();
 
-                eventTags =  fdbHandler.querygetEventTags();
+                eventTags =  fdbHandler.queryGetEventTags();
 
                 Intent intent = new Intent("com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_EVENT_TAGS");
 
@@ -337,14 +337,6 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         }
 
     }
-   /* //TODO is duplication ?
-    public void registerMessageListener(MessageStateServiceListener listener,String eventID) {
-
-
-        fdbHandler.registerMessageListener(this,eventID);
-
-    }*/
-
     @Override
     public void notifyMessageListener(DataSnapshot snapshot) {
 
@@ -371,7 +363,6 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
             context.sendBroadcast(intent);
         }
     }
-
     @Override
     public void notifyQueryMessageListener(DataSnapshot snapshot) {
 
@@ -410,12 +401,8 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
     public void clearMessageMap(){
         //clear list (after get)
         messageMap.clear();
-
     }
-
-
     public ArrayList<String> getTags() {
-
         return eventTags;
     }
 
