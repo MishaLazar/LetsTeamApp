@@ -21,7 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.support.v7.widget.SearchView;
-import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
@@ -105,7 +105,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     @Override
     public boolean onQueryTextSubmit(String query) {
         intent.setAction(Intent.ACTION_SEARCH);
-        handleIntent(intent);
+        handleQuery(intent, query);
         return true;
     }
 
@@ -121,15 +121,23 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         handleIntent(intent);
     }*/
 
-    private void handleIntent(Intent intent) {
+    private void handleQuery(Intent intent, String query) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Toast.makeText(this, "in search", Toast.LENGTH_SHORT).show();
-            //TODO: SEARCH
-            //doMySearch(query);
+            searchOnEvents(query);
         }
     }
 
+    private void searchOnEvents(String query){
+        ArrayList<Event> tempArray = new ArrayList<>();
+        for (int eventId =0; eventId < gridArray.size(); eventId++)
+        {
+            if(UtilMethods.containsIgnoreCase(gridArray.get(eventId).event_DisplayName, query)){
+                tempArray.add(gridArray.get(eventId));
+            }
+        }
+        gridArray = tempArray;
+        updateViewGrid();
+    }
 
 
     @Override

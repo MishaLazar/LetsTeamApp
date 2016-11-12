@@ -119,6 +119,9 @@ public class EventContext extends AppCompatActivity {
         EventNameHeadrer.setText(eventName);
 
         editTextLocation = (TextView)findViewById(R.id.etxtLocation);
+        if(eventLocation.length() <= 3){
+            eventLocation = "Unspecified";
+        }
         editTextLocation.setText(eventLocation);
 
         editTextEndDate = (TextView)findViewById(R.id.etxtEventEndDate);
@@ -150,9 +153,14 @@ public class EventContext extends AppCompatActivity {
                 public void onClick(View view) {
                     //TODO: get real location to put in intent
                     String strEventLocation = editTextLocation.getText().toString();
-                    Intent intent = new Intent(EventContext.this, MapsActivity.class);
-                    intent.putExtra("eventLocation",strEventLocation);
-                    startActivity(intent);
+                    if(strEventLocation != "Unspecified"){
+                        Intent intent = new Intent(EventContext.this, MapsActivity.class);
+                        intent.putExtra("eventLocation",strEventLocation);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getApplicationContext(),"The location wasn't specified.",Toast.LENGTH_SHORT).show();
+                    }
+
 
                 }
             });
