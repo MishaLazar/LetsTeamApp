@@ -100,7 +100,19 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         if(message != null){
             try{
 
+                fdbHandler.getChatIdCounter(message.getRoomID());
+                fdbHandler.addChatMessageIdCounter(message.getRoomID());
+
+
+            }catch (Exception exc){
+
+                Log.e("sendMessage(...)" , exc.getMessage().toString());
+
+            }
+            try{
+
                 fdbHandler.registerChatRoomMessage(message.getRoomID(),message);
+
 
             }catch (Exception exc){
 

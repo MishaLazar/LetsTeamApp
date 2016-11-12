@@ -36,4 +36,19 @@ public class Comparators {
         int result = (hours*60)*60+minutes*60+seconds;
         return result;
     }
+    public static Comparator<ChatMessage> MessageOrder2 = new Comparator<ChatMessage>() {
+        @Override
+        public int compare(ChatMessage o1, ChatMessage o2) {
+            if (o1.getIdCounter() == o2.getIdCounter()) {
+                /*if (timeSpliter(o1.getDate()) > timeSpliter(o2.getDate())) {
+                    return 1;
+                } else
+                    return -1;*/
+                return 0;
+            } else if (o1.getIdCounter() > o2.getIdCounter()) {
+                return 1;
+            }
+            return -1;
+        }
+    };
 }

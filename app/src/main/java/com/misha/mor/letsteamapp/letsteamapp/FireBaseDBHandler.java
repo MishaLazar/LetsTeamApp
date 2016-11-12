@@ -42,6 +42,7 @@ public class FireBaseDBHandler implements Serializable {
     final String EVENT_PARTICIPANT_LIST = "EventParticipantList";
     final String USERS = "Users";
     final String EVENT_TAG_OPTIONS = "EventTagOptions";
+    final String CHAT_ID_COUNTER = "ChatIDCounter";
 
 
     //Message EventListener
@@ -61,7 +62,7 @@ public class FireBaseDBHandler implements Serializable {
     int iteration = 0;
     int bufferSize = -1;
     long countParticipants;
-
+    long messageCount = 0;
 
 
     public FireBaseDBHandler(Context context) {
@@ -159,6 +160,8 @@ public class FireBaseDBHandler implements Serializable {
 
     public void registerChatRoomMessage(String eventID, ChatMessage message) {
 
+
+        message.setIdCounter(messageCount);
         Firebase rootEventNodeRef = fire_db.child("ChatMessages");
         Firebase eventNodeRef = rootEventNodeRef.child(eventID);
         Firebase newMessageNode = eventNodeRef.push();
@@ -219,6 +222,65 @@ public class FireBaseDBHandler implements Serializable {
         addParticipantInEventList(eventID, participantID);
         UpdateCountEventParticipant(eventID); // counts the number of participants and update the event
     }
+    public void addChatMessageIdCounter (String eventID) {
+
+        Firebase EventsNodeRef = fire_db.child(CHAT_ID_COUNTER);
+        Firebase singleNodeRef = EventsNodeRef.child(eventID);
+
+        innerMessageCounter messageCounter = new innerMessageCounter(++messageCount) ;
+
+        if (eventID != null) {
+
+
+            singleNodeRef.setValue(messageCounter, new Firebase.CompletionListener() {
+                @Override
+                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                    if (firebaseError != null) {
+                        //Log.d("registerEvent", "onComplete: Data could not be saved. " + firebaseError.getMessage());
+                    } else {
+                        Log.d("registerEvent", "onComplete: Data saved successfully.");
+                        try {
+
+                        } catch (Exception exc) {
+                            // Log.d("registerEvent", "onComplete: Data could not be saved. " + exc.getMessage());
+                        }
+                    }
+                }
+            });
+
+
+        }
+    }
+    public void getChatIdCounter(String eventID) {
+
+
+        Firebase EventsNodeRef = fire_db.child(CHAT_ID_COUNTER);
+        Firebase singleEventNodeRef = EventsNodeRef.child(eventID);
+        Firebase counterNodeRef = singleEventNodeRef.child("counter");
+
+
+
+
+        counterNodeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                if(snapshot!=null) {
+                    messageCount = snapshot.getValue(Integer.class);
+
+                }
+               /* updateEventParticipantCount(eventID,countParticipants);*/
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //TODO need to take care of this case
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+    }
+
+
 
     //add participant in to event participant list
     public void addParticipantInEventList(String eventID, String participantID) throws Exception {
@@ -322,6 +384,7 @@ public class FireBaseDBHandler implements Serializable {
 
         }
     }
+
     public void UpdateCountEventParticipant(final String eventID) {
 
         Firebase rootNodeRef = fire_db.child("EventParticipantList");
@@ -941,4 +1004,20 @@ public class FireBaseDBHandler implements Serializable {
         });
     }
 
+    class innerMessageCounter {
+
+        long counter;
+
+        public innerMessageCounter(long counter) {
+            this.counter = counter;
+        }
+
+        public long getCounter() {
+            return counter;
+        }
+
+        public void setCounter(int counter) {
+            this.counter = counter;
+        }
+    }
 }
