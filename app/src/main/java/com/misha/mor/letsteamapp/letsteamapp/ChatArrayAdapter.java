@@ -29,7 +29,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
     public void add(ChatMessage object) {
         this.currentMSG = object;
         chatMessageList.add(currentMSG);
-        Collections.sort(chatMessageList,Comparators.MessageOrder);
+        Collections.sort(chatMessageList,Comparators.MessageOrder2);
         super.add(currentMSG);
     }
 

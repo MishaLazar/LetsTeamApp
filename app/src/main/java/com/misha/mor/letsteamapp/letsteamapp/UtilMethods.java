@@ -59,6 +59,7 @@ public class UtilMethods {
         Matcher m = p.matcher(haystack);
         return m.find();
     }
+
     /*public void convertHashmapIntoArrayLit(HashMap<?,?> hashMap){
         // Converting HashMap Values into ArrayList
         List<?> valueList = new ArrayList<>(hashMap.values());
