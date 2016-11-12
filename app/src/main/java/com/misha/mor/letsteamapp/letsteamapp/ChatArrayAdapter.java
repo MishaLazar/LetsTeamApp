@@ -69,7 +69,9 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         int myMsg = checkIsMe(chatMessage.getUserId());
 
         setAlignment(holder, myMsg);
-        holder.txtMessage.setText(chatMessage.getMessage());
+        holder.txtMessage.setText(chatMessage.getMessage() );
+        holder.txtMessageDate.setText(" "+chatMessage.getTimeOnly());
+        holder.txtInfo.setText(chatMessage.getOwnerName());
         //holder.txtInfo.setText(chatMessage.getDate());
 
         return convertView;
@@ -129,6 +131,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
     private ViewHolder createViewHolder(View v) {
         ViewHolder holder = new ViewHolder();
         holder.txtMessage = (TextView) v.findViewById(R.id.txtMessage);
+        holder.txtMessageDate = (TextView) v.findViewById(R.id.txtMessageDate);
         holder.content = (LinearLayout) v.findViewById(R.id.content);
         holder.contentWithBG = (LinearLayout) v.findViewById(R.id.contentWithBackground);
         holder.txtInfo = (TextView) v.findViewById(R.id.txtInfo);
@@ -137,6 +140,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
 
     private static class ViewHolder {
         public TextView txtMessage;
+        public TextView txtMessageDate;
         public TextView txtInfo;
         public LinearLayout content;
         public LinearLayout contentWithBG;

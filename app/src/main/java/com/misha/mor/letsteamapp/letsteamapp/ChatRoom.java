@@ -34,6 +34,7 @@ public class ChatRoom extends Activity {
     //var
     boolean isReached = false;
     String eventID;
+    String myUserName;
     String myUserID;
     Intent receiver;
     ArrayList<ChatMessage> messages;
@@ -53,6 +54,7 @@ public class ChatRoom extends Activity {
         Intent intent = getIntent();
         eventID = intent.getStringExtra("eventID");
         myUserID = intent.getStringExtra("userID");
+        myUserName = intent.getStringExtra("userName");
 
         //get\create singleton db reference
         fdb = FireBaseDAL.getFireBaseDALInstance();
@@ -216,7 +218,7 @@ public class ChatRoom extends Activity {
     }
     private boolean sendChatMessage() {
 
-        ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID);
+        ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID ,myUserName);
 
         fdb.sendMessage(message);
 

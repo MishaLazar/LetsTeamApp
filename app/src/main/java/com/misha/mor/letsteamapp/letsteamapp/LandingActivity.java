@@ -126,6 +126,7 @@ public class LandingActivity extends Activity {
                             saveInfoToSharedPreferences();
                             intent = new Intent(LandingActivity.this, EventsMenuActivity.class);
                             intent.putExtra("userID",sharedPreferences.getString("userID", ""));
+                            intent.putExtra("userName",sharedPreferences.getString(getString(R.string.userName), ""));
                             startActivity(intent);
                             finish();
                         }
