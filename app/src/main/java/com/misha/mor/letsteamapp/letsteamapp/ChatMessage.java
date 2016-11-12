@@ -1,8 +1,10 @@
 package com.misha.mor.letsteamapp.letsteamapp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.firebase.client.ServerValue;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by Misha on 9/11/2016.
@@ -18,6 +20,7 @@ public class ChatMessage implements Comparable <ChatMessage>{
     String ownerName;
     String dateOnly;
     String timeOnly;
+    long idCounter;
 
 
     public ChatMessage() {
@@ -90,6 +93,14 @@ public class ChatMessage implements Comparable <ChatMessage>{
 
     public String getOwnerName() {
         return ownerName;
+    }
+
+    public long getIdCounter() {
+        return idCounter;
+    }
+
+    public void setIdCounter(long idCounter) {
+        this.idCounter = idCounter;
     }
 
     public void setOwnerName(String ownerName) {
