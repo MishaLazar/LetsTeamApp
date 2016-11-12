@@ -44,6 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
                     android:ems="10"
                     android:id="@+id/etxtContext"
                     android:focusable="false"
@@ -80,6 +81,21 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/etxtLocation" />
 
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Event Starting Date: "
+                    android:id="@+id/txtStartDate" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etxtEventStartDate"
+                    android:inputType="date"/>
             </TableRow>
             <TableRow>
 

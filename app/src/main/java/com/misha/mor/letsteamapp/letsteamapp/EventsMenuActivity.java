@@ -293,6 +293,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 intent.putExtra("eventCreatorEmail",gridArray.get(position).event_Owner_email);
                 intent.putExtra("eventLocation",gridArray.get(position).event_location);
                 intent.putExtra("eventContext",gridArray.get(position).event_Context);
+                intent.putExtra("eventStartDate",gridArray.get(position).event_Start);
                 intent.putExtra("eventEndDate",gridArray.get(position).event_closeDate);
 
                 startActivity(intent);

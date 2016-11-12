@@ -23,6 +23,7 @@ public class EventContext extends AppCompatActivity {
     TextView editTextName;
     TextView editTextLocation;
     TextView editTextEndDate;
+    TextView editTextSatrtDate;
 
     /*ImageButton btn_openEventChat;
     ImageButton btn_ListInForEvent;
@@ -116,6 +117,7 @@ public class EventContext extends AppCompatActivity {
         String eventCreator = intent.getStringExtra("eventCreatorEmail");
         String eventContext = intent.getStringExtra("eventContext");
         String eventLocation = intent.getStringExtra("eventLocation");
+        String eventStartDate = intent.getStringExtra("eventStartDate");
         String eventEndDate = intent.getStringExtra("eventEndDate");
         String eventType = intent.getStringExtra("eventType");
 
@@ -134,6 +136,9 @@ public class EventContext extends AppCompatActivity {
             eventLocation = "Unspecified";
         }
         editTextLocation.setText(eventLocation);
+
+        editTextSatrtDate = (TextView)findViewById(R.id.etxtEventStartDate);
+        editTextSatrtDate.setText(eventStartDate);
 
         editTextEndDate = (TextView)findViewById(R.id.etxtEventEndDate);
         editTextEndDate.setText(eventEndDate);
