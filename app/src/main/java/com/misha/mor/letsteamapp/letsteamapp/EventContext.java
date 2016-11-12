@@ -152,10 +152,10 @@ public class EventContext extends AppCompatActivity {
         int resID = -1;
         switch (caseS){
             case "sport":
-                resID = R.drawable.sportmateriaal;
+                resID = R.drawable.sportbackground;
                 break;
             case "study":
-                resID = R.drawable.study3;
+                resID = R.drawable.studybackground;
                 break;
             case "local trip":
                 resID = R.drawable.trip_camping;
