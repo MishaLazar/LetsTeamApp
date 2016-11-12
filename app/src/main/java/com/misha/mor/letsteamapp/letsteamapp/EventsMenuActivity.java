@@ -78,6 +78,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
                 Intent intent = new Intent(EventsMenuActivity.this,CreateEventActivity.class);
                 intent.putExtra("userID",userID);
+                intent.putExtra("userEmail",sharedPreferences.getString(getString(R.string.userEmail), ""));
                 startActivity(intent);
                 // here we may create new room/event
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -283,6 +284,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 intent.putExtra("eventName",gridArray.get(position).event_DisplayName);
                 //TODO: change event owner to mail address
                 intent.putExtra("eventCreator",gridArray.get(position).event_Owner);
+                intent.putExtra("eventCreatorEmail",gridArray.get(position).event_Owner_email);
                 intent.putExtra("eventLocation",gridArray.get(position).event_location);
                 intent.putExtra("eventContext",gridArray.get(position).event_Context);
                 intent.putExtra("eventEndDate",gridArray.get(position).event_closeDate);

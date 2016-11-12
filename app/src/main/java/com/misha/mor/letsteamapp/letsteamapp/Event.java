@@ -20,6 +20,7 @@ public class Event {
     String event_Type;
     String event_Start;
     String event_End;
+    String event_Owner_email;
 
 
 
@@ -53,13 +54,23 @@ public class Event {
     }
 
 
-    public Event(String event_DisplayName, String event_location, String event_Context, String Type, String StartDate, String EndDate) {
+    public String getEvent_Owner_email() {
+        return event_Owner_email;
+    }
+
+    public void setEvent_Owner_email(String event_Owner_email) {
+        this.event_Owner_email = event_Owner_email;
+    }
+
+    public Event(String event_DisplayName, String event_location, String event_Context, String Type, String StartDate, String EndDate, String OwnerEmail) {
         this.event_DisplayName = event_DisplayName;
         this.event_location = event_location;
         this.event_Context = event_Context;
         this.event_Type = Type;
         this.event_Start = StartDate;
         this.event_End = EndDate;
+        this.event_Owner_email = OwnerEmail;
+
 
         //TODO: do we really do ntags? if just type than need to delete
         //event_Tags = new ArrayList<String>();

@@ -71,7 +71,6 @@ public class CustomGridViewAdapter extends ArrayAdapter<Event> {
                 holder.imageItem.setImageResource(R.drawable.other);
                 break;
         }
-
         holder.roomID = item.getEvent_ID();
         return row;
     }

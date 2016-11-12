@@ -103,7 +103,7 @@ public class EventContext extends AppCompatActivity {
     private void InitEventContext(){
         Intent intent = getIntent();
         String eventName = intent.getStringExtra("eventName");
-        String eventCreator = intent.getStringExtra("eventCreator");
+        String eventCreator = intent.getStringExtra("eventCreatorEmail");
         String eventContext = intent.getStringExtra("eventContext");
         String eventLocation = intent.getStringExtra("eventLocation");
         String eventEndDate = intent.getStringExtra("eventEndDate");

@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/event_create_background"
     tools:context="com.misha.mor.letsteamapp.letsteamapp.CreateEventActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Create an event"
+                android:textColor="@color/mainAppColorSecondary"
                 android:id="@+id/txtEventCreationHeader"
                 android:textStyle="bold"
                 android:textIsSelectable="false"
@@ -34,7 +36,7 @@
             android:id="@+id/ScrollView"
             android:layout_below="@+id/txtEventCreationHeader"
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_height="350dp">
             <TableLayout
                 android:layout_width="match_parent"
