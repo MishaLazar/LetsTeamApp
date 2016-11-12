@@ -21,7 +21,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:layout_height="350dp"> </GridView>
+        android:layout_height="350dp"
+        android:layout_alignParentBottom="true"> </GridView>
 
 
 </RelativeLayout>

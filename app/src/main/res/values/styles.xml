@@ -17,7 +17,10 @@
         <item name="colorControlHighlight">@color/NavigationBarPrimer</item>
         <item name="android:textColor">@color/mainAppColorPrimerDark</item>
     </style>
-
+    <style name="EventHeaderStyle">
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textColor">@color/mainAppColorSecondary</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

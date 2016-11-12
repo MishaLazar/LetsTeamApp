@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,9 +49,9 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        /*requestWindowFeature(Window.FEATURE_NO_TITLE);*/
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         //MyApp.setLocaleEn(EventsMenuActivity.this);
         setContentView(R.layout.activity_chat_room_grid_selector);
 
@@ -115,12 +116,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         //handleIntent(intent);
         return true;
     }
-
-   /*     @Override
-    protected void onNewIntent(Intent intent) {
-        setIntent(intent);
-        handleIntent(intent);
-    }*/
 
     private void handleQuery(Intent intent, String query) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -210,6 +205,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             @Override
             public void onClick(View view) {
                 getGridData();
+               /* tabColorEffect(btnAllEvenets,btnListed,btnMyEvents);*/
             }
         });
 
@@ -218,6 +214,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             @Override
             public void onClick(View view) {
                 fdb.getMyListedEventsState(userID);
+                /*tabColorEffect(btnListed,btnAllEvenets,btnMyEvents);*/
             }
         });
 
@@ -226,6 +223,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             @Override
             public void onClick(View view) {
                 fdb.getMyEventsState(userID);
+               /* tabColorEffect(btnMyEvents,btnAllEvenets,btnListed);*/
             }
         });
 
@@ -255,7 +253,15 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         }
     }
 
-
+    public void tabColorEffect(Button btnInFront,Button btnInBack1,Button btnInBack2){
+        btnInFront.setBackgroundColor(ContextCompat.getColor(this, R.color.mainAppColorSecondary));
+        btnInFront.setTextColor(ContextCompat.getColor(this, R.color.mainAppColorPrimer));
+        btnInBack1.setBackgroundColor(ContextCompat.getColor(this, R.color.mainAppColorPrimer));
+        btnInBack1.setTextColor(ContextCompat.getColor(this, R.color.mainAppColorSecondary));
+        btnInBack2.setBackgroundColor(ContextCompat.getColor(this, R.color.mainAppColorPrimer));
+        btnInBack2.setTextColor(ContextCompat.getColor(this, R.color.mainAppColorSecondary));
+        /*btn.setBackgroundColor(getResources().getColor(R.color.mainAppColorSecondary));*/
+    }
 
     public void updateViewGrid(){
 
@@ -282,7 +288,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 intent.putExtra("eventID",gridArray.get(position).getEvent_ID());
                 intent.putExtra("userID",userID);
                 intent.putExtra("eventName",gridArray.get(position).event_DisplayName);
-                //TODO: change event owner to mail address
+                intent.putExtra("eventType",gridArray.get(position).event_Type);
                 intent.putExtra("eventCreator",gridArray.get(position).event_Owner);
                 intent.putExtra("eventCreatorEmail",gridArray.get(position).event_Owner_email);
                 intent.putExtra("eventLocation",gridArray.get(position).event_location);

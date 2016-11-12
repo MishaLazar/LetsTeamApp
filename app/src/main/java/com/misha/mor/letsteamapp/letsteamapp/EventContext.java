@@ -3,13 +3,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static com.misha.mor.letsteamapp.letsteamapp.R.id.fab;
 
 public class EventContext extends AppCompatActivity {
 
@@ -18,9 +24,12 @@ public class EventContext extends AppCompatActivity {
     TextView editTextLocation;
     TextView editTextEndDate;
 
-    ImageButton btn_openEventChat;
+    /*ImageButton btn_openEventChat;
     ImageButton btn_ListInForEvent;
-    ImageButton btn_showEventLocation;
+    ImageButton btn_showEventLocation;*/
+    FloatingActionButton btn_openEventChat;
+    FloatingActionButton btn_ListInForEvent;
+    FloatingActionButton btn_showEventLocation;
     String userID;
     String eventID;
     Intent intent;
@@ -35,6 +44,7 @@ public class EventContext extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_event_context);
 
 
@@ -107,6 +117,7 @@ public class EventContext extends AppCompatActivity {
         String eventContext = intent.getStringExtra("eventContext");
         String eventLocation = intent.getStringExtra("eventLocation");
         String eventEndDate = intent.getStringExtra("eventEndDate");
+        String eventType = intent.getStringExtra("eventType");
 
 
         editTextContext = (TextView)findViewById(R.id.etxtContext);
@@ -127,9 +138,36 @@ public class EventContext extends AppCompatActivity {
         editTextEndDate = (TextView)findViewById(R.id.etxtEventEndDate);
         editTextEndDate.setText(eventEndDate);
 
+        setIEventImg(eventType);
+
+    }
+    private void setIEventImg(String caseS){
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayoutEvent);
+        int resID = -1;
+        switch (caseS){
+            case "sport":
+                resID = R.drawable.sportmateriaal;
+                break;
+            case "study":
+                resID = R.drawable.study3;
+                break;
+            case "local trip":
+                resID = R.drawable.trip_camping;
+                break;
+            case "night entertainment":
+                resID = R.drawable.night_life2;
+                break;
+            case "abroad":
+                resID = R.drawable.abroad_passport;
+                break;
+            default :
+                resID = R.drawable.diary_event;
+
+        }
+        linearLayout.setBackgroundResource(resID);
     }
     private void InitButtonsPanel(){
-        btn_openEventChat = (ImageButton)findViewById(R.id.btnOpenChat);
+        /*btn_openEventChat = (ImageButton)findViewById(R.id.btnOpenChat);
         if(btn_openEventChat != null){
 
             btn_openEventChat.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +221,47 @@ public class EventContext extends AppCompatActivity {
                 }
 
 
+            }
+        });*/
+        btn_openEventChat = (FloatingActionButton) findViewById(R.id.btnOpenChat);
+        btn_openEventChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(EventContext.this, ChatRoom.class);
+                intent.putExtra("eventID",eventID);
+                intent.putExtra("userID",userID);
+                startActivity(intent);
+            }
+        });
+        btn_ListInForEvent= (FloatingActionButton) findViewById(R.id.btnListIn);
+        btn_ListInForEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(isEventParticipant){
+                    fdb.removeEventParticipant(eventID,userID);
+                    isEventParticipant = false;
+                    btn_ListInForEvent.setImageDrawable
+                            (ContextCompat.getDrawable(EventContext.this,R.drawable.star));
+                }else {
+                    btn_ListInForEvent.setImageDrawable
+                            (ContextCompat.getDrawable(EventContext.this,R.drawable.star_blue_outline));
+
+                    fdb.addEventParticipant(eventID,userID);
+                    isEventParticipant = true;
+                }
+            }
+        });
+        btn_showEventLocation  = (FloatingActionButton) findViewById(R.id.btnShowEventLocation);
+        btn_showEventLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String strEventLocation = editTextLocation.getText().toString();
+                Intent intent = new Intent(EventContext.this, MapsActivity.class);
+                intent.putExtra("eventLocation",strEventLocation);
+                startActivity(intent);
             }
         });
     }
