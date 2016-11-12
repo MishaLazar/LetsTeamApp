@@ -43,8 +43,10 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     //var
     ArrayList<Event> gridArray = new ArrayList<>();
     String userID;
+    String userName;
     SharedPreferences sharedPreferences;
     Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,8 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
         intent = getIntent();
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
-        userID = sharedPreferences.getString(getString(R.string.userID), "");//intent.getStringExtra("userID");
+        userID = sharedPreferences.getString(getString(R.string.userID), "");
+        userName = sharedPreferences.getString(getString(R.string.userName), "");
 
 
 
@@ -287,6 +290,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 Intent intent = new Intent(EventsMenuActivity.this, EventContext.class);
                 intent.putExtra("eventID",gridArray.get(position).getEvent_ID());
                 intent.putExtra("userID",userID);
+                intent.putExtra("userName",userName);
                 intent.putExtra("eventName",gridArray.get(position).event_DisplayName);
                 intent.putExtra("eventType",gridArray.get(position).event_Type);
                 intent.putExtra("eventCreator",gridArray.get(position).event_Owner);
