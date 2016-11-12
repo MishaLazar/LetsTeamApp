@@ -251,7 +251,7 @@ public class FireBaseDBHandler implements Serializable {
 
         }
     }
-    public void getChatIdCounter(String eventID) {
+    public void getChatIdCounter( String eventID) {
 
 
         Firebase EventsNodeRef = fire_db.child(CHAT_ID_COUNTER);
@@ -265,10 +265,12 @@ public class FireBaseDBHandler implements Serializable {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                if(snapshot!=null) {
+                if(snapshot.getValue()!=null) {
                     messageCount = snapshot.getValue(Integer.class);
-
+                }else{
+                    messageCount = 0;
                 }
+
                /* updateEventParticipantCount(eventID,countParticipants);*/
             }
 
