@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context=".EventsMenuActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <!--<android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -21,7 +21,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>-->
     <LinearLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
@@ -63,7 +63,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_input_add" />
 
-    <include layout="@layout/content_chat_room_grid_selector"
-        android:layout_height="404dp" />
+    <include layout="@layout/content_chat_room_grid_selector" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -181,20 +181,7 @@ public class CreateEventActivity extends Activity {
 
 
         }
-        //TODO: maybe switch to expending txt layout in phone looks bad
-     /*   arrayAdapter = new ArrayAdapter<>(
-        this, android.R.layout.simple_dropdown_item_1line,
-                getResources().getStringArray(R.array.array_test));
 
-        textView = (AutoCompleteTextView) findViewById(R.id.cbType);
-        textView.setAdapter(arrayAdapter);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View arg0) {
-                textView.showDropDown();
-            }
-        });
-        */
 
 
     }
