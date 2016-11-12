@@ -15,19 +15,19 @@ public class ChatMessage implements Comparable <ChatMessage>{
     String userId;
     String dateTime;
     String roomID;
-    @JsonIgnore
+    String ownerName;
     String dateOnly;
-    @JsonIgnore
     String timeOnly;
 
 
     public ChatMessage() {
     }
 
-    public ChatMessage(String message,String roomID,String userId) {
+    public ChatMessage(String message,String roomID,String userId,String ownerName) {
         this.roomID = roomID;
         this.message = message;
         this.userId = userId;
+        this.ownerName = ownerName;
         this.dateTime = UtilMethods.getDateTimeSimple();
         this.dateOnly = UtilMethods.getDateSimple();
         this.timeOnly = UtilMethods.getTimeSimple();
@@ -69,11 +69,11 @@ public class ChatMessage implements Comparable <ChatMessage>{
     public String getDate() {
         return dateTime;
     }
-    @JsonIgnore
+  //  @JsonIgnore
     public String getTimeOnly() {
         return timeOnly;
     }
-    @JsonIgnore
+//    @JsonIgnore
     public String getDateOnly() {
         return dateOnly;
     }
@@ -86,5 +86,13 @@ public class ChatMessage implements Comparable <ChatMessage>{
     @Override
     public int compareTo(ChatMessage message) {
         return Comparators.MessageOrder.compare(this, message);
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 }

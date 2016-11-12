@@ -32,6 +32,7 @@ public class EventContext extends AppCompatActivity {
     FloatingActionButton btn_showEventLocation;
     String userID;
     String eventID;
+    String userName;
     Intent intent;
 
     //set with on create //TODO need to create the participant status validation
@@ -52,7 +53,7 @@ public class EventContext extends AppCompatActivity {
         intent = getIntent();
         userID = intent.getStringExtra("userID");
         eventID = intent.getStringExtra("eventID");
-
+        userName = intent.getStringExtra("userName");
 
         //register for broadcast from dal
         innerReceiver = new InnerReceiver(EventContext.this);
@@ -231,6 +232,7 @@ public class EventContext extends AppCompatActivity {
                 Intent intent = new Intent(EventContext.this, ChatRoom.class);
                 intent.putExtra("eventID",eventID);
                 intent.putExtra("userID",userID);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
             }
         });
