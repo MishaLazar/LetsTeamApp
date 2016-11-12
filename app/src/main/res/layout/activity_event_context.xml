@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/event_context_lighter"
+
     tools:context="com.misha.mor.letsteamapp.letsteamapp.EventContext"
     android:layout_alignBaseline="@+id/txtEventName">
 
+    <LinearLayout android:layout_height="200dp"
+        android:layout_width="380dp"
+        android:id="@+id/linearLayoutEvent"
+        ></LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_above="@+id/linearLayout"
-        android:layout_height="420dp">
+        android:layout_height="420dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +29,7 @@
         android:id="@+id/txtEventName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
+        style="@style/EventHeaderStyle"
         android:textIsSelectable="false"
         android:textSize="@dimen/abc_text_size_display_1_material" />
 
@@ -91,17 +97,67 @@
             </TableRow>
         </TableLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/location"
+            android:id="@+id/btnShowEventLocation"
+
+            app:layout_anchorGravity="bottom|right|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+
+            app:backgroundTint="@android:color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/star"
+            android:id="@+id/btnListIn"
+
+
+            app:layout_anchorGravity="bottom|right|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:backgroundTint="@android:color/white"
+            android:layout_alignTop="@+id/btnShowEventLocation"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="29dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/chat"
+            android:id="@+id/btnOpenChat"
+
+            app:layout_anchorGravity="bottom|right|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+
+            app:backgroundTint="@android:color/white"
+            android:layout_alignTop="@+id/btnShowEventLocation"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="36dp" />
+
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@id/linearLayout"
-        android:background="@color/PanelBackground"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+    <!--
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/LayoutFab"
+            android:background="@android:color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">-->
 
-        <Space
+       <!-- <Space
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
@@ -138,9 +194,53 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"/>-->
+
+       <!-- <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/star"
+            android:id="@+id/btnListIn"
 
 
-    </LinearLayout>
+            app:layout_anchorGravity="bottom|right|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="44dp"
+            app:backgroundTint="@android:color/white" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/location"
+            android:id="@+id/btnShowEventLocation"
+
+            app:layout_anchorGravity="bottom|right|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+
+            android:layout_centerHorizontal="true"
+            app:backgroundTint="@android:color/white" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/chat"
+            android:id="@+id/btnOpenChat"
+
+            app:layout_anchorGravity="bottom|right|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="46dp"
+
+            app:backgroundTint="@android:color/white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />-->
+<!--
+    </RelativeLayout>-->
 
 </RelativeLayout>

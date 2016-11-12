@@ -14,14 +14,15 @@
         android:layout_width="fill_parent"
         android:columnWidth="80dp"
         android:gravity="center"
-        android:numColumns="2"
+        android:numColumns="3"
         android:stretchMode="columnWidth"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:layout_height="350dp"> </GridView>
+        android:layout_height="350dp"
+        android:layout_alignParentBottom="true"> </GridView>
 
 
 </RelativeLayout>
