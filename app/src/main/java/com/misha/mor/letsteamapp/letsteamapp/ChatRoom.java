@@ -38,7 +38,8 @@ public class ChatRoom extends Activity {
     String myUserID;
     Intent receiver;
     ArrayList<ChatMessage> messages;
-    boolean fromResume = false;
+    boolean justEntered = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class ChatRoom extends Activity {
         //MyApp.setLocaleEn(ChatRoom.this);
         setContentView(R.layout.activity_chat_room);
 
+        getWindow().setBackgroundDrawable(getDrawable(R.drawable.chat_background5));
         //register innerReceiver for Broadcast
         innerReceiver = new InnerReceiver(ChatRoom.this);
         receiver = registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL)));
@@ -66,7 +68,7 @@ public class ChatRoom extends Activity {
         intAdapter();
 
         /*registerForMessage(eventID);*/
-
+        setChatMessageInitialID(eventID);
 
     }
     @Override
@@ -220,12 +222,17 @@ public class ChatRoom extends Activity {
 
         ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID ,myUserName);
 
+        fdb.addChatMessageIdCounter(message.getRoomID());
         fdb.sendMessage(message);
 
         //clear the text view
         chatText.setText("");
 
         return true;
+    }
+    private void setChatMessageInitialID(String roomID){
+
+        fdb.getChaIdCounter(roomID);
     }
     class InnerReceiver extends BroadcastReceiver {
 

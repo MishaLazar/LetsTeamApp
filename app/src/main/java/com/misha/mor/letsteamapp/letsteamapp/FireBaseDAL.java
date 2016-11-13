@@ -28,6 +28,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
     HashMap<String,ChatMessage> messageMap;
     ArrayList<String> eventTags;
 
+    ChatMessage tempMessage;
 
     Context context;
 
@@ -95,20 +96,28 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
 
     }
+
+    public void getChaIdCounter(String eventID){
+        fdbHandler.getChatIdCounter(eventID);
+    }
+    public void addChatMessageIdCounter(String eventID){
+        fdbHandler.addChatMessageIdCounter(eventID);
+    }
+
     public void sendMessage(ChatMessage message){
 
-        if(message != null){
+        /*if(message != null){
             try{
 
                 fdbHandler.getChatIdCounter(message.getRoomID());
+
                 fdbHandler.addChatMessageIdCounter(message.getRoomID());
 
 
             }catch (Exception exc){
 
                 Log.e("sendMessage(...)" , exc.getMessage().toString());
-
-            }
+            }*/
             try{
 
                 fdbHandler.registerChatRoomMessage(message.getRoomID(),message);
@@ -120,7 +129,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
             }
 
-        }
+
     }
 
     public void registerStateListener() {
@@ -375,6 +384,9 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
             context.sendBroadcast(intent);
         }
     }
+
+
+
     @Override
     public void notifyQueryMessageListener(DataSnapshot snapshot) {
 
