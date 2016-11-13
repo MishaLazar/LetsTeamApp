@@ -74,6 +74,7 @@ public class CustomGridViewAdapter extends ArrayAdapter<Event> {
         holder.roomID = item.getEvent_ID();
         return row;
     }
+
     static class RecordHolder {
         TextView txtTitle;
         ImageView imageItem;

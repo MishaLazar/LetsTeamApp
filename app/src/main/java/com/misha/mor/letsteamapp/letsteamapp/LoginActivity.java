@@ -162,6 +162,7 @@ public class LoginActivity extends Activity {
         editor.putString(getString(R.string.userID),uid);
         editor.commit();
     }
+
     private void updateViews() {
         recreate();
     }

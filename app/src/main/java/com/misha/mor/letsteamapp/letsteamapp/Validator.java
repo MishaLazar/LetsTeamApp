@@ -22,6 +22,7 @@ public class Validator {
         return false;
     }
 
+
     public Boolean isValidPassword(String strPassword){
         if((strPassword != null) && (strPassword.length() > 5)){
             return true;

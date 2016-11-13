@@ -147,6 +147,7 @@ public class EventContext extends AppCompatActivity {
         setIEventImg(eventType);
 
     }
+
     private void setIEventImg(String caseS){
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayoutEvent);
         int resID = -1;

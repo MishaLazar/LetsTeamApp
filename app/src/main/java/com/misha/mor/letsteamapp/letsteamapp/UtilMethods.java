@@ -43,6 +43,7 @@ public class UtilMethods {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         return sdf.format(new Date());
     }
+
     public final static String getTimeSimple() {
         // get date time in custom format
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");

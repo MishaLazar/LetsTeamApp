@@ -32,6 +32,7 @@
                 android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
+
         <ScrollView
             android:id="@+id/ScrollView"
             android:layout_below="@+id/txtEventCreationHeader"

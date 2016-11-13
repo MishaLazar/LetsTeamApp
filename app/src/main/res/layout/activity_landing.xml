@@ -10,6 +10,7 @@
     android:background="@drawable/landing_background"
     tools:context="com.misha.mor.letsteamapp.letsteamapp.LandingActivity">
 
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

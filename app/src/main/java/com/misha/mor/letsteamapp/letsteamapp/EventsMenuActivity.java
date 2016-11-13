@@ -286,7 +286,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
 
-                /*Intent intent = new Intent(EventsMenuActivity.this, ChatRoom.class);*/
                 Intent intent = new Intent(EventsMenuActivity.this, EventContext.class);
                 intent.putExtra("eventID",gridArray.get(position).getEvent_ID());
                 intent.putExtra("userID",userID);

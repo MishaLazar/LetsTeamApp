@@ -148,7 +148,6 @@ public class CreateEventActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     //TODO make tag generic
-
                     String event_displayName = editTextDisplayName.getText().toString();
                     String event_context = editTextContext.getText().toString();
                     String event_city = editTextCity.getText().toString();

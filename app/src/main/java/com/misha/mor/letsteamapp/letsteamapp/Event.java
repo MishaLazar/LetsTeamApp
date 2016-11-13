@@ -62,6 +62,7 @@ public class Event {
         this.event_Owner_email = event_Owner_email;
     }
 
+
     public Event(String event_DisplayName, String event_location, String event_Context, String Type, String StartDate, String EndDate, String OwnerEmail) {
         this.event_DisplayName = event_DisplayName;
         this.event_location = event_location;

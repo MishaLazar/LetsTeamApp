@@ -15,7 +15,6 @@ public class CreateChatRoomActivity extends AppCompatActivity {
     Button room_Reset;
     Switch room_isActive;
 
-
     //DB
     FireBaseDAL fdb;
     String userID;

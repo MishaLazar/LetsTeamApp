@@ -15,7 +15,7 @@
     <LinearLayout android:layout_height="200dp"
         android:layout_width="380dp"
         android:id="@+id/linearLayoutEvent"
-        ></LinearLayout>
+        android:orientation="horizontal"></LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="420dp"
@@ -83,7 +83,6 @@
 
             </TableRow>
             <TableRow>
-
                 <TextView
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"

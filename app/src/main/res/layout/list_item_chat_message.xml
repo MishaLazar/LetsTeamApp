@@ -42,6 +42,5 @@
                 android:maxWidth="240dp" />
 
         </LinearLayout>
-
     </LinearLayout>
 </RelativeLayout>

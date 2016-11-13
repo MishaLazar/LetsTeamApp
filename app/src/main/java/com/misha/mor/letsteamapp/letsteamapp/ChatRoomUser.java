@@ -13,7 +13,6 @@ import java.util.Date;
 
 public class ChatRoomUser implements ValueEventListener {
 
-
     String user_name = "";
     String user_password;
     String user_creatDate = "";

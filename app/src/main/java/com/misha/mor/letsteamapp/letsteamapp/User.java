@@ -13,6 +13,7 @@ public class User {
     String user_creatDate = "";
     String user_deleteDate = "";
 
+
     public User(String sUsername, String sUserUniqueID ,String sPassword, String sEmail) {
         this.sUsername = sUsername;
         this.sUserUniqueID = sUserUniqueID;

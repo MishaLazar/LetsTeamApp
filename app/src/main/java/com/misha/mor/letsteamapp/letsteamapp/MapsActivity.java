@@ -78,7 +78,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
             //Put marker on map on that LatLng
-            //Marker srchMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Destination").icon(BitmapDescriptorFactory.fromResource(R.drawable.bb)));
             Marker srchMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Event Location"));
 
             //Animate and Zoon on that map location
