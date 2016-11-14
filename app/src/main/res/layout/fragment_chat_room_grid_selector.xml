@@ -9,7 +9,6 @@
     tools:context=".EventsMenuActivityFragment"
     tools:showIn="@layout/activity_chat_room_grid_selector">
 
-
     <GridView android:id="@+id/gridView"
         android:layout_width="fill_parent"
         android:columnWidth="80dp"

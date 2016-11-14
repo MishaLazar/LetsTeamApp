@@ -82,6 +82,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
                 Intent intent = new Intent(EventsMenuActivity.this,CreateEventActivity.class);
                 intent.putExtra("userID",userID);
+                intent.putExtra("userEmail",sharedPreferences.getString(getString(R.string.userEmail), ""));
                 startActivity(intent);
                 // here we may create new room/event
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -285,7 +286,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
 
-                /*Intent intent = new Intent(EventsMenuActivity.this, ChatRoom.class);*/
                 Intent intent = new Intent(EventsMenuActivity.this, EventContext.class);
                 intent.putExtra("eventID",gridArray.get(position).getEvent_ID());
                 intent.putExtra("userID",userID);
@@ -293,8 +293,10 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 intent.putExtra("eventName",gridArray.get(position).event_DisplayName);
                 intent.putExtra("eventType",gridArray.get(position).event_Type);
                 intent.putExtra("eventCreator",gridArray.get(position).event_Owner);
+                intent.putExtra("eventCreatorEmail",gridArray.get(position).event_Owner_email);
                 intent.putExtra("eventLocation",gridArray.get(position).event_location);
                 intent.putExtra("eventContext",gridArray.get(position).event_Context);
+                intent.putExtra("eventStartDate",gridArray.get(position).event_Start);
                 intent.putExtra("eventEndDate",gridArray.get(position).event_closeDate);
 
                 startActivity(intent);

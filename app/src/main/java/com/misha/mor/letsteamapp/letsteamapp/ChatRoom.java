@@ -52,7 +52,6 @@ public class ChatRoom extends Activity {
         innerReceiver = new InnerReceiver(ChatRoom.this);
         receiver = registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL)));
 
-
         Intent intent = getIntent();
         eventID = intent.getStringExtra("eventID");
         myUserID = intent.getStringExtra("userID");

@@ -15,7 +15,7 @@
     <LinearLayout android:layout_height="200dp"
         android:layout_width="380dp"
         android:id="@+id/linearLayoutEvent"
-        ></LinearLayout>
+        android:orientation="horizontal"></LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="420dp"
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="My Event"
+        android:textColor="@color/mainAppColorSecondary"
         android:id="@+id/txtEventName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -43,6 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
                     android:ems="10"
                     android:id="@+id/etxtContext"
                     android:focusable="false"
@@ -79,6 +81,20 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/etxtLocation" />
 
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Event Starting Date: "
+                    android:id="@+id/txtStartDate" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etxtEventStartDate"
+                    android:inputType="date"/>
             </TableRow>
             <TableRow>
 

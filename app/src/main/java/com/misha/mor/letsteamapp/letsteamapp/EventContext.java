@@ -23,6 +23,7 @@ public class EventContext extends AppCompatActivity {
     TextView editTextName;
     TextView editTextLocation;
     TextView editTextEndDate;
+    TextView editTextSatrtDate;
 
     /*ImageButton btn_openEventChat;
     ImageButton btn_ListInForEvent;
@@ -114,9 +115,10 @@ public class EventContext extends AppCompatActivity {
     private void InitEventContext(){
         Intent intent = getIntent();
         String eventName = intent.getStringExtra("eventName");
-        String eventCreator = intent.getStringExtra("eventCreator");
+        String eventCreator = intent.getStringExtra("eventCreatorEmail");
         String eventContext = intent.getStringExtra("eventContext");
         String eventLocation = intent.getStringExtra("eventLocation");
+        String eventStartDate = intent.getStringExtra("eventStartDate");
         String eventEndDate = intent.getStringExtra("eventEndDate");
         String eventType = intent.getStringExtra("eventType");
 
@@ -136,21 +138,25 @@ public class EventContext extends AppCompatActivity {
         }
         editTextLocation.setText(eventLocation);
 
+        editTextSatrtDate = (TextView)findViewById(R.id.etxtEventStartDate);
+        editTextSatrtDate.setText(eventStartDate);
+
         editTextEndDate = (TextView)findViewById(R.id.etxtEventEndDate);
         editTextEndDate.setText(eventEndDate);
 
         setIEventImg(eventType);
 
     }
+
     private void setIEventImg(String caseS){
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayoutEvent);
         int resID = -1;
         switch (caseS){
             case "sport":
-                resID = R.drawable.sportmateriaal;
+                resID = R.drawable.sportbackground;
                 break;
             case "study":
-                resID = R.drawable.study3;
+                resID = R.drawable.studybackground;
                 break;
             case "local trip":
                 resID = R.drawable.trip_camping;

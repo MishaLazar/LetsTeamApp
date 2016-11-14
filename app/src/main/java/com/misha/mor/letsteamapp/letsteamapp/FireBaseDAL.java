@@ -233,6 +233,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         }
 
     }
+
     public void getEventTags() {
         synchronized (this){
 

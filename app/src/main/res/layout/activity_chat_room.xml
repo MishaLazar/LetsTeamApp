@@ -17,7 +17,6 @@
         android:divider="@null"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll">
-
     </ListView>
 
     <RelativeLayout

@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
 
+
     String userID;
     TextView chatText;
     List<ChatMessage> chatMessageList = new ArrayList<>();

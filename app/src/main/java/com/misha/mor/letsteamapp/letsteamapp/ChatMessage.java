@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 public class ChatMessage implements Comparable <ChatMessage>{
-
+    
     String id;
     String message;
     String userId;

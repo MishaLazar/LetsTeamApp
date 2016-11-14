@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/event_create_background"
     tools:context="com.misha.mor.letsteamapp.letsteamapp.CreateEventActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Create an event"
+                android:textColor="@color/mainAppColorSecondary"
                 android:id="@+id/txtEventCreationHeader"
                 android:textStyle="bold"
                 android:textIsSelectable="false"
@@ -30,12 +32,13 @@
                 android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
+
         <ScrollView
             android:id="@+id/ScrollView"
             android:layout_below="@+id/txtEventCreationHeader"
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_height="350dp">
+            android:layout_marginTop="30dp"
+            android:layout_height="400dp">
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -56,8 +59,10 @@
                         android:layout_height="40dp"
                         android:inputType="textNoSuggestions"
                         android:ems="10"
+                        android:paddingRight="5dp"
                         android:background="@color/PanelBackground"
-                        android:id="@+id/event_displayName" />
+                        android:id="@+id/event_displayName"/>
+                    <Space android:layout_width="5dp"/>
                 </TableRow>
                 <TableRow>
                     <Space android:layout_height="10dp"/>
@@ -65,22 +70,25 @@
                 <TableRow>
                     <TextView
                         android:layout_width="120dp"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Event Context:"
                         android:id="@+id/txtEventContext"
                         android:singleLine="false"
                         android:layout_alignParentStart="true" />
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:inputType="textMultiLine"
-                        android:ems="10"
-                        android:id="@+id/etxtEventContext"
-                        android:background="@color/PanelBackground"
-                        android:layout_alignTop="@+id/txtEventContext"
-                        android:layout_alignParentEnd="true" />
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/etxtEventContext"
+                            android:paddingRight="5dp"
+                            android:background="@color/PanelBackground"
+                            android:layout_alignTop="@+id/txtEventContext"
+                            android:layout_alignParentEnd="true"
+                            android:scrollbars="vertical"/>
+                    <Space android:layout_width="5dp"/>
                 </TableRow>
                 <TableRow>
                     <Space android:layout_height="10dp"/>
@@ -100,43 +108,45 @@
                         android:inputType="textNoSuggestions"
                         android:background="@color/PanelBackground"
                         android:id="@+id/etxtEventStreet"
+                        android:paddingRight="5dp"
                         android:layout_alignTop="@+id/txtEventStreet" />
+                    <Space android:layout_width="5dp"/>
                 </TableRow>
                 <TableRow>
                     <Space android:layout_height="10dp"/>
                 </TableRow>
                 <TableRow>
                     <TextView
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
+                        android:layout_weight="1"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="House Number:"
                         android:id="@+id/txtEventHouseNum"
                         android:layout_alignParentStart="true" />
 
                     <EditText
-                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="29"
+                        android:maxLength="3"
+                        android:paddingRight="5dp"
                         android:inputType="textNoSuggestions"
                         android:background="@color/PanelBackground"
                         android:id="@+id/etxtEventHouseNum"
                         android:layout_alignTop="@+id/txtEventHouseNum" />
-                </TableRow>
-                <TableRow>
-                    <Space android:layout_height="10dp"/>
-                </TableRow>
-                <TableRow>
+                    <Space android:layout_weight="5"/>
+
                     <TextView
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
+                        android:layout_weight="10"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="City:"
                         android:id="@+id/txtEventCity"
                         android:layout_alignParentStart="true" />
 
                     <EditText
-                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="60"
+                        android:paddingRight="5dp"
                         android:inputType="textNoSuggestions"
                         android:background="@color/PanelBackground"
                         android:id="@+id/etxtEventCity"
@@ -159,7 +169,7 @@
                         android:layout_height="match_parent"
                         android:id="@+id/cbType"
                         android:background="@color/PanelBackground"/>
-
+                    <Space android:layout_width="5dp"/>
                 </TableRow>
                 <TableRow>
                     <Space android:layout_height="10dp"/>
@@ -182,13 +192,14 @@
 
                         android:ems="10"
                         android:id="@+id/pickerStartDateTime" />
+                    <Space android:layout_width="5dp"/>
 
-                   <!-- <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="time"
-                        android:ems="10"
-                        android:id="@+id/pickerStartTime" />-->
+                    <!-- <EditText
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:inputType="time"
+                         android:ems="10"
+                         android:id="@+id/pickerStartTime" />-->
                     <!--
                                         <DatePicker
                                             android:id="@+id/pickerStartDate"
@@ -230,6 +241,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:id="@+id/pickerEndDateTime" />
+                    <Space android:layout_width="5dp"/>
 
                     <!--  <EditText
                           android:layout_width="wrap_content"
@@ -267,7 +279,7 @@
             android:layout_gravity="center_vertical">
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Create event"
                 android:id="@+id/btnCreateEvent"
                 android:layout_alignParentBottom="true"

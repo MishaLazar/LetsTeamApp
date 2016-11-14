@@ -105,11 +105,6 @@ public class RegisterActivity extends AppCompatActivity {
         etxtPass = (EditText)findViewById(R.id.etxtPassword);
 
         etxtEmail = (EditText)findViewById(R.id.etxtEmail);
-
-
-        // use method to save the user
-
-
     }
 
     public Boolean isUserRegistrationValid(){

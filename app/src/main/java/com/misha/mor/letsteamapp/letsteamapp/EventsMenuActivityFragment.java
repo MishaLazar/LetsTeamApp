@@ -14,6 +14,7 @@ public class EventsMenuActivityFragment extends Fragment {
     public EventsMenuActivityFragment() {
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

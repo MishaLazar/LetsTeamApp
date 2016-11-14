@@ -148,7 +148,6 @@ public class CreateEventActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     //TODO make tag generic
-
                     String event_displayName = editTextDisplayName.getText().toString();
                     String event_context = editTextContext.getText().toString();
                     String event_city = editTextCity.getText().toString();
@@ -159,12 +158,15 @@ public class CreateEventActivity extends Activity {
                     String event_Type = editTextType.getText().toString();
 
                     String Location = event_street + " " + event_HouseNumber + ", " + event_city;
+                    Intent intent = getIntent();
+                    String userEmail = intent.getStringExtra(getString(R.string.userEmail));
                     if(Validator.isValidDisplayName(event_displayName)){
                         Event newEvent = new Event(event_displayName
                                 ,Location,event_context
                                 ,event_Type
                                 ,event_StartDate
-                                ,event_EndDate);
+                                ,event_EndDate
+                                ,userEmail);
                         newEvent.setEvent_Owner(userID);
 
                         fdb.registerEvent(newEvent);
