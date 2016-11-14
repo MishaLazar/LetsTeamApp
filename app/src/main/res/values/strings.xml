@@ -54,4 +54,8 @@
     <string name="passHint">Password (6 characters minimum)</string>
     <string name="userEmailHint">Enter Valid Mail</string>
 
+    <!--progress bar-->
+    <string name="userInfo">looking for user info...</string>
+    <string name="updating_eventView">Updating Data..</string>
+
 </resources>

@@ -19,4 +19,5 @@ public interface RoomStateListener {
 
     void getEventState();
 
+    void notifyUserInfoListeners(DataSnapshot snapshot);
 }

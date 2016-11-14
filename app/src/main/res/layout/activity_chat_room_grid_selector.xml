@@ -22,6 +22,7 @@
 
 
     </android.support.design.widget.AppBarLayout>-->
+
     <LinearLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
@@ -55,7 +56,6 @@
 
     </LinearLayout>
 
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -65,5 +65,17 @@
         android:src="@android:drawable/ic_input_add" />
 
     <include layout="@layout/content_chat_room_grid_selector" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        android:layout_width="match_parent"
+        android:layout_height="548dp"
+        android:indeterminate="true"
+        android:layout_marginBottom="19dp"
+        android:indeterminateTint="@color/mainAppColorPrimer"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        tools:visibility="visible" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.support.v7.widget.SearchView;
+import android.widget.ProgressBar;
 
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     String userName;
     SharedPreferences sharedPreferences;
     Intent intent;
+    ProgressBar pBar;
 
 
     @Override
@@ -56,6 +58,11 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         //MyApp.setLocaleEn(EventsMenuActivity.this);
         setContentView(R.layout.activity_chat_room_grid_selector);
+
+        // progress bar start
+        pBar = (ProgressBar) findViewById(R.id.progressBar2);
+        pBar.setVisibility(View.VISIBLE);
+        pBar.bringToFront();
 
         //register for broadcast from dal
         innerReceiver = new InnerReceiver(EventsMenuActivity.this);
@@ -252,7 +259,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
             //update View
             updateViewGrid();
-
+            pBar.setVisibility(View.GONE);
         }
     }
 
