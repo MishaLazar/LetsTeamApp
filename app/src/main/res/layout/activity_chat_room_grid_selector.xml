@@ -66,16 +66,17 @@
 
     <include layout="@layout/content_chat_room_grid_selector" />
 
-    <ProgressBar
+    <!--<ProgressBar
         android:id="@+id/progressBar2"
-        android:layout_width="match_parent"
-        android:layout_height="548dp"
         android:indeterminate="true"
         android:layout_marginBottom="19dp"
         android:indeterminateTint="@color/mainAppColorPrimer"
         android:indeterminateTintMode="src_atop"
         android:visibility="visible"
         android:layout_centerHorizontal="true"
-        tools:visibility="visible" />
-
+        tools:visibility="visible"
+        android:foregroundGravity="center"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+-->
 </android.support.design.widget.CoordinatorLayout>
