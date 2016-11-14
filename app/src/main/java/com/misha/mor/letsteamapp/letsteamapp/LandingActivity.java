@@ -12,6 +12,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,12 +39,23 @@ public class LandingActivity extends Activity {
     String uid;
     String sUserEmail;
     String sPassword;
+    ProgressBar pBar;
+    RelativeLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //MyApp.onCreate(this, "en");
         setContentView(R.layout.activity_landing);
+
+        // progress bar start
+        pBar = (ProgressBar) findViewById(R.id.progressBar);
+        pBar.setVisibility(View.VISIBLE);
+        pBar.bringToFront();
+
+
+        mainLayout = (RelativeLayout) findViewById(R.id.landingLayout);
+
         dbHandler = FireBaseDBHandler.getFireBaseDBHandlerInstance(LandingActivity.this);
         fdb = FireBaseDAL.getFireBaseDALInstance();
         fdb.setFdbHandler(dbHandler);
@@ -105,6 +119,10 @@ public class LandingActivity extends Activity {
             /*intent = new Intent(this, LoginActivity.class);
             startActivity(intent);*/
         }
+
+        //progress bar finish
+        pBar.setVisibility(View.GONE);
+        /*mainLayout.setVisibility(View.VISIBLE);*/
     }
 
     public void signInWithEmailAndPassword (){

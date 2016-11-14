@@ -21,6 +21,21 @@
         <item name="android:textStyle">bold|italic</item>
         <item name="android:textColor">@color/mainAppColorSecondary</item>
     </style>
+    <style name="TextShadow">
+        <item name="android:paddingLeft">4px</item>
+        <item name="android:paddingBottom">4px</item>
+        <item name="android:textColor">@color/HeaderOne</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:shadowColor">@color/mainAppColorPrimer</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">top|center</item>
+        <item name="android:shadowRadius">10</item>
+        <item name="android:maxLines">10</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:background">@color/NavigationBarBackground</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

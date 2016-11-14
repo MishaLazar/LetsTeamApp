@@ -150,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             updateUserBasicProfile();
-            sUsername = user.getDisplayName();
+           /* sUsername = user.getDisplayName();*/
             sUserEmail = user.getEmail();
             //Uri photoUrl = user.getPhotoUrl();
             uid = user.getUid();

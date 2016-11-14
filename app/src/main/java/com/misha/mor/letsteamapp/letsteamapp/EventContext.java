@@ -42,6 +42,7 @@ public class EventContext extends AppCompatActivity {
     //db
     FireBaseDAL fdb; //DAL
     InnerReceiver innerReceiver;
+    boolean isUserInfo = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +116,7 @@ public class EventContext extends AppCompatActivity {
     private void InitEventContext(){
         Intent intent = getIntent();
         String eventName = intent.getStringExtra("eventName");
+		String eventCreatorID = intent.getStringExtra("eventCreator");
         String eventCreator = intent.getStringExtra("eventCreatorEmail");
         String eventContext = intent.getStringExtra("eventContext");
         String eventLocation = intent.getStringExtra("eventLocation");
@@ -123,11 +125,14 @@ public class EventContext extends AppCompatActivity {
         String eventType = intent.getStringExtra("eventType");
 
 
-        editTextContext = (TextView)findViewById(R.id.etxtContext);
+        /*editTextContext = (TextView)findViewById(R.id.etxtContext);
+        editTextContext.setText(eventContext);
+*/
+        editTextContext = (TextView)findViewById(R.id.etxrContext2);
         editTextContext.setText(eventContext);
 
-        editTextName = (TextView)findViewById(R.id.etxtCreatorName);
-        editTextName.setText(eventCreator);
+        /*editTextName = (TextView)findViewById(R.id.etxtCreatorName);
+        editTextName.setText(eventCreator);*/
 
         TextView EventNameHeadrer = (TextView)findViewById(R.id.txtEventName);
         EventNameHeadrer.setText(eventName);
@@ -145,6 +150,7 @@ public class EventContext extends AppCompatActivity {
         editTextEndDate.setText(eventEndDate);
 
         setIEventImg(eventType);
+        getUserInfo(eventCreatorID);
 
     }
 
@@ -153,10 +159,10 @@ public class EventContext extends AppCompatActivity {
         int resID = -1;
         switch (caseS){
             case "sport":
-                resID = R.drawable.sportbackground;
+                resID = R.drawable.sportmateriaal;
                 break;
             case "study":
-                resID = R.drawable.studybackground;
+                resID = R.drawable.study3;
                 break;
             case "local trip":
                 resID = R.drawable.trip_camping;
@@ -174,62 +180,6 @@ public class EventContext extends AppCompatActivity {
         linearLayout.setBackgroundResource(resID);
     }
     private void InitButtonsPanel(){
-        /*btn_openEventChat = (ImageButton)findViewById(R.id.btnOpenChat);
-        if(btn_openEventChat != null){
-
-            btn_openEventChat.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Intent intent = new Intent(EventContext.this, ChatRoom.class);
-                    intent.putExtra("eventID",eventID);
-                    intent.putExtra("userID",userID);
-                    startActivity(intent);
-                }
-            });
-
-        }
-
-        btn_showEventLocation = (ImageButton)findViewById(R.id.btnShowEventLocation);
-        if(btn_showEventLocation != null){
-
-            btn_showEventLocation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //TODO: get real location to put in intent
-                    String strEventLocation = editTextLocation.getText().toString();
-                    if(strEventLocation != "Unspecified"){
-                        Intent intent = new Intent(EventContext.this, MapsActivity.class);
-                        intent.putExtra("eventLocation",strEventLocation);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(getApplicationContext(),"The location wasn't specified.",Toast.LENGTH_SHORT).show();
-                    }
-
-
-                }
-            });
-
-        }
-
-        btn_ListInForEvent = (ImageButton)findViewById(R.id.btnListIn);
-        btn_ListInForEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(isEventParticipant){
-                    fdb.removeEventParticipant(eventID,userID);
-                    isEventParticipant = false;
-                    btn_ListInForEvent.setBackground(getDrawable(R.drawable.star));
-                }else {
-                    btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_outline));
-                    fdb.addEventParticipant(eventID,userID);
-                    isEventParticipant = true;
-                }
-
-
-            }
-        });*/
         btn_openEventChat = (FloatingActionButton) findViewById(R.id.btnOpenChat);
         btn_openEventChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,11 +244,32 @@ public class EventContext extends AppCompatActivity {
             Log.e("innerReceiver", "MyReceiver: broadcast received , listed for");
 
             boolean isListed = intent.getBooleanExtra("isListed",false);
+            isUserInfo = intent.getBooleanExtra("isUserInfo",false);
 
+            if(isUserInfo){
+                updateUserInfo();
+                isUserInfo = false;
+            }
             //update View
             updateView(isListed);
 
+
+
         }
+
+
+    }
+    private  void getUserInfo(String eventCreatorID){
+        fdb.getUserInfo(eventCreatorID);
+    }
+    private void setUserNameView() {
+        editTextName = (TextView) findViewById(R.id.etxtCreatorName);
+        editTextName.setText(userName);
+    }
+
+    private void updateUserInfo() {
+        userName =  fdb.getUserInfo();
+        setUserNameView();
     }
     private void updateView(boolean isListed) {
 

@@ -31,6 +31,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
     ChatMessage tempMessage;
 
     Context context;
+    String eventUserName;
 
     public  FireBaseDAL(){
         this.eventHashMap = new HashMap<>();
@@ -89,6 +90,17 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
         try {
             fdbHandler.registerUser(newUser);
+
+        }catch (Exception exc){
+            Toast.makeText(context,exc.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+    public void getUserInfo(String userID){
+
+        try {
+            fdbHandler.queryUserInfo(this,userID);
 
         }catch (Exception exc){
             Toast.makeText(context,exc.getMessage(),Toast.LENGTH_SHORT).show();
@@ -230,6 +242,34 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
             }
 
+        }
+
+    }
+
+    @Override
+    public void notifyUserInfoListeners(DataSnapshot snapshot) {
+        synchronized (this){
+
+          /*  for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+*/
+                try{
+
+                    eventUserName = snapshot.getValue(String.class);
+
+
+                }catch (Exception exc){
+
+                    Log.e("notifyUserInfoListeners","Incorrect type" + exc.getMessage());
+
+                }
+
+            /*}*/
+        }
+        if(eventUserName!= null && eventUserName.length()>0){
+            // broadcast to all listeners
+            Intent intent = new Intent("com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_LISTED");
+            intent.putExtra("isUserInfo",true);
+            context.sendBroadcast(intent);
         }
 
     }
@@ -431,4 +471,10 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         return eventTags;
     }
 
+    public String getUserInfo() {
+        String tempUserName =eventUserName;
+        eventUserName = "";
+        return  tempUserName;
+
+    }
 }
