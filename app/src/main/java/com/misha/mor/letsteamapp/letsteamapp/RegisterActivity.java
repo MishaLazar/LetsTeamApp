@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -53,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etxtPass;
     EditText etxtEmail;
     Button btnSignUp;
-    Button btnCamera;
+    ImageButton btnImage;
     ImageView mImageView;
     ImageView mImageView2;
 
@@ -101,8 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         etxtEmail = (EditText)findViewById(R.id.etxtEmail);
 
-        mImageView = (ImageView)findViewById(R.id.imageView);
-        mImageView2 = (ImageView)findViewById(R.id.imageView2);
+        //mImageView = (ImageView)findViewById(R.id.imageView);
+        //mImageView2 = (ImageView)findViewById(R.id.imageView2);
 
         btnSignUp = (Button)findViewById(R.id.btnSignUp);
         if(btnSignUp != null){
@@ -142,8 +144,8 @@ public class RegisterActivity extends AppCompatActivity {
             });
         }
 
-        btnCamera = (Button)findViewById(R.id.btnCamera);
-        btnCamera.setOnClickListener(new View.OnClickListener() {
+        btnImage = (ImageButton)findViewById(R.id.btnImage);
+        btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkPermission(MY_PERMISSION_WRITE_EXTERNAL)) {
@@ -322,7 +324,7 @@ public class RegisterActivity extends AppCompatActivity {
                 getContentResolver().notifyChange(selectedImage, null);
                 reducedSizeBitmap = getBitmap(imageToUploadUri.getPath());
                 if(reducedSizeBitmap != null){
-                    mImageView.setImageBitmap(ImageConverter.getRoundedCornerBitmap(reducedSizeBitmap,60));
+                    btnImage.setImageBitmap(ImageConverter.getRoundedCornerBitmap(reducedSizeBitmap,60));
                     /*mImageView.setImageBitmap(RoundedImageView.getCroppedBitmap(reducedSizeBitmap,90));*/
                 }else{
                     Toast.makeText(this,"Error while capturing Image",Toast.LENGTH_LONG).show();
@@ -369,8 +371,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void setPic() {
         // Get the dimensions of the View
-        int targetW = mImageView.getWidth();
-        int targetH = mImageView.getHeight();
+        int targetW = btnImage.getWidth();
+        int targetH = btnImage.getHeight();
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -388,8 +390,8 @@ public class RegisterActivity extends AppCompatActivity {
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-
-        mImageView.setImageBitmap(bitmap);
+        BitmapDrawable BitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+        btnImage.setBackground(BitmapDrawable);
     }
     private Bitmap getBitmap(String path) {
 
