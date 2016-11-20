@@ -2,11 +2,13 @@ package com.misha.mor.letsteamapp.letsteamapp;
 
 import android.content.Context;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -69,10 +71,22 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         //for side selections
         int myMsg = checkIsMe(chatMessage.getUserId());
 
-        setAlignment(holder, myMsg);
+        try {
+            setAlignment(holder, myMsg);
+        }catch (Exception exc){
+            Log.d("chatAdapter",exc.getMessage());
+            exc.getStackTrace();
+        }
+
         holder.txtMessage.setText(chatMessage.getMessage() );
         holder.txtMessageDate.setText(" "+chatMessage.getTimeOnly());
         holder.txtInfo.setText(chatMessage.getOwnerName());
+        holder.messageOwnerProfilePic.setImageBitmap(
+                ImageConverter.getRoundedCornerBitmap(ImageConverter.StringToBitMap(
+                        chatMessage.getBitmapStringUserPic()),40));
+        /*holder.messageOwnerProfilePic.setImageBitmap(
+                ImageConverter.StringToBitMap(
+                        chatMessage.getBitmapStringUserPic()));*/
         //holder.txtInfo.setText(chatMessage.getDate());
 
         return convertView;
@@ -114,6 +128,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
             layoutParams.gravity = Gravity.LEFT;
             holder.contentWithBG.setLayoutParams(layoutParams);
 
+
             RelativeLayout.LayoutParams lp =
                     (RelativeLayout.LayoutParams) holder.content.getLayoutParams();
             lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
@@ -136,6 +151,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         holder.content = (LinearLayout) v.findViewById(R.id.content);
         holder.contentWithBG = (LinearLayout) v.findViewById(R.id.contentWithBackground);
         holder.txtInfo = (TextView) v.findViewById(R.id.txtInfo);
+        holder.messageOwnerProfilePic = (ImageView)v.findViewById(R.id.imgProfilePic);
         return holder;
     }
 
@@ -143,6 +159,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         public TextView txtMessage;
         public TextView txtMessageDate;
         public TextView txtInfo;
+        public ImageView messageOwnerProfilePic;
         public LinearLayout content;
         public LinearLayout contentWithBG;
     }
