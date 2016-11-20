@@ -14,7 +14,9 @@
             android:layout_height="30sp"
             android:layout_gravity="right"
             android:textSize="15sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
         <LinearLayout
             android:id="@+id/contentWithBackground"
@@ -24,7 +26,9 @@
             android:background="@drawable/in_message_bg"
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp">
 
             <TextView
                 android:id="@+id/txtMessage"

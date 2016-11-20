@@ -23,5 +23,18 @@
         android:layout_height="350dp"
         android:layout_alignParentBottom="true"> </GridView>
 
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/mainAppColorPrimer"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:foregroundGravity="center"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="134dp"
+        android:layout_alignTop="@+id/gridView"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
