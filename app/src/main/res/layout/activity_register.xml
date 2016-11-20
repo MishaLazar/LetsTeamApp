@@ -18,16 +18,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="And start right now!"
-        android:id="@+id/txtHeaderSecond"
-        android:layout_below="@+id/txtHeaderRegister"
-        android:layout_centerHorizontal="true"
-        android:singleLine="true"
-        android:textSize="@dimen/abc_text_size_title_material" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,5 +92,35 @@
         android:layout_below="@+id/etxtPassword"
         android:layout_alignStart="@+id/etxtPassword"
         android:layout_marginTop="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="And start right now!"
+        android:id="@+id/txtHeaderSecond"
+        android:singleLine="true"
+        android:textSize="@dimen/abc_text_size_title_material"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/txtHeaderRegister"
+        android:layout_centerHorizontal="true" />
+
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/txtHeaderRegister"
+        android:layout_alignStart="@+id/imageView2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile Pic"
+        android:id="@+id/btnCamera"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:theme="@style/MyButton"
+        android:layout_above="@+id/btnSignUp"
+        android:layout_alignEnd="@+id/btnSignUp"
+        android:layout_marginBottom="22dp" />
 
 </RelativeLayout>
