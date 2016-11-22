@@ -20,6 +20,7 @@ public class ChatMessage implements Comparable <ChatMessage>{
     String ownerName;
     String dateOnly;
     String timeOnly;
+    String bitmapStringUserPic;
     long idCounter;
 
 
@@ -105,5 +106,13 @@ public class ChatMessage implements Comparable <ChatMessage>{
 
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
+    }
+
+    public String getBitmapStringUserPic() {
+        return bitmapStringUserPic;
+    }
+
+    public void setBitmapStringUserPic(String bitmapStringUserPic) {
+        this.bitmapStringUserPic = bitmapStringUserPic;
     }
 }

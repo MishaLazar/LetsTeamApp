@@ -5,7 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,13 +17,18 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+
+import java.io.File;
 import java.util.ArrayList;
 
 
 public class ChatRoom extends Activity {
 
     //class instances
+    /*ChatArrayAdapter chatArrayAdapter;*/
     ChatArrayAdapter chatArrayAdapter;
     FireBaseDAL fdb;
     InnerReceiver innerReceiver;
@@ -37,8 +44,10 @@ public class ChatRoom extends Activity {
     String myUserName;
     String myUserID;
     Intent receiver;
+
     ArrayList<ChatMessage> messages;
     boolean justEntered = true;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -47,11 +56,11 @@ public class ChatRoom extends Activity {
         //MyApp.setLocaleEn(ChatRoom.this);
         setContentView(R.layout.activity_chat_room);
 
-        getWindow().setBackgroundDrawable(getDrawable(R.drawable.chat_background5));
+        getWindow().setBackgroundDrawable(getDrawable(R.drawable.chat_background65));
         //register innerReceiver for Broadcast
         innerReceiver = new InnerReceiver(ChatRoom.this);
         receiver = registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL)));
-
+        sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
         Intent intent = getIntent();
         eventID = intent.getStringExtra("eventID");
         myUserID = intent.getStringExtra("userID");
@@ -74,6 +83,7 @@ public class ChatRoom extends Activity {
     public void onResume() {
         super.onResume();
         /*listView.setAdapter(null);*/
+        /*chatArrayAdapter.clearListAdapter();*/
         chatArrayAdapter.clearListAdapter();
         registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL)));
         registerForMessage(eventID);
@@ -219,7 +229,16 @@ public class ChatRoom extends Activity {
     }
     private boolean sendChatMessage() {
 
-        ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID ,myUserName);
+        String userName = sharedPreferences.getString(getString(R.string.userName),"");
+        ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID ,userName);
+        /*ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID ,myUserName);*/
+
+        String imageToUploadUri = sharedPreferences.getString(getString(R.string.userProfilePicPath),"");
+        if (imageToUploadUri != null && imageToUploadUri.length() > 0) {
+            Bitmap userImage = ImageConverter.getBitmap(imageToUploadUri, ChatRoom.this);
+            Bitmap reducedSizeBitmap = ImageConverter.getResizedBitmap(userImage);
+            message.setBitmapStringUserPic(ImageConverter.BitMapToString(reducedSizeBitmap));
+        }
 
         fdb.addChatMessageIdCounter(message.getRoomID());
         fdb.sendMessage(message);
@@ -267,5 +286,6 @@ public class ChatRoom extends Activity {
 
         fdb.clearMessageMap();
     }
+
 
 }

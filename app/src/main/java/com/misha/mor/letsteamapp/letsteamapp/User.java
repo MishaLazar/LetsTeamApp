@@ -8,7 +8,7 @@ public class User {
     String sPassword;
     String sUserUniqueID;
     String sEmail;
-
+    String bitMapUserImage;
     String user_ID;
     String user_creatDate = "";
     String user_deleteDate = "";
@@ -76,5 +76,13 @@ public class User {
 
     public void setUser_deleteDate(String user_deleteDate) {
         this.user_deleteDate = user_deleteDate;
+    }
+
+    public String getBitMapUserImage() {
+        return bitMapUserImage;
+    }
+
+    public void setBitMapUserImage(String bitMapUserImage) {
+        this.bitMapUserImage = bitMapUserImage;
     }
 }

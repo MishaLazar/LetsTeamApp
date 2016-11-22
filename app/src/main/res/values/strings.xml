@@ -32,6 +32,7 @@
     <string name="userEmail">userEmail</string>
     <string name="userPassword">userPassword</string>
     <string name="userID">userID</string>
+    <string name="userProfilePicPath">ProfilePicPath</string>
     //broadcast string
     <string name="BROADCAST_ACTION_POLL">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL</string>
     <string name="BROADCAST_ACTION_POLL_ROOMS">com.misha.mor.letsteamapp.letsteamapp.BROADCAST_ACTION_POLL_ROOMS</string>
