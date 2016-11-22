@@ -41,10 +41,6 @@ public class Comparators {
         @Override
         public int compare(ChatMessage o1, ChatMessage o2) {
             if (o1.getIdCounter() == o2.getIdCounter()) {
-                /*if (timeSpliter(o1.getDate()) > timeSpliter(o2.getDate())) {
-                    return 1;
-                } else
-                    return -1;*/
                 return 0;
             } else if (o1.getIdCounter() > o2.getIdCounter()) {
                 return 1;

@@ -55,19 +55,4 @@ public class UtilMethods {
         return m.find();
     }
 
-    /*public void convertHashmapIntoArrayLit(HashMap<?,?> hashMap){
-        // Converting HashMap Values into ArrayList
-        List<?> valueList = new ArrayList<>(hashMap.values());
-        System.out.println("\n==> Size of Value list: " + valueList.size());
-        for (Objecttemp : valueList) {
-            System.out.println(temp);
-        }
-
-        List<Entry> entryList = new ArrayList<Entry>(companyDetails.entrySet());
-        System.out.println("\n==> Size of Entry list: " + entryList.size());
-        for (Entry temp : entryList) {
-            System.out.println(temp);
-        }
-    }*/
-
 }

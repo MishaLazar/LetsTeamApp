@@ -117,20 +117,7 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
     }
 
     public void sendMessage(ChatMessage message){
-
-        /*if(message != null){
-            try{
-
-                fdbHandler.getChatIdCounter(message.getRoomID());
-
-                fdbHandler.addChatMessageIdCounter(message.getRoomID());
-
-
-            }catch (Exception exc){
-
-                Log.e("sendMessage(...)" , exc.getMessage().toString());
-            }*/
-            try{
+         try{
 
                 fdbHandler.registerChatRoomMessage(message.getRoomID(),message);
 
@@ -263,7 +250,6 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
                 }
 
-            /*}*/
         }
         if(eventUserName!= null && eventUserName.length()>0){
             // broadcast to all listeners
@@ -300,7 +286,6 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
 
             try {
 
-                //fdbHandler.queryIsEventListed(this,participantID,eventID);
                 fdbHandler.queryIfUserListedForEvent(this,participantID,eventID);
 
 

@@ -159,10 +159,10 @@ public class EventContext extends AppCompatActivity {
         int resID = -1;
         switch (caseS){
             case "sport":
-                resID = R.drawable.sportmateriaal;
+                resID = R.drawable.sportbackground;
                 break;
             case "study":
-                resID = R.drawable.study3;
+                resID = R.drawable.studybackground;
                 break;
             case "local trip":
                 resID = R.drawable.trip_camping;
@@ -215,11 +215,16 @@ public class EventContext extends AppCompatActivity {
         btn_showEventLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String strEventLocation = editTextLocation.getText().toString();
-                Intent intent = new Intent(EventContext.this, MapsActivity.class);
-                intent.putExtra("eventLocation",strEventLocation);
-                startActivity(intent);
+                if(!strEventLocation.equals("Unspecified"))
+                {
+                    Intent intent = new Intent(EventContext.this, MapsActivity.class);
+                    intent.putExtra("eventLocation",strEventLocation);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(EventContext.this, "The location was not specified.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

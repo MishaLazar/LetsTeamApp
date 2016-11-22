@@ -53,10 +53,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*requestWindowFeature(Window.FEATURE_NO_TITLE);*/
-        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
-        //MyApp.setLocaleEn(EventsMenuActivity.this);
         setContentView(R.layout.activity_chat_room_grid_selector);
 
         // progress bar start
@@ -91,9 +87,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
                 intent.putExtra("userID",userID);
                 intent.putExtra("userEmail",sharedPreferences.getString(getString(R.string.userEmail), ""));
                 startActivity(intent);
-                // here we may create new room/event
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
             }
         });
 
@@ -123,7 +116,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        //handleIntent(intent);
         return true;
     }
 
@@ -150,7 +142,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     public void onResume() {
         super.onResume();
         registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL_ROOMS)));
-        /*registerRoomStateListener();*/
 
     }
     @Override
@@ -162,11 +153,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
             Log.e("onPause","unregisterReceiver(innerReceiver) " +exc.getMessage());
         }
-/*
-
-        unregisterRoomStateListener();
-*/
-
 
     }
     @Override
@@ -179,10 +165,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             Log.e("onBack","unregisterReceiver(innerReceiver)");
         }
 
-     /*   unregisterRoomStateListener();
-*/
-
-
     }
 
     private void getGridData(){
@@ -190,24 +172,9 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         fdb.getEventState();
     }
 
-/*
-    @Override
-    public void registerRoomStateListener() {
-        fdb.registerStateListener();
-    }
-
-    @Override
-    public void unregisterRoomStateListener() {
-        fdb.unregisterStateListener(this);
-    }*/
-
     public void getEvents() {
         gridArray =  new ArrayList<>(fdb.getEventHashMap().values());    }
 
-    /*@Override
-    public void notifyListener() {
-        getEvents();
-    }*/
     private void initViews(){
 
         btnAllEvenets = (Button)findViewById(R.id.btnAllEvents);
@@ -215,7 +182,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             @Override
             public void onClick(View view) {
                 getGridData();
-               /* tabColorEffect(btnAllEvenets,btnListed,btnMyEvents);*/
             }
         });
 
@@ -224,7 +190,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             @Override
             public void onClick(View view) {
                 fdb.getMyListedEventsState(userID);
-                /*tabColorEffect(btnListed,btnAllEvenets,btnMyEvents);*/
             }
         });
 
@@ -233,7 +198,6 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             @Override
             public void onClick(View view) {
                 fdb.getMyEventsState(userID);
-               /* tabColorEffect(btnMyEvents,btnAllEvenets,btnListed);*/
             }
         });
 
@@ -263,21 +227,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         }
     }
 
-    public void tabColorEffect(Button btnInFront,Button btnInBack1,Button btnInBack2){
-        btnInFront.setBackgroundColor(ContextCompat.getColor(this, R.color.mainAppColorSecondary));
-        btnInFront.setTextColor(ContextCompat.getColor(this, R.color.mainAppColorPrimer));
-        btnInBack1.setBackgroundColor(ContextCompat.getColor(this, R.color.mainAppColorPrimer));
-        btnInBack1.setTextColor(ContextCompat.getColor(this, R.color.mainAppColorSecondary));
-        btnInBack2.setBackgroundColor(ContextCompat.getColor(this, R.color.mainAppColorPrimer));
-        btnInBack2.setTextColor(ContextCompat.getColor(this, R.color.mainAppColorSecondary));
-        /*btn.setBackgroundColor(getResources().getColor(R.color.mainAppColorSecondary));*/
-    }
-
     public void updateViewGrid(){
-
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);*/
         //TODO take care duplication in notifications
         gridView = (GridView) findViewById(R.id.gridView);
 

@@ -36,10 +36,6 @@ public class CustomGridViewAdapter extends ArrayAdapter<Event> {
             holder = new RecordHolder();
             holder.txtTitle = (TextView) row.findViewById(R.id.item_text);
             holder.imageItem = (ImageView) row.findViewById(R.id.item_image);
-           /* holder.imageItem.getLayoutParams().height = R.integer.IMAGE_HEIGHT;
-            holder.imageItem.getLayoutParams().width = R.integer.IMAGE_WIDTH;
-            holder.imageItem.setScaleType(ImageView.ScaleType.FIT_XY);*/
-
 
             row.setTag(holder);
         } else {

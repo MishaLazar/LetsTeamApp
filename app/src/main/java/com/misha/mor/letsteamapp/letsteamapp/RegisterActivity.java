@@ -45,10 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     final String TAG = "RegisterActivity";
 
-    final int CAMERA_PHOTO = 111;
     final int MY_PERMISSION_WRITE_EXTERNAL = 90;
     final int MY_PERMISSION_LOCATION = 99;
-    final int REQUEST_IMAGE_CAPTURE = 1;
     final int REQUEST_TAKE_PHOTO = 1;
     String mCurrentPhotoPath;
     Uri imageToUploadUri;
@@ -59,7 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etxtEmail;
     Button btnSignUp;
     ImageButton btnImage;
-    /*ImageView mImageView;*/
 
 
     //vars
@@ -74,7 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
     FireBaseDAL fdb; //DAL
 
     FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
     SharedPreferences sharedPreferences;
     Bitmap reducedSizeBitmap;
     File photoFile;
@@ -85,13 +81,11 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //MyApp.setLocaleEn(RegisterActivity.this);
         setContentView(R.layout.activity_register);
 
         initViews();
         checkPermission(MY_PERMISSION_LOCATION);
 
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         //initialize data DAL
         fdb = FireBaseDAL.getFireBaseDALInstance();
@@ -108,8 +102,6 @@ public class RegisterActivity extends AppCompatActivity {
         etxtPass = (EditText)findViewById(R.id.etxtPassword);
 
         etxtEmail = (EditText)findViewById(R.id.etxtEmail);
-/*
-        mImageView = (ImageView)findViewById(R.id.imgProfilePic);*/
 
         btnSignUp = (Button)findViewById(R.id.btnSignUp);
         if(btnSignUp != null){
@@ -141,10 +133,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 });
 
                     }
-                    /*
-                    fdb.registerUser(createUser());
-                    intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);*/
                 }
             });
         }
@@ -155,11 +143,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (checkPermission(MY_PERMISSION_WRITE_EXTERNAL)) {
                     dispatchTakePictureIntent();
-
-                    //captureCameraImage();
                 }
                 setPic();
-                /*galleryAddPic();*/
 
             }
         });
@@ -170,7 +155,6 @@ public class RegisterActivity extends AppCompatActivity {
         switch (my_permission_code) {
             case MY_PERMISSION_WRITE_EXTERNAL: {
                 if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    /*Log.i(TAG, "No write permission, requesting permission");*/
                     ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_WRITE_EXTERNAL);
                     return false;
                 }
@@ -180,7 +164,6 @@ public class RegisterActivity extends AppCompatActivity {
                 if (ContextCompat.checkSelfPermission(this,
                         android.Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
-                   /* Log.i(TAG, "No location permission, requesting permission");*/
                     ActivityCompat.requestPermissions(this,
                             new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                             MY_PERMISSION_LOCATION);
@@ -219,17 +202,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void storeUserInfo(){
-        /*String sUsername = etxtUser.getText().toString();
-        String sUserUniqueID = etxtPass.getText().toString();
-        String sUserEmail = etxtEmail.getText().toString();*/
-
-
-        /*Drawable res = btnImage.getBackground();
-        if(res == getDrawable(R.drawable.default_man)){
-            imageStatus = true;
-        }*/
-
-
         newUser = new User(sUsername,uid,sPassword, sUserEmail);
         if(newUser != null && imageStatus){
             newUser.setBitMapUserImage(ImageConverter.BitMapToString(reducedSizeBitmap));
@@ -252,9 +224,7 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             updateUserBasicProfile();
-           /* sUsername = user.getDisplayName();*/
             sUserEmail = user.getEmail();
-            //Uri photoUrl = user.getPhotoUrl();
             uid = user.getUid();
             storeUserInfo();
             saveInfoToSharedPreferences();
@@ -277,7 +247,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(sUsername)
-                /*.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))*/
                 .build();
 
         user.updateProfile(profileUpdates)
@@ -314,27 +283,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
-    private void captureCameraImage() {
-        /*Intent chooserIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);*/
-        /*File f = new File(Environment.getExternalStorageDirectory(), "POST_IMAGE.jpg");
-        chooserIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-        imageToUploadUri = Uri.fromFile(f);
-        startActivityForResult(chooserIntent, CAMERA_PHOTO);*/
-    }
-    //receive the image after
-   /* @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            try{
-                *//*Bundle extras = data.getExtras();*//*
-                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
-                *//*mImageView.setImageBitmap(imageBitmap);*//*
-                mImageView.setImageBitmap(RoundedImageView.getCroppedBitmap(imageBitmap,40));
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -345,16 +294,13 @@ public class RegisterActivity extends AppCompatActivity {
                 imageToUploadUri = Uri.fromFile(photoFile);
                 getContentResolver().notifyChange(selectedImage, null);
                 reducedSizeBitmap = getBitmap(imageToUploadUri.getPath());
-                /*reducedSizeBitmap = ImageConverter.getResizedBitmap(getBitmap(imageToUploadUri.getPath()),
-                        PX_HEIGHT,PX_WIDTH);*/
                 if(reducedSizeBitmap != null){
                     imageStatus = true;
                     BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(),
                             ImageConverter.getRoundedCornerBitmap(reducedSizeBitmap,60));
-                    /*btnImage.setImageBitmap(ImageConverter.getRoundedCornerBitmap(reducedSizeBitmap,60));*/
+
                     btnImage.setBackground(bitmapDrawable);
-                   /* storeImage(getBitmap(imageToUploadUri.getPath()));*/
-                    /*mImageView.setImageBitmap(RoundedImageView.getCroppedBitmap(reducedSizeBitmap,90));*/
+
                 }else{
                     Toast.makeText(this,"Error while capturing Image",Toast.LENGTH_LONG).show();
                 }
@@ -368,7 +314,6 @@ public class RegisterActivity extends AppCompatActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        /*File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);*/
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_DCIM);
         storageDir.mkdirs();
         File image = File.createTempFile(
@@ -381,14 +326,6 @@ public class RegisterActivity extends AppCompatActivity {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
-    //add image taken to gallery dir
-   /* private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }*/
 
     private void setPic() {
         // Get the dimensions of the View

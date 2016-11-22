@@ -41,7 +41,6 @@ public class CreateEventActivity extends Activity {
     TextView pickerTextEndDate;
     Button btnTextStartTime;
     Button btnTextEndTime;
-    //EditText editTextType;
     AutoCompleteTextView editTextType;
     ArrayAdapter<String> arrayAdapter;
     Button btn_creatEvent;
@@ -62,7 +61,6 @@ public class CreateEventActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //MyApp.setLocaleEn(CreateEventActivity.this);
         setContentView(R.layout.activity_create_event);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Intent intent = getIntent();
@@ -122,7 +120,6 @@ public class CreateEventActivity extends Activity {
         editTextCity = (EditText)findViewById(R.id.etxtEventCity);
         editTextStreet = (EditText)findViewById(R.id.etxtEventStreet);
         editTextHouseNumber = (EditText)findViewById(R.id.etxtEventHouseNum);
-        /*editTextType = (AutoCompleteTextView) findViewById(R.id.cbType);;*/
         pickerTextEndDate = (TextView) findViewById(R.id.pickerEndDateTime);
         pickerTextStartDate = (TextView) findViewById(R.id.pickerStartDateTime);
         btnTextEndTime = (Button)findViewById(R.id.btnEventEndDate);
@@ -147,7 +144,6 @@ public class CreateEventActivity extends Activity {
             btn_creatEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO make tag generic
                     String event_displayName = editTextDisplayName.getText().toString();
                     String event_context = editTextContext.getText().toString();
                     String event_city = editTextCity.getText().toString();
@@ -243,7 +239,6 @@ public class CreateEventActivity extends Activity {
 
 
             //update View
-            //updateView(isListed);
             updateTagPecker();//pecker
         }
     }

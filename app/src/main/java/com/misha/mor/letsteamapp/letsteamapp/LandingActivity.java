@@ -45,7 +45,6 @@ public class LandingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //MyApp.onCreate(this, "en");
         setContentView(R.layout.activity_landing);
 
         // progress bar start
@@ -60,7 +59,6 @@ public class LandingActivity extends Activity {
         fdb = FireBaseDAL.getFireBaseDALInstance();
         fdb.setFdbHandler(dbHandler);
         mAuth = FirebaseAuth.getInstance();
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         intViews();
@@ -71,14 +69,6 @@ public class LandingActivity extends Activity {
     }
 
     public void intViews(){
-
-        /*Button btnLanguage = (Button)findViewById(R.id.btnLanguage);
-        btnLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setLocale("en");
-            }
-        });*/
         Button btnLogin = (Button)findViewById(R.id.btnSignUp);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,13 +106,10 @@ public class LandingActivity extends Activity {
 
         if((sUserEmail != null && sUserEmail.length()>0)&& (sPassword !=null&& sPassword.length()>0)) { // use a method for authenticate or maybe savelogin == true?
             signInWithEmailAndPassword();
-            /*intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);*/
         }
 
         //progress bar finish
         pBar.setVisibility(View.GONE);
-        /*mainLayout.setVisibility(View.VISIBLE);*/
     }
 
     public void signInWithEmailAndPassword (){
@@ -157,7 +144,6 @@ public class LandingActivity extends Activity {
         if (user != null) {
             sUsername = user.getDisplayName();
             sEmail = user.getEmail();
-            //Uri photoUrl = user.getPhotoUrl();
             uid = user.getUid();
 
         }
