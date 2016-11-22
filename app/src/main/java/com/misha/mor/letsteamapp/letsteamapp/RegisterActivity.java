@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,8 +34,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -41,14 +41,12 @@ import java.util.Date;
 
 
 public class RegisterActivity extends AppCompatActivity {
-
-    final String TAG = "RegisterActivity";
-
-    final int CAMERA_PHOTO = 111;
+    static final int CAMERA_PHOTO = 111;
     final int MY_PERMISSION_WRITE_EXTERNAL = 90;
     final int MY_PERMISSION_LOCATION = 99;
-    final int REQUEST_IMAGE_CAPTURE = 1;
-    final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 1;
+    final int PIC_CROP = 1;
     String mCurrentPhotoPath;
     Uri imageToUploadUri;
 
@@ -57,9 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etxtPass;
     EditText etxtEmail;
     Button btnSignUp;
-    Button btnCamera;
+    ImageButton btnImage;
     ImageView mImageView;
-
+    ImageView mImageView2;
 
     //vars
     String sUsername;
@@ -76,8 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener mAuthListener;
     SharedPreferences sharedPreferences;
     Bitmap reducedSizeBitmap;
-    File photoFile;
-    Button btnSavePic;
 
 
     @Override
@@ -107,7 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         etxtEmail = (EditText)findViewById(R.id.etxtEmail);
 
-        mImageView = (ImageView)findViewById(R.id.imageView);
+        //mImageView = (ImageView)findViewById(R.id.imageView);
+        //mImageView2 = (ImageView)findViewById(R.id.imageView2);
 
         btnSignUp = (Button)findViewById(R.id.btnSignUp);
         if(btnSignUp != null){
@@ -147,25 +144,16 @@ public class RegisterActivity extends AppCompatActivity {
             });
         }
 
-        btnCamera = (Button)findViewById(R.id.btnCamera);
-        btnCamera.setOnClickListener(new View.OnClickListener() {
+        btnImage = (ImageButton)findViewById(R.id.btnImage);
+        btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkPermission(MY_PERMISSION_WRITE_EXTERNAL)) {
-                    dispatchTakePictureIntent();
-                    //captureCameraImage();
+//                    dispatchTakePictureIntent();
+                    captureCameraImage();
                 }
                 setPic();
                 /*galleryAddPic();*/
-
-            }
-        });
-
-        btnSavePic = (Button)findViewById(R.id.btnSavePic);
-        btnSavePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                storeImage(getBitmap(imageToUploadUri.getPath()));
 
             }
         });
@@ -259,7 +247,6 @@ public class RegisterActivity extends AppCompatActivity {
         editor.putString(getString(R.string.userEmail),newUser.getsEmail());
         editor.putString(getString(R.string.userPassword),newUser.getsPassword());
         editor.putString(getString(R.string.userID),uid);
-        editor.putString(getString(R.string.userProfilePicPath),mCurrentPhotoPath);
         editor.commit();
     }
 
@@ -288,7 +275,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            photoFile = null;
+            File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
@@ -306,11 +293,11 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
     private void captureCameraImage() {
-        /*Intent chooserIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);*/
-        /*File f = new File(Environment.getExternalStorageDirectory(), "POST_IMAGE.jpg");
+        Intent chooserIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File f = new File(Environment.getExternalStorageDirectory(), "POST_IMAGE.jpg");
         chooserIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
         imageToUploadUri = Uri.fromFile(f);
-        startActivityForResult(chooserIntent, CAMERA_PHOTO);*/
+        startActivityForResult(chooserIntent, CAMERA_PHOTO);
     }
     //receive the image after
    /* @Override
@@ -331,17 +318,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
-            if(photoURI != null){
-                Uri selectedImage = photoURI;
-                imageToUploadUri = Uri.fromFile(photoFile);
+        if (requestCode == CAMERA_PHOTO && resultCode == Activity.RESULT_OK) {
+            if(imageToUploadUri != null){
+                Uri selectedImage = imageToUploadUri;
                 getContentResolver().notifyChange(selectedImage, null);
                 reducedSizeBitmap = getBitmap(imageToUploadUri.getPath());
-                /*reducedSizeBitmap = ImageConverter.getResizedBitmap(getBitmap(imageToUploadUri.getPath()),
-                        PX_HEIGHT,PX_WIDTH);*/
                 if(reducedSizeBitmap != null){
-                    mImageView.setImageBitmap(ImageConverter.getRoundedCornerBitmap(reducedSizeBitmap,60));
-                   /* storeImage(getBitmap(imageToUploadUri.getPath()));*/
+                    btnImage.setImageBitmap(ImageConverter.getRoundedCornerBitmap(reducedSizeBitmap,60));
                     /*mImageView.setImageBitmap(RoundedImageView.getCroppedBitmap(reducedSizeBitmap,90));*/
                 }else{
                     Toast.makeText(this,"Error while capturing Image",Toast.LENGTH_LONG).show();
@@ -350,15 +333,23 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this,"Error while capturing Image",Toast.LENGTH_LONG).show();
             }
         }
+        if (requestCode == PIC_CROP) {
+            if (data != null) {
+                // get the returned data
+                Bundle extras = data.getExtras();
+                // get the cropped bitmap
+                Bitmap selectedBitmap = extras.getParcelable("data");
+
+                mImageView2.setImageBitmap(selectedBitmap);
+            }
+        }
     }
     //create unique file name to store the image
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        /*File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);*/
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_DCIM);
-        storageDir.mkdirs();
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -380,8 +371,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void setPic() {
         // Get the dimensions of the View
-        int targetW = mImageView.getWidth();
-        int targetH = mImageView.getHeight();
+        int targetW = btnImage.getWidth();
+        int targetH = btnImage.getHeight();
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -399,8 +390,8 @@ public class RegisterActivity extends AppCompatActivity {
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-
-        mImageView.setImageBitmap(bitmap);
+        BitmapDrawable BitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+        btnImage.setBackground(BitmapDrawable);
     }
     private Bitmap getBitmap(String path) {
 
@@ -463,22 +454,4 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-
-    private void storeImage(Bitmap image) {
-        File pictureFile = photoFile;
-        if (pictureFile == null) {
-            Log.d(TAG,
-                    "Error creating media file, check storage permissions: ");// e.getMessage());
-            return;
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            Log.d(TAG, "File not found: " + e.getMessage());
-        } catch (IOException e) {
-            Log.d(TAG, "Error accessing file: " + e.getMessage());
-        }
-    }
 }
