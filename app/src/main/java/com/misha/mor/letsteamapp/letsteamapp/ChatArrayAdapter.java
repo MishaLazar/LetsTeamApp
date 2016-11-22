@@ -2,6 +2,8 @@ package com.misha.mor.letsteamapp.letsteamapp;
 
 import android.content.Context;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -83,9 +85,17 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         holder.txtMessage.setText(chatMessage.getMessage() );
         holder.txtMessageDate.setText(" "+chatMessage.getTimeOnly());
         holder.txtInfo.setText(chatMessage.getOwnerName());
-        holder.messageOwnerProfilePic.setImageBitmap(
-                ImageConverter.getRoundedCornerBitmap(ImageConverter.StringToBitMap(
-                        chatMessage.getBitmapStringUserPic()),40));
+        try {
+            holder.messageOwnerProfilePic.setImageBitmap(
+                    ImageConverter.getRoundedCornerBitmap(ImageConverter.StringToBitMap(
+                            chatMessage.getBitmapStringUserPic()),40));
+        }catch (NullPointerException exc){
+            Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.default_man);
+            holder.messageOwnerProfilePic.setImageBitmap(
+                    ImageConverter.getRoundedCornerBitmap(icon,40));
+        }
+
 
         return convertView;
     }
