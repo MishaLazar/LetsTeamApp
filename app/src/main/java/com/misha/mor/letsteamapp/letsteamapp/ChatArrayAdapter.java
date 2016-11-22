@@ -58,6 +58,8 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
 
         ViewHolder holder;
         ChatMessage chatMessage = getItem(position);
+        int myMsg = checkIsMe(chatMessage.getUserId());
+
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
@@ -69,7 +71,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         }
 
         //for side selections
-        int myMsg = checkIsMe(chatMessage.getUserId());
+
 
         try {
             setAlignment(holder, myMsg);
@@ -84,10 +86,6 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         holder.messageOwnerProfilePic.setImageBitmap(
                 ImageConverter.getRoundedCornerBitmap(ImageConverter.StringToBitMap(
                         chatMessage.getBitmapStringUserPic()),40));
-        /*holder.messageOwnerProfilePic.setImageBitmap(
-                ImageConverter.StringToBitMap(
-                        chatMessage.getBitmapStringUserPic()));*/
-        //holder.txtInfo.setText(chatMessage.getDate());
 
         return convertView;
     }
@@ -101,6 +99,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
 
     private void setAlignment(ViewHolder holder,int isMe) {
         if (isMe == 1) {
+
             holder.contentWithBG.setBackgroundResource(R.drawable.in_message_bg);
 
             LinearLayout.LayoutParams layoutParams =
@@ -112,14 +111,25 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
                     (RelativeLayout.LayoutParams) holder.content.getLayoutParams();
             lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
             lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
             holder.content.setLayoutParams(lp);
             layoutParams = (LinearLayout.LayoutParams) holder.txtMessage.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
             holder.txtMessage.setLayoutParams(layoutParams);
-
             layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
             holder.txtInfo.setLayoutParams(layoutParams);
+
+            View vImg = holder.content.getChildAt(1);
+            View vBubble = holder.content.getChildAt(0);
+            if (!(vImg instanceof ImageView )){
+                holder.content.removeViewAt(1);
+                holder.content.removeViewAt(0);
+
+                holder.content.addView(vImg);
+                holder.content.addView(vBubble);
+            }
+
         } else {
             holder.contentWithBG.setBackgroundResource(R.drawable.out_message_bg);
 
@@ -132,6 +142,7 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
             RelativeLayout.LayoutParams lp =
                     (RelativeLayout.LayoutParams) holder.content.getLayoutParams();
             lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
+            /*lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);*/
             lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             holder.content.setLayoutParams(lp);
             layoutParams = (LinearLayout.LayoutParams) holder.txtMessage.getLayoutParams();
@@ -141,6 +152,18 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
             layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
             layoutParams.gravity = Gravity.LEFT;
             holder.txtInfo.setLayoutParams(layoutParams);
+            /*holder.messageOwnerProfilePic.setLayoutParams(layoutParams);*/
+
+            View vImg = holder.content.getChildAt(0);
+            View vBubble = holder.content.getChildAt(1);
+            if (!(vImg instanceof ImageView )){
+                holder.content.removeViewAt(1);
+                holder.content.removeViewAt(0);
+
+                holder.content.addView(vBubble);
+                holder.content.addView(vImg);
+
+            }
         }
     }
 

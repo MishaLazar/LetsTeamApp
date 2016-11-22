@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class ChatRoom extends Activity {
 
     //class instances
+    /*ChatArrayAdapter chatArrayAdapter;*/
     ChatArrayAdapter chatArrayAdapter;
     FireBaseDAL fdb;
     InnerReceiver innerReceiver;
@@ -55,7 +56,7 @@ public class ChatRoom extends Activity {
         //MyApp.setLocaleEn(ChatRoom.this);
         setContentView(R.layout.activity_chat_room);
 
-        getWindow().setBackgroundDrawable(getDrawable(R.drawable.chat_background5));
+        getWindow().setBackgroundDrawable(getDrawable(R.drawable.chat_background65));
         //register innerReceiver for Broadcast
         innerReceiver = new InnerReceiver(ChatRoom.this);
         receiver = registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL)));
@@ -82,6 +83,7 @@ public class ChatRoom extends Activity {
     public void onResume() {
         super.onResume();
         /*listView.setAdapter(null);*/
+        /*chatArrayAdapter.clearListAdapter();*/
         chatArrayAdapter.clearListAdapter();
         registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL)));
         registerForMessage(eventID);
@@ -227,7 +229,9 @@ public class ChatRoom extends Activity {
     }
     private boolean sendChatMessage() {
 
-        ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID ,myUserName);
+        String userName = sharedPreferences.getString(getString(R.string.userName),"");
+        ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID ,userName);
+        /*ChatMessage message = new ChatMessage(chatText.getText().toString(), eventID,myUserID ,myUserName);*/
 
         String imageToUploadUri = sharedPreferences.getString(getString(R.string.userProfilePicPath),"");
         if (imageToUploadUri != null && imageToUploadUri.length() > 0) {
