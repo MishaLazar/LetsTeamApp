@@ -16,26 +16,6 @@ import java.util.Locale;
 
 public class MyApp extends Application {
 
-  /*  @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
-    public static void setLocaleFa (Context context){
-        Locale locale = new Locale("fa");
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getApplicationContext().getResources().updateConfiguration(config, null);
-    }
-
-    public static void setLocaleEn (Context context){
-        Locale locale = new Locale("en");
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getApplicationContext().getResources().updateConfiguration(config, null);
-    }*/
     static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
 
     public static void onCreate(Context context) {

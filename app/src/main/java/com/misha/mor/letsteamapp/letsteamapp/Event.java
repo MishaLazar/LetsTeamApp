@@ -72,11 +72,6 @@ public class Event {
         this.event_End = EndDate;
         this.event_Owner_email = OwnerEmail;
 
-
-        //TODO: do we really do ntags? if just type than need to delete
-        //event_Tags = new ArrayList<String>();
-        //event_Tags.add(Tag);
-
     }
 
     public String getEvent_Type() {

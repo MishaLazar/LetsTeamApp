@@ -51,19 +51,10 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         initViews();
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
         checkLoginAfterRegster();
         mAuth = FirebaseAuth.getInstance();
 
-       /* //register innerReceiver for Broadcast
-        innerReceiver = new InnerReceiver(LoginActivity.this);
-        receiver = registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_LOGIN)));
-*/
-        //get\create singleton db reference
-       /* fdb = FireBaseDAL.getFireBaseDALInstance();
-        fdb.setContext(LoginActivity.this);*/
-        //updateViews();
     }
 
     private void checkLoginAfterRegster() {
@@ -108,7 +99,6 @@ public class LoginActivity extends Activity {
                     // User is signed out
                     Log.d("TEST", "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
     }
@@ -143,10 +133,7 @@ public class LoginActivity extends Activity {
     public void accessFireUserinfoAndSetUserInfo(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-
-            /*sUsername = user.getDisplayName();*/
             sEmail = user.getEmail();
-            //Uri photoUrl = user.getPhotoUrl();
             uid = user.getUid();
 
         }

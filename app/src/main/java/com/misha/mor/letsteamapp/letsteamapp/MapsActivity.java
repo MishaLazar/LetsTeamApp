@@ -51,10 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         String eventLocation = intent.getStringExtra("eventLocation");
         getLocationFromAddress(eventLocation);
-        // Add a marker in Sydney and move the camera
-        //LatLng afeka = new LatLng(32.113403, 34.817829);
-        //mMap.addMarker(new MarkerOptions().position(afeka).title("Marker in Afeka"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(afeka));
+
     }
 
     public void getLocationFromAddress(String strAddress)
