@@ -58,7 +58,7 @@ public class CustomGridViewAdapter extends ArrayAdapter<Event> {
                 holder.imageItem.setImageResource(R.drawable.shopping);
                 break;
             case "night entertainment":
-                holder.imageItem.setImageResource(R.drawable.night_entertainment);
+                holder.imageItem.setImageResource(R.drawable.night_entertainment2);
                 break;
             case "abroad":
                 holder.imageItem.setImageResource(R.drawable.passport);

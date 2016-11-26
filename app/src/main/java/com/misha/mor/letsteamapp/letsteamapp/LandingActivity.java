@@ -1,18 +1,17 @@
 package com.misha.mor.letsteamapp.letsteamapp;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -32,7 +31,6 @@ public class LandingActivity extends Activity {
     FireBaseDBHandler dbHandler;
     FireBaseDAL fdb;
     FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
     SharedPreferences sharedPreferences;
     String sUsername;
     String sEmail;
@@ -41,12 +39,17 @@ public class LandingActivity extends Activity {
     String sPassword;
     ProgressBar pBar;
     RelativeLayout mainLayout;
+    Button btnRegister;
+    Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
+        Toast.makeText(LandingActivity.this,
+                R.string.profile_info_search,
+                Toast.LENGTH_SHORT).show();
         // progress bar start
         pBar = (ProgressBar) findViewById(R.id.progressBar);
         pBar.setVisibility(View.VISIBLE);
@@ -60,7 +63,7 @@ public class LandingActivity extends Activity {
         fdb.setFdbHandler(dbHandler);
         mAuth = FirebaseAuth.getInstance();
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-
+        /*sharedPreferences.edit().clear().commit();*/
         intViews();
 
         localeEnforce();
@@ -69,34 +72,55 @@ public class LandingActivity extends Activity {
     }
 
     public void intViews(){
-        Button btnLogin = (Button)findViewById(R.id.btnSignUp);
+        btnLogin = (Button)findViewById(R.id.btnSignUp);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(LandingActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
-        Button btnRegister = (Button)findViewById(R.id.btnRegister);
+        btnRegister = (Button)findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(LandingActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
+        setButtonState(false);
+
     }
+    @Override
+    public void onResume(){
+        localeEnforce();
+        checkIfAlreadyLoggedIn();
+    }
+
+
     public void localeEnforce(){
         Configuration config = new Configuration();
-        config.locale = Locale.ENGLISH;
-        super.onConfigurationChanged(config);
-        Locale.setDefault(config.locale);
-        getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        Locale cLocale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            cLocale = getResources().getConfiguration().getLocales().get(0);
+            cLocale = new Locale("en", "US");
+            super.onConfigurationChanged(config);
+            Locale.setDefault(cLocale);
+        } else{
+            //noinspection deprecation
+            config.locale = Locale.ENGLISH;
+            super.onConfigurationChanged(config);
+            Locale.setDefault(config.locale);
+        }
+        LandingActivity.this.getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 
 
     public void checkIfAlreadyLoggedIn(){
+
 
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
         sUserEmail = sharedPreferences.getString(getString(R.string.userEmail), "") ;
@@ -106,13 +130,20 @@ public class LandingActivity extends Activity {
 
         if((sUserEmail != null && sUserEmail.length()>0)&& (sPassword !=null&& sPassword.length()>0)) { // use a method for authenticate or maybe savelogin == true?
             signInWithEmailAndPassword();
+        }else {
+            //progress bar finish
+            pBar.setVisibility(View.GONE);
+            Toast.makeText(LandingActivity.this,
+                    R.string.no_profile_info_found,
+                    Toast.LENGTH_SHORT).show();
+            setButtonState(true);
         }
 
-        //progress bar finish
-        pBar.setVisibility(View.GONE);
     }
 
     public void signInWithEmailAndPassword (){
+        /*Toast.makeText(LandingActivity.this, R.string.profile_info_found,
+                Toast.LENGTH_SHORT).show();*/
         mAuth.signInWithEmailAndPassword(sUserEmail, sPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -126,6 +157,7 @@ public class LandingActivity extends Activity {
                             Log.w("Test", "signInWithEmail:failed", task.getException());
                             Toast.makeText(LandingActivity.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
+                            setButtonState(true);
                         }
                         else{
                             saveInfoToSharedPreferences();
@@ -136,10 +168,12 @@ public class LandingActivity extends Activity {
                             finish();
                         }
 
+                        //progress bar finish
+                        pBar.setVisibility(View.GONE);
                     }
                 });
     }
-    public void accessFireUserinfoAndSetUserInfo(){
+    public void accessFireUserInfoAndSetUserInfo(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             sUsername = user.getDisplayName();
@@ -149,7 +183,7 @@ public class LandingActivity extends Activity {
         }
     }
     public void saveInfoToSharedPreferences(){
-        accessFireUserinfoAndSetUserInfo();
+        accessFireUserInfoAndSetUserInfo();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(getString(R.string.saveLogin), true);
         editor.putString(getString(R.string.userName), sUsername);
@@ -158,4 +192,8 @@ public class LandingActivity extends Activity {
         editor.commit();
     }
 
+    public void setButtonState(boolean isUsable){
+        btnLogin.setEnabled(isUsable);
+        btnLogin.setEnabled(isUsable);
+    }
 }

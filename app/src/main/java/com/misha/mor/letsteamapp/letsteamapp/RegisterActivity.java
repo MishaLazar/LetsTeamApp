@@ -127,6 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             accessFireUserinfoAndSetUserInfo();
                                             intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                             startActivity(intent);
+                                            finish();
                                         }
                                         // ...
                                     }

@@ -4,6 +4,8 @@ package com.misha.mor.letsteamapp.letsteamapp;
  */
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.os.Build;
 import android.util.Log;
 
 import java.sql.Timestamp;
@@ -13,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,5 +57,28 @@ public class UtilMethods {
         Matcher m = p.matcher(haystack);
         return m.find();
     }
+    public static Locale getLocale(Context context){
+        Resources resources = context.getResources();
+        Locale locale = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            locale = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                    ? resources.getConfiguration().getLocales()
+                    .getFirstMatch(resources.getAssets().getLocales())
+                    : resources.getConfiguration().locale;
+        }
+
+        return locale;
+    }
+/*  public void localeEnforce2(){
+        *//*Locale locale = getCurrentLocale();*//*
+        Configuration config = new Configuration();
+        config.locale = Locale.ENGLISH;
+        *//*Locale locale = Locale.ENGLISH;*//*
+        super.onConfigurationChanged(config);
+        Locale.setDefault(config.locale);
+        *//*Locale.setDefault(locale);*//*
+        getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }*/
+
 
 }
