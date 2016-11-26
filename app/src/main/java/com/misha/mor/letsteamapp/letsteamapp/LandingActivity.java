@@ -63,7 +63,7 @@ public class LandingActivity extends Activity {
         fdb.setFdbHandler(dbHandler);
         mAuth = FirebaseAuth.getInstance();
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        sharedPreferences.edit().clear().commit();
+        /*sharedPreferences.edit().clear().commit();*/
         intViews();
 
         localeEnforce();
