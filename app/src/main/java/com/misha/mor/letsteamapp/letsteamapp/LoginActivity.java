@@ -133,6 +133,7 @@ public class LoginActivity extends Activity {
     public void accessFireUserinfoAndSetUserInfo(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            sUsername = user.getDisplayName();
             sEmail = user.getEmail();
             uid = user.getUid();
 
