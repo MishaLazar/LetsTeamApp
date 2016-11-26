@@ -27,8 +27,8 @@ import java.net.URL;
  */
 
 public class ImageConverter {
-    final static int NEW_HEIGHT = 180;
-    final static int NEW_WIDTH = 160;
+    final static int NEW_HEIGHT = 120;
+    final static int NEW_WIDTH = 100;
 
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);

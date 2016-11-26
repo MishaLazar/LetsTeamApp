@@ -49,8 +49,8 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:indeterminate="true"
         android:layout_marginBottom="19dp"
         android:indeterminateTint="@color/mainAppColorPrimer"
