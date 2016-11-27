@@ -159,19 +159,24 @@ public class CreateEventActivity extends Activity {
                     Intent intent = getIntent();
                     String userEmail = intent.getStringExtra(getString(R.string.userEmail));
                     if(Validator.isValidDisplayName(event_displayName)){
-                        Event newEvent = new Event(event_displayName
-                                ,Location,event_context
-                                ,event_Type
-                                ,event_StartDate
-                                ,event_EndDate
-                                ,userEmail);
-                        newEvent.setEvent_Owner(userID);
-                        newEvent.setEvent_OwnerName(userName);
+                        if(Validator.isValidAddress(event_street, event_HouseNumber, event_city)){
+                                Event newEvent = new Event(event_displayName
+                                        ,Location,event_context
+                                        ,event_Type
+                                        ,event_StartDate
+                                        ,event_EndDate
+                                        ,userEmail);
+                                newEvent.setEvent_Owner(userID);
+                                newEvent.setEvent_OwnerName(userName);
 
-                        fdb.registerEvent(newEvent);
-                        onBackPressed();
-                        finish();
-                        Toast.makeText(getApplicationContext(),"The event was created.",Toast.LENGTH_SHORT).show();
+                                fdb.registerEvent(newEvent);
+                                onBackPressed();
+                                finish();
+                                Toast.makeText(getApplicationContext(),"The event was created.",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(),"The location is not valid",Toast.LENGTH_SHORT).show();
+                        }
+
                     }else{
                         Toast.makeText(getApplicationContext(),"The event name can't be empty",Toast.LENGTH_SHORT).show();
                     }
