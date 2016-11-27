@@ -142,7 +142,7 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     public void onResume() {
         super.onResume();
         registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL_ROOMS)));
-
+        getGridData();
     }
     @Override
     public void onPause() {
