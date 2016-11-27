@@ -22,7 +22,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3"
         android:background="@android:color/transparent"
@@ -54,15 +54,15 @@
         <EditText
             android:id="@+id/msg"
             android:layout_width="330dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:maxLength="@integer/MAX_NUMBER_CHARS_MESSAGE"
             android:background="@drawable/text_bubble2"
             android:inputType="text|textMultiLine|textCapSentences"
             android:maxLines="@integer/MAX_NUMBER_SINGLE_MESSAGE_TEXT_LINES"
             android:hint="type message"
             android:scaleType="fitXY"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/btnSend"
             android:layout_marginEnd="8dp" />
