@@ -36,4 +36,14 @@ public class Validator {
         }
         return false;
     }
+
+    public Boolean isValidAddress(String street, String houseNum, String city){
+        if((street != null && street.length() > 0) &&
+                (houseNum != null && houseNum.length() > 0) &&
+                (city != null && city.length() > 0)){
+            return true;
+        }
+        return false;
+    }
+
 }
