@@ -179,7 +179,19 @@
             </TableRow>
         </TableLayout>
 
-    </RelativeLayout>
+        <ProgressBar
+            android:id="@+id/progressBarEventContext"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/mainAppColorPrimer"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="visible"
+            tools:visibility="visible"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
 
+    </RelativeLayout>
 
 </RelativeLayout>

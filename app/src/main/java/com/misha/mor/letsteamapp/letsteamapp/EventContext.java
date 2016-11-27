@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.misha.mor.letsteamapp.letsteamapp.R.id.fab;
 
 public class EventContext extends AppCompatActivity {
+
+    final String TAG = "EventContext" ;
 
     TextView editTextContext;
     TextView editTextName;
@@ -43,6 +46,8 @@ public class EventContext extends AppCompatActivity {
     FireBaseDAL fdb; //DAL
     InnerReceiver innerReceiver;
     boolean isUserInfo = false;
+    ProgressBar pBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,9 @@ public class EventContext extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_event_context);
 
+        pBar = (ProgressBar) findViewById(R.id.progressBarEventContext);
+        pBar.setVisibility(View.VISIBLE);
+        pBar.bringToFront();
 
         //intent info
         intent = getIntent();
@@ -59,6 +67,8 @@ public class EventContext extends AppCompatActivity {
 
         //register for broadcast from dal
         innerReceiver = new InnerReceiver(EventContext.this);
+        registerReceiver(innerReceiver, new IntentFilter(
+                getString(R.string.BROADCAST_ACTION_POLL_LISTED)));
         registerReceiver(innerReceiver, new IntentFilter(
                 getString(R.string.BROADCAST_ACTION_POLL_LISTED)));
 
@@ -73,8 +83,10 @@ public class EventContext extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        pBar.setVisibility(View.VISIBLE);
+        pBar.bringToFront();
         registerReceiver(innerReceiver, new IntentFilter(getString(R.string.BROADCAST_ACTION_POLL_LISTED)));
-
+        checkIsUserListedForEvent();
 
     }
     @Override
@@ -149,8 +161,11 @@ public class EventContext extends AppCompatActivity {
         editTextEndDate = (TextView)findViewById(R.id.etxtEventEndDate);
         editTextEndDate.setText(eventEndDate);
 
+        editTextName = (TextView) findViewById(R.id.etxtCreatorName);
+        editTextName.setText(userName);
+
         setIEventImg(eventType);
-        getUserInfo(eventCreatorID);
+        /*getUserInfo(eventCreatorID);*/
 
     }
 
@@ -249,40 +264,54 @@ public class EventContext extends AppCompatActivity {
             Log.e("innerReceiver", "MyReceiver: broadcast received , listed for");
 
             boolean isListed = intent.getBooleanExtra("isListed",false);
-            isUserInfo = intent.getBooleanExtra("isUserInfo",false);
+            /*isUserInfo = intent.getBooleanExtra("isUserInfo",false);*/
 
-            if(isUserInfo){
+            /*if(isUserInfo){
                 updateUserInfo();
                 isUserInfo = false;
-            }
+            }*/
             //update View
             updateView(isListed);
-
+            pBar.setVisibility(View.GONE);
 
 
         }
 
 
     }
-    private  void getUserInfo(String eventCreatorID){
+    /*private  void getUserInfo(String eventCreatorID){
         fdb.getUserInfo(eventCreatorID);
-    }
-    private void setUserNameView() {
+    }*/
+    /*private void setUserNameView() {
         editTextName = (TextView) findViewById(R.id.etxtCreatorName);
         editTextName.setText(userName);
-    }
+    }*/
 
-    private void updateUserInfo() {
+    /*private void updateUserInfo() {
         userName =  fdb.getUserInfo();
         setUserNameView();
-    }
+    }*/
     private void updateView(boolean isListed) {
 
         isEventParticipant = isListed;
         if(isListed){
-            btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_outline));
+            try{
+                /*btn_ListInForEvent.setBackground(getDrawable(R.drawable.star_blue_outline));*/
+                btn_ListInForEvent.setImageResource(R.drawable.star_blue_outline);
+            }catch (Exception exc){
+                Log.d(TAG,exc.getMessage());
+                exc.getStackTrace();
+            }
+
         }else{
-            btn_ListInForEvent.setBackground(getDrawable(R.drawable.star));
+            try {
+                btn_ListInForEvent.setImageResource(R.drawable.star);
+                /*btn_ListInForEvent.setBackground(getDrawable(R.drawable.star));*/
+            }catch (Exception exc){
+                Log.d(TAG,exc.getMessage());
+                exc.getStackTrace();
+            }
+
         }
 
     }
