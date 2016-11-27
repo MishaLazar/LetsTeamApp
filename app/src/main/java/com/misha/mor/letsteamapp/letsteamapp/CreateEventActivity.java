@@ -57,6 +57,7 @@ public class CreateEventActivity extends Activity {
     String date;
     String timeS;
     Validator Validator = new Validator();
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,8 @@ public class CreateEventActivity extends Activity {
         setContentView(R.layout.activity_create_event);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Intent intent = getIntent();
-        userID = intent.getStringExtra("userID");
+        userID = intent.getStringExtra(getString(R.string.userID));
+        userName = intent.getStringExtra(getString(R.string.userName));
 
         //register to receive notification
         innerReceiver = new InnerReceiver(CreateEventActivity.this);
@@ -164,6 +166,7 @@ public class CreateEventActivity extends Activity {
                                 ,event_EndDate
                                 ,userEmail);
                         newEvent.setEvent_Owner(userID);
+                        newEvent.setEvent_OwnerName(userName);
 
                         fdb.registerEvent(newEvent);
                         onBackPressed();

@@ -15,6 +15,7 @@ public class Event {
     //metadata
     String event_DisplayName;
     String event_Owner;
+    String event_OwnerName;
     String event_Context;
     String event_location;
     String event_Type;
@@ -185,5 +186,13 @@ public class Event {
 
     public void setParticipantCount(long participantCount) {
         ParticipantCount = participantCount;
+    }
+
+    public String getEvent_OwnerName() {
+        return event_OwnerName;
+    }
+
+    public void setEvent_OwnerName(String event_OwnerName) {
+        this.event_OwnerName = event_OwnerName;
     }
 }
