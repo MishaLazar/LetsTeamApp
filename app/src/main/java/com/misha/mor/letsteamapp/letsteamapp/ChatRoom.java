@@ -148,7 +148,7 @@ public class ChatRoom extends Activity {
 
         //send message button
         btn_Send = (Button)findViewById(R.id.btnSend);
-
+        btn_Send.setEnabled(false);
         try{
             btn_Send.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -176,6 +176,18 @@ public class ChatRoom extends Activity {
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
+
+                    if (chatText.getText().length() == 0){
+                        btn_Send.setBackground(getDrawable(R.drawable.notactivesend2));
+                        btn_Send.setEnabled(false);
+                    }
+                    else if(chatText.getText().length()>0){
+                        btn_Send.setBackground(getDrawable(R.drawable.send2));
+                        btn_Send.setEnabled(true);
+                    }
+
+
+
 
                     // if chatText has n chars & this is not called yet, add new line
                     if(chatText.getText().length() == R.integer.MAX_NUMBER_CHARS_MESSAGE && !isReached) {
