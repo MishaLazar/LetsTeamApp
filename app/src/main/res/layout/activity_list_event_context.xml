@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/relative_layout_border"
+    android:layout_alignBaseline="@+id/txtEventName">
+
+    <LinearLayout
+        android:layout_height="200dp"
+        android:layout_width="380dp"
+        android:id="@+id/linearLayoutEvent"
+        android:orientation="horizontal"
+        >
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/etxrContext2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        style="@style/TextShadow"
+        android:text="Text Shadow Example1"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/linearLayoutEvent"
+        android:layout_marginTop="10dp"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:background="@color/NavigationBarBackground"
+        android:layout_height="80dp"
+        android:id="@+id/tableLayout"
+        android:layout_below="@+id/etxrContext2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp">
+        <!-- <TableRow>
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:inputType="textMultiLine"
+                 android:ems="10"
+                 android:id="@+id/etxtContext"
+                 android:focusable="false"
+                 android:focusableInTouchMode="false"
+                 android:layout_marginTop="70dp" />
+
+         </TableRow>-->
+        <TableRow android:layout_height="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Event Creator:"
+                android:id="@+id/txtEventDisplayName"
+                android:singleLine="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/etxtCreatorName" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Event Location: "
+                android:id="@+id/txtLocation" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/etxtLocation" />
+
+        </TableRow>
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Event End Date: "
+                android:id="@+id/txtEndDate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/etxtEventEndDate"
+                android:inputType="date"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Event Start Date: "
+                android:id="@+id/txtStartDate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/etxtEventStartDate"
+                android:inputType="date"/>
+
+        </TableRow>
+    </TableLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:layout_below="@+id/tableLayout"
+        android:layout_marginTop="10dp"
+        >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:id="@+id/btnListIn"
+            android:text="listed"
+            android:src="@drawable/not_listed_star"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignTop="@+id/btnShowEventLocation"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="29dp"
+            android:theme="@style/MyButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:id="@+id/btnOpenChat"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/chat_sqrmini"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="29dp"
+            android:theme="@style/MyButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+           />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:id="@+id/btnShowEventLocation"
+            android:text="GPS"
+            android:src="@drawable/gps_min"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:theme="@style/MyButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="My Event"
+
+        android:id="@+id/txtEventName"
+        style="@style/EventHeaderStyle"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/abc_text_size_display_1_material"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,15 +59,18 @@ public class CreateEventActivity extends Activity {
     String timeS;
     Validator Validator = new Validator();
     String userName;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+        sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
         Intent intent = getIntent();
-        userID = intent.getStringExtra(getString(R.string.userID));
-        userName = intent.getStringExtra(getString(R.string.userName));
+        userID = SharedPreferencesUtil.getUserID(sharedPreferences,this);/*intent.getStringExtra(getString(R.string.userID));*/
+        userName = SharedPreferencesUtil.getUserName(sharedPreferences,this);/*intent.getStringExtra(getString(R.string.userName));*/
 
         //register to receive notification
         innerReceiver = new InnerReceiver(CreateEventActivity.this);
@@ -157,7 +161,7 @@ public class CreateEventActivity extends Activity {
 
                     String Location = event_street + " " + event_HouseNumber + ", " + event_city;
                     Intent intent = getIntent();
-                    String userEmail = intent.getStringExtra(getString(R.string.userEmail));
+                    String userEmail = SharedPreferencesUtil.getUserEmail(sharedPreferences,CreateEventActivity.this);/*intent.getStringExtra(getString(R.string.userEmail));*/
                     if(Validator.isValidDisplayName(event_displayName)){
                         if(Validator.isValidAddress(event_street, event_HouseNumber, event_city)){
                                 Event newEvent = new Event(event_displayName

@@ -452,6 +452,12 @@ public class FireBaseDAL implements RoomStateListener, Serializable, MessageStat
         //clear list (after get)
         messageMap.clear();
     }
+
+    public void clearEventsMap(){
+        //clear list (after get)
+        eventHashMap.clear();
+    }
+
     public ArrayList<String> getTags() {
         return eventTags;
     }

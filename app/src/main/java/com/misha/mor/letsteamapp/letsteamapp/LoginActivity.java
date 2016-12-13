@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,7 +59,8 @@ public class LoginActivity extends Activity {
     }
 
     private void checkLoginAfterRegster() {
-        sUserEmail = sharedPreferences.getString(getString(R.string.userEmail), "") ;
+        sUserEmail = SharedPreferencesUtil.getUserEmail(sharedPreferences,this);
+        /*sUserEmail = sharedPreferences.getString(getString(R.string.userEmail), "") ;*/
         if(sUserEmail != null && sUserEmail.length() >0){
             etxtUser.setText(sUserEmail);
         }
@@ -121,7 +123,7 @@ public class LoginActivity extends Activity {
                         else{
                             saveInfoToSharedPreferences();
                             intent = new Intent(LoginActivity.this, EventsMenuActivity.class);
-                            intent.putExtra("userID",sharedPreferences.getString("userID", ""));
+                            /*intent.putExtra("userID",sharedPreferences.getString("userID", ""));*/
                             startActivity(intent);
                             finish();
                         }
@@ -142,13 +144,14 @@ public class LoginActivity extends Activity {
 
     public void saveInfoToSharedPreferences(){
         accessFireUserinfoAndSetUserInfo();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferencesUtil.saveInfoToSharedPreferences(sharedPreferences,this,true,sUsername, sEmail,sPassword,uid);
+        /*SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(getString(R.string.saveLogin), true);
         editor.putString(getString(R.string.userName), sUsername);
         editor.putString(getString(R.string.userEmail),sEmail);
         editor.putString(getString(R.string.userPassword),sPassword);
         editor.putString(getString(R.string.userID),uid);
-        editor.commit();
+        editor.commit();*/
     }
 
     private void updateViews() {

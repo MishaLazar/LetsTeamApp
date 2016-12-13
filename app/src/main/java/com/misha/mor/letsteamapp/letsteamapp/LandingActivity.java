@@ -123,8 +123,8 @@ public class LandingActivity extends Activity {
 
 
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
-        sUserEmail = sharedPreferences.getString(getString(R.string.userEmail), "") ;
-        sPassword = sharedPreferences.getString(getString(R.string.userPassword), "") ;
+        sUserEmail = SharedPreferencesUtil.getUserEmail(sharedPreferences,this); /*sharedPreferences.getString(getString(R.string.userEmail), "") ;*/
+        sPassword = SharedPreferencesUtil.getUserPassword(sharedPreferences,this);/*sharedPreferences.getString(getString(R.string.userPassword), "") ;*/
 
 
 

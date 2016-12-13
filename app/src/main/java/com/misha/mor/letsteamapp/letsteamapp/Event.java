@@ -6,10 +6,11 @@ package com.misha.mor.letsteamapp.letsteamapp;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.firebase.client.collection.ArraySortedMap;
 
 import java.util.ArrayList;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {
 
     //metadata
@@ -22,10 +23,6 @@ public class Event {
     String event_Start;
     String event_End;
     String event_Owner_email;
-
-
-
-
     long ParticipantCount;
     //unique  id
     String event_ID;
@@ -179,13 +176,13 @@ public class Event {
     public void setChatMessages(ArraySortedMap<String, String> chatMessages) {
         ChatMessages = chatMessages;
     }
-    @JsonIgnore
+
     public long getParticipantCount() {
         return ParticipantCount;
     }
 
     public void setParticipantCount(long participantCount) {
-        ParticipantCount = participantCount;
+        this.ParticipantCount = participantCount;
     }
 
     public String getEvent_OwnerName() {

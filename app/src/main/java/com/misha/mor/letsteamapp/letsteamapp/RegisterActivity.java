@@ -233,14 +233,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void saveInfoToSharedPreferences(){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(getString(R.string.saveLogin), true);
+        /*SharedPreferences.Editor editor = sharedPreferences.edit();*/
+        /*editor.putBoolean(getString(R.string.saveLogin), true);
         editor.putString(getString(R.string.userName), newUser.getsUsername());
         editor.putString(getString(R.string.userEmail),newUser.getsEmail());
-        editor.putString(getString(R.string.userPassword),newUser.getsPassword());
+        editor.putString(getString(R.string.userPassword),sPassword);
         editor.putString(getString(R.string.userID),uid);
         editor.putString(getString(R.string.userProfilePicPath),mCurrentPhotoPath);
-        editor.commit();
+        editor.commit();*/
+        SharedPreferencesUtil.saveInfoToSharedPreferences(sharedPreferences,RegisterActivity.this,true
+                ,sUsername,sUserEmail,uid,sPassword,mCurrentPhotoPath);
     }
 
     private void updateUserBasicProfile(){

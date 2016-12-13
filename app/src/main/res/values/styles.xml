@@ -19,7 +19,7 @@
     </style>
     <style name="EventHeaderStyle">
         <item name="android:textStyle">bold|italic</item>
-        <item name="android:textColor">@color/mainAppColorSecondary</item>
+        <item name="android:textColor">@color/HeaderOne</item>
     </style>
     <style name="TextShadow">
         <item name="android:paddingLeft">4px</item>

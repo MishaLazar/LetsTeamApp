@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".EventsMenuActivity">
+    tools:context=".EventsMenuListActivity">
 
     <!--<android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -26,7 +25,8 @@
     <LinearLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
 
         <!-- BUTTON INSERTED HERE -->
         <Button
@@ -45,6 +45,7 @@
             android:text="Listed"
             android:theme="@style/MyButton"
             style="@style/Widget.AppCompat.Button.Borderless"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,35 +57,53 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add" />
+    <ListView
+        android:id="@+id/event_List"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.95"
+        android:divider="@null"
+        android:stackFromBottom="false"
+        android:transcriptMode="alwaysScroll"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentBottom="true">
+    </ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_agenda" />
+        android:src="@android:drawable/ic_menu_agenda"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/progressBar2"
+        android:layout_marginStart="15dp" />
 
-    <include layout="@layout/content_chat_room_grid_selector" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_alignTop="@+id/fabSwitch"
+        android:layout_toEndOf="@+id/fabSwitch" />
 
-    <!--<ProgressBar
+    <ProgressBar
         android:id="@+id/progressBar2"
         android:indeterminate="true"
-        android:layout_marginBottom="19dp"
         android:indeterminateTint="@color/mainAppColorPrimer"
         android:indeterminateTintMode="src_atop"
         android:visibility="visible"
-        android:layout_centerHorizontal="true"
         tools:visibility="visible"
         android:foregroundGravity="center"
         android:layout_width="150dp"
-        android:layout_height="150dp" />
--->
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+    -->
+</RelativeLayout>

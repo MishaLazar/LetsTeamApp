@@ -9,12 +9,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,17 +51,23 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
     SharedPreferences sharedPreferences;
     Intent intent;
     ProgressBar pBar;
+    GestureDetectorCompat gestureObject;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room_grid_selector);
-
+        gestureObject = new GestureDetectorCompat(this,new LearnGesture());
         // progress bar start
         pBar = (ProgressBar) findViewById(R.id.progressBar2);
         pBar.setVisibility(View.VISIBLE);
         pBar.bringToFront();
+
+        //gesture to swipe open list view
+
+
+
 
         //register for broadcast from dal
         innerReceiver = new InnerReceiver(EventsMenuActivity.this);
@@ -67,8 +76,8 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
 
         intent = getIntent();
         sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
-        userID = sharedPreferences.getString(getString(R.string.userID), "");
-        userName = sharedPreferences.getString(getString(R.string.userName), "");
+        userID = SharedPreferencesUtil.getUserID(sharedPreferences,this);/*sharedPreferences.getString(getString(R.string.userID), "");*/
+        userName = SharedPreferencesUtil.getUserName(sharedPreferences,this);/*sharedPreferences.getString(getString(R.string.userName), "");*/
 
 
 
@@ -84,9 +93,22 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
             public void onClick(View view) {
 
                 Intent intent = new Intent(EventsMenuActivity.this,CreateEventActivity.class);
-                intent.putExtra("userID",userID);
-                intent.putExtra("userEmail",sharedPreferences.getString(getString(R.string.userEmail), ""));
+                /*intent.putExtra("userID",userID);
+                intent.putExtra("userEmail",sharedPreferences.getString(getString(R.string.userEmail), ""));*/
                 startActivity(intent);
+
+            }
+        });
+        FloatingActionButton fabSwitch = (FloatingActionButton) findViewById(R.id.fabSwitch);
+        fabSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(EventsMenuActivity.this,EventsMenuListActivity.class);
+                /*intent.putExtra("userID",userID);
+                intent.putExtra("userEmail",sharedPreferences.getString(getString(R.string.userEmail), ""));*/
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -96,6 +118,11 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         getGridData();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        this.gestureObject.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
 
     @Override //For Activities
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -261,5 +288,32 @@ public class EventsMenuActivity extends AppCompatActivity implements ActivityEve
         });
     }
 
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener {
+
+
+        @Override
+        public  boolean onFling(MotionEvent event1 ,MotionEvent event2,
+                                    float velocityX,float velocityY){
+
+            if(event2.getX() > event1.getX()){ //left to righ
+                Intent intent = new Intent(EventsMenuActivity.this,CreateEventActivity.class);
+                /*intent.putExtra("userID",userID);
+                intent.putExtra("userEmail",sharedPreferences.getString(getString(R.string.userEmail), ""));*/
+                startActivity(intent);
+
+            }
+            else if (event2.getX() < event1.getX()){//right to left
+
+                Intent intent = new Intent(EventsMenuActivity.this,EventsMenuListActivity.class);
+                /*intent.putExtra("userID",userID);
+                intent.putExtra("userEmail",sharedPreferences.getString(getString(R.string.userEmail), ""));*/
+                startActivity(intent);
+                finish();
+            }
+            return true;
+        }
+
+
+    }
 }
 
