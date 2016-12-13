@@ -163,7 +163,6 @@ public class EventsMenuListActivity extends AppCompatActivity implements Activit
             }
         }
         Events = tempArray;
-        //TODO need to create new function which gets arraylist
         eventArrayAdapter.clearListAdapter();
         updateList();
     }
@@ -300,7 +299,6 @@ public class EventsMenuListActivity extends AppCompatActivity implements Activit
     }
 
     private void updateList() {
-
 
         for (Event event:Events) {
 
